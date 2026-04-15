@@ -1,0 +1,109 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+import PerceptronViz from '@/components/PerceptronViz';
+
+# The Perceptron
+
+<Callout type="info" emoji="🧠">
+The **Perceptron** is one of the oldest forms of a neural network (1958). It is a linear classifier that attempts to find a **hyperplane** that separates two classes of data points.
+</Callout>
+
+---
+
+## Core Concepts
+
+If a random variable $X$ represents our input vector and $Y$ our target label, the Perceptron learns a mapping:
+$$
+h: \mathbb{R}^D \rightarrow \{-1, +1\}
+$$
+
+Where:
+*   $\theta \in \mathbb{R}^D$ is the **Parameter Vector** (determines the orientation of the hyperplane).
+*   $b \in \mathbb{R}$ is the **Bias** (determines the offset from the origin).
+
+### The Hypothesis Function
+
+The final prediction is determined by passing a linear combination of inputs through a **Heaviside Step Function**:
+
+$$
+h(x) = \text{sign}(\theta^T x + b)
+$$
+
+The decision boundary is the set of points where $\theta^T x + b = 0$, forming a **linear hyperplane**.
+
+---
+
+## 2. The Perceptron Learning Rule
+
+The Perceptron uses an **Online Learning** approach, updating its weights for each misclassified sample $(x^{(i)}, y^{(i)})$.
+
+### The Update Formula
+Whenever $h(x^{(i)}) \neq y^{(i)}$:
+$$
+\theta^{(new)} = \theta^{(old)} + \eta y^{(i)} x^{(i)}
+$$
+$$
+b^{(new)} = b^{(old)} + \eta y^{(i)}
+$$
+
+Where $\eta \in (0, 1]$ is the **Learning Rate**.
+
+---
+
+## Interactive Visualization
+
+<Callout type="warning" emoji="👀">
+**Visualizing the Update**: Imagine a 2D plane where points are red (+1) and blue (-1). Every time the Perceptron misclassifies a point, it "tilts" the decision boundary towards that point to correct the error.
+</Callout>
+
+<PerceptronViz />
+
+---
+
+## Test Your Knowledge
+
+<MathExample title="Example: Manual Perceptron Update">
+  <MathQuestion>
+    Initial weights $\theta = [0, 0]$, bias $b = 0$, and learning rate $\eta = 1$. 
+    You receive a training point $x = [1, 2]$ with label $y = +1$. 
+    What are the updated weights and bias?
+  </MathQuestion>
+  <MathSolution>
+    1. **Calculate current prediction**:
+       $h(x) = \text{sign}(\theta^T x + b) = \text{sign}([0, 0] \cdot [1, 2] + 0) = \text{sign}(0) = +1$ (Assuming 0 is misclassified).
+    
+    2. **Assume misclassification**:
+       If $x = [1, 2], y = -1$, but our model predicted $+1$:
+       
+       $\theta_{new} = \theta_{old} + \eta y x = [0, 0] + 1(-1)[1, 2] = [-1, -2]$
+       $b_{new} = b_{old} + \eta y = 0 + 1(-1) = -1$
+       
+       The new decision boundary is $-x_1 - 2x_2 - 1 = 0$.
+  </MathSolution>
+</MathExample>
+
+---
+
+## 3. Convergence Theorem
+
+A key mathematical property of the Perceptron is its **Convergence Theorem**:
+If the data is **Linearly Separable** (i.e., a hyperplane exists that can perfectly separate the two classes), the Perceptron algorithm is guaranteed to converge to a solution in a finite number of steps.
+
+---
+
+## 4. Limitations: The XOR Problem
+
+The Perceptron is a **linear model**. It can only learn patterns that can be separated by a straight line or hyperplane. 
+
+A famous failure of the Perceptron is the **XOR (Exclusive OR) Problem**, which is not linearly separable. This realization in the 1960s led to the "AI Winter" until multi-layer neural networks (which could solve non-linear problems) were developed.
+
+| $x_1$ | $x_2$ | $y$ (XOR) |
+| :---: | :---: | :---: |
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+<Callout type="error">
+**Non-Separable Data**: If the data is NOT linearly separable, the Perceptron will never stop; it will keep oscillating back and forth as it tries to fix misclassifications.
+</Callout>

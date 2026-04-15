@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import KMeansViz from '@/components/KMeansViz';
+import GMMViz from '@/components/GMMViz';
 
 # Clustering, Mixture Models and EM
 
@@ -38,6 +39,8 @@ $$
 p(\mathbf{x}) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)
 $$
 where $\pi_k$ are the **mixing coefficients** (must sum to 1).
+
+<GMMViz />
 
 ---
 

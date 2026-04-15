@@ -1,0 +1,65 @@
+import { Callout } from 'nextra/components';
+import NaiveBayesViz from '@/components/NaiveBayesViz';
+
+# Naive Bayes
+
+**Naive Bayes** is a probabilistic **Generative Model** for multi-class classification. It treats both inputs $x$ and outputs $y$ as **random variables**.
+
+---
+
+## 1. Bayes' Rule and Generative ML
+
+For generative models, we use **Bayes' Rule** to find the posterior:
+
+$$P(y \mid x) = \frac{P(x \mid y) P(y)}{P(x)}$$
+
+In classification, we want to find the class $\hat{y}$ that maximizes the posterior:
+
+$$\hat{y} = \arg\max_y P(y) \prod_{j=1}^n P(x_j \mid y)$$
+
+---
+
+## 2. The Naive Assumption: Feature Independence
+
+The "Naive" part comes from the assumption that given the class $y$, all features $x_1, x_2, \dots, x_n$ are **independent**:
+
+$$P(x_1, x_2, \dots, x_n \mid y) = P(x_1 \mid y) P(x_2 \mid y) \dots P(x_n \mid y) = \prod_{j=1}^n P(x_j \mid y)$$
+
+### Example: Likelihood from Data
+Consider a dataset with features $x_1, x_2, x_3$ and target $y$:
+
+| $x_1$ | $x_2$ | $x_3$ | $y$ |
+| :--- | :--- | :--- | :--- |
+| 1 | 3 | 5 | 0 |
+| 2 | 6 | 1 | 1 |
+| 3 | 1 | 9 | 0 |
+| 4 | 10 | 1 | 1 |
+
+To classify a new point, we calculate $P(y=0) \cdot P(x_1 \mid y=0) \dots$ and $P(y=1) \cdot P(x_1 \mid y=1) \dots$ and pick the maximum.
+
+<NaiveBayesViz />
+
+---
+
+## 3. Laplace Smoothing
+
+If a feature value never appears with a class in the training set (e.g., $count(x_1=5, y=0) = 0$), the entire product becomes zero. We fix this by **smoothing**:
+
+$$\hat{P}(x_j \mid y) = \frac{count(x_j, y) + \alpha}{count(y) + \alpha \cdot |V|}$$
+
+Where $|V|$ is the number of possible values for feature $x_j$, and $\alpha$ is the smoothing parameter (usually $\alpha=1$).
+
+---
+
+## 4. Summary of Generative Approach
+
+| Generative Feature | Description |
+| :--- | :--- |
+| **Probability** | Models the joint probability $P(x, y)$ |
+| **Independence** | Assumes features are independent given class $y$ |
+| **Rule** | Uses $\hat{y} = \arg\max P(y) \prod P(x_j \mid y)$ |
+| **Smoothing** | Necessary to handle unseen feature values |
+
+<Callout type="info">
+**Goal**: We want to find the class $y$ that is most likely to have generated the observed features $x$.
+</Callout>

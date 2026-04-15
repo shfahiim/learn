@@ -1,0 +1,49 @@
+import { Callout } from 'nextra/components';
+import LearningCurvesViz from '@/components/LearningCurvesViz';
+
+# Learning Curves
+...
+## 1. Plotting Learning Curves
+
+A learning curve is a plot of the **Training Error** and **Validation Error** as a function of the number of training samples ($m$).
+
+<LearningCurvesViz />
+
+---
+
+## 2. High Bias Case (Underfitting)
+
+In a high bias scenario, the model is too simple to capture the underlying pattern. Even as we add more training data, both the training and validation error remain high and close to each other.
+
+- **Observation**: Training error rises until it levels off at a high value. Validation error decreases but remains high.
+- **Diagnosis**: Adding more data will NOT help.
+- **Solutions**:
+    - Increase model complexity (e.g., more features, polynomial features).
+    - Use a more powerful algorithm (e.g., Neural Networks).
+    - Decrease regularization.
+
+---
+
+## 3. High Variance Case (Overfitting)
+
+In a high variance scenario, the model is overly complex and memorizing the training data. There is a significant gap between the training error (very low) and the validation error (high).
+
+- **Observation**: Training error remains low. Validation error decreases but stays much higher than the training error.
+- **Diagnosis**: Adding more training data IS likely to help.
+- **Solutions**:
+    - Get more training data.
+    - Reduce model complexity (Feature selection).
+    - Increase regularization.
+    - Simplified architecture.
+
+---
+
+## 4. Why Use Learning Curves?
+
+1.  **Stop Wasting Time**: If you see a High Bias curve, don't waste weeks collecting more data; it won't help! You need a better model.
+2.  **Estimate Data Needs**: You can extrapolate the gap to estimate how much more data you might need to reach your target performance.
+3.  **Sanity Check**: Ensure that your error is actually decreasing as you give the model more information.
+
+<Callout type="info">
+**Andrew Ng's Advice**: "Always plot learning curves before deciding on your next move. It tells you whether you should spend time on data, features, or architecture."
+</Callout>

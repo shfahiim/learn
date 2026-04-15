@@ -1,0 +1,78 @@
+import { Callout } from 'nextra/components';
+import ConfusionMatrixViz from '@/components/ConfusionMatrixViz';
+import ROCCurveViz from '@/components/ROCCurveViz';
+
+# Evaluation Metrics
+
+In machine learning, "accuracy" is rarely enough to judge a model's performance, especially in imbalanced datasets. We need a more granular set of metrics to evaluate our classifiers.
+
+---
+
+## 1. The Confusion Matrix
+
+The **Confusion Matrix** provides a breakdown of all possible prediction outcomes for a binary classifier:
+
+<ConfusionMatrixViz />
+
+| | Predicted Positive | Predicted Negative |
+| :--- | :---: | :---: |
+| **Actual Positive** | **True Positive (TP)** | **False Negative (FN)** |
+| **Actual Negative** | **False Positive (FP)** | **True Negative (TN)** |
+
+- **TP**: Model correctly predicted the positive class.
+- **TN**: Model correctly predicted the negative class.
+- **FP (Type I Error)**: Model predicted positive, but it was negative.
+- **FN (Type II Error)**: Model predicted negative, but it was positive.
+
+---
+
+## 2. Standard Metrics
+
+### Accuracy
+The proportion of total predictions that are correct.
+$$
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+$$
+
+### Precision (Positive Predictive Value)
+Of all predicted positives, how many were actually positive? Focuses on **reliability**.
+$$
+\text{Precision} = \frac{TP}{TP + FP}
+$$
+
+### Recall (Sensitivity or True Positive Rate)
+Of all actual positives, how many did the model find? Focuses on **completeness**.
+$$
+\text{Recall} = \frac{TP}{TP + FN}
+$$
+
+### F1-Score
+The harmonic mean of Precision and Recall. It balances the tradeoff between them.
+$$
+F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+$$
+
+---
+
+## 3. ROC and AUC
+
+The **Receiver Operating Characteristic (ROC) Curve** plots the **True Positive Rate (Recall)** against the **False Positive Rate ($FP / (FP + TN)$)** as we vary the classification threshold.
+
+<ROCCurveViz />
+
+- **AUC (Area Under the Curve)**: A single value from 0 to 1 representing the probability that the model will rank a random positive sample higher than a random negative one.
+- **AUC = 0.5**: Random guessing.
+- **AUC = 1.0**: Perfect classifier.
+
+---
+
+## 4. Multi-class Averaging
+
+For multi-class classification, we can calculate metrics for each class individually and then average them:
+
+- **Macro Averaging**: Treat all classes equally by taking the simple average of their scores. 
+- **Micro Averaging**: Weight classes by their size (more frequent classes have a bigger impact). Use this if you care more about overall performance than smaller classes.
+
+<Callout type="info">
+**The Accuracy Trap**: If $99\%$ of your data is "Non-Spam," a model that classifies EVERYTHING as "Non-Spam" will have $99\%$ accuracy, but it is completely useless for spam detection. Always check your **Confusion Matrix**.
+</Callout>

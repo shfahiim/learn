@@ -3,36 +3,36 @@ import BayesianRegressionViz from '@/components/BayesianRegressionViz';
 
 # Bayesian Linear Regression
 
-Standard linear regression provides a single "best-fit" line (point estimates for weights). **Bayesian Linear Regression** treats the weights as random variables, allowing us to quantify our uncertainty about the model's parameters and its predictions.
+Standard linear regression provides a single "best-fit" line (point estimates for parameters). **Bayesian Linear Regression** treats the parameters as random variables, allowing us to quantify our uncertainty about the model's parameters and its predictions.
 
 ---
 
 ## 1. The Bayesian Framework
 
-Instead of finding a single $\mathbf{w}$, we compute the **Posterior Distribution** over weights using Bayes' Theorem:
+Instead of finding a single $\theta$, we compute the **Posterior Distribution** over parameters using Bayes' Theorem:
 
 $$
-p(\mathbf{w} \mid \mathbf{y}, \mathbf{X}) = \frac{p(\mathbf{y} \mid \mathbf{X}, \mathbf{w}) p(\mathbf{w})}{p(\mathbf{y} \mid \mathbf{X})}
+p(\theta \mid y, X) = \frac{p(y \mid X, \theta) p(\theta)}{p(y \mid X)}
 $$
 
 Where:
-- $p(\mathbf{w})$ is the **Prior**: Our belief about the weights before seeing any data. Usually, we assume a zero-mean Gaussian prior: $p(\mathbf{w}) = \mathcal{N}(\mathbf{w} \mid \mathbf{0}, \alpha^{-1} \mathbf{I})$.
-- $p(\mathbf{y} \mid \mathbf{X}, \mathbf{w})$ is the **Likelihood**: How well the weights explain the observed data.
-- $p(\mathbf{w} \mid \mathbf{y}, \mathbf{X})$ is the **Posterior**: Our updated belief after seeing the data.
+- $p(\theta)$ is the **Prior**: Our belief about the parameters before seeing any data. Usually, we assume a zero-mean Gaussian prior: $p(\theta) = \mathcal{N}(\theta \mid 0, \alpha^{-1} I)$.
+- $p(y \mid X, \theta)$ is the **Likelihood**: How well the parameters explain the observed data.
+- $p(\theta \mid y, X)$ is the **Posterior**: Our updated belief after seeing the data.
 
 ---
 
 ## 2. Predictive Distribution
 
-The real power of Bayesian regression lies in the **Predictive Distribution**. For a new input $\mathbf{x}^*$, we don't just get a single value $y^*$; we get a distribution:
+The real power of Bayesian regression lies in the **Predictive Distribution**. For a new input $x^*$, we don't just get a single value $y^*$; we get a distribution:
 
 $$
-p(y^* \mid \mathbf{x}^*, \mathbf{y}, \mathbf{X}) = \int p(y^* \mid \mathbf{x}^*, \mathbf{w}) p(\mathbf{w} \mid \mathbf{y}, \mathbf{X}) d\mathbf{w}
+p(y^* \mid x^*, y, X) = \int p(y^* \mid x^*, \theta) p(\theta \mid y, X) d\theta
 $$
 
 This distribution is also Gaussian:
 $$
-p(y^* \mid \mathbf{x}^*, \mathbf{y}, \mathbf{X}) = \mathcal{N}(y^* \mid \mu^*, (\sigma^*)^2)
+p(y^* \mid x^*, y, X) = \mathcal{N}(y^* \mid \mu^*, (\sigma^*)^2)
 $$
 
 ---
@@ -50,7 +50,7 @@ A major advantage of the Bayesian approach is that the model "knows what it does
 | Feature | Ordinary Least Squares (OLS) | Bayesian Linear Regression |
 | :--- | :--- | :--- |
 | **Output** | Single line (Point estimates) | Distribution of lines (Posterior) |
-| **Prior Knowledge** | Not explicitly used | Encoded via the Prior $p(\mathbf{w})$ |
+| **Prior Knowledge** | Not explicitly used | Encoded via the Prior $p(\theta)$ |
 | **Uncertainty** | Not directly provided | Quantified via Predictive Variance |
 | **Overfitting** | Prone if no regularization | Naturally regularized by the Prior |
 

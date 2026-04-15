@@ -1,4 +1,5 @@
 import { Callout } from 'nextra/components';
+import SoftmaxViz from '@/components/SoftmaxViz';
 
 # Log-Linear Models (Softmax Regression)
 
@@ -15,6 +16,8 @@ p(C_k \mid \mathbf{x}) = \frac{\exp(a_k)}{\sum_{j=1}^K \exp(a_j)}
 $$
 
 Where $a_k = \mathbf{w}_k^T \mathbf{x} + b_k$ is the linear predictor for class $k$.
+
+<SoftmaxViz />
 
 ---
 

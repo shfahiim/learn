@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import GenerativeModelsViz from '@/components/GenerativeModelsViz';
+import LDAVsQDAViz from '@/components/LDAVsQDAViz';
 
 # Probabilistic Generative Models
 
@@ -7,37 +8,47 @@ Generative models take a different approach to classification: they try to model
 
 ---
 
-## 1. The Generative Approach
+## 1. The MLE Landscape
+
+In Maximum Likelihood Estimation (MLE), we can categorize algorithms based on how they model the likelihood $L(\theta; D) = P(D; \theta)$:
+
+*   **Discriminative $P(y \mid x)$**: Directly models the mapping from inputs to outputs.
+    *   *Linear*: Gaussian noise $\to$ Linear Regression.
+    *   *Logistic*: Bernoulli noise $\to$ Logistic Regression.
+*   **Generative $P(x, y)$**: Models the joint probability. Both $x$ and $y$ are treated as **random variables**.
+    *   *Example*: Naive Bayes.
+
+---
+
+## 2. The Generative Approach
 
 A generative model learns:
-1.  **Class-Conditional Densities**: $p(\mathbf{x} \mid C_k)$ (How does the data for class $k$ look?)
-2.  **Class Priors**: $p(C_k)$ (How common is class $k$?)
+1.  **Class-Conditional Densities**: $P(x \mid y)$ (How does the data for class $y$ look?)
+2.  **Class Priors**: $P(y)$ (How common is class $y$?)
 
-To classify a new point $\mathbf{x}$, we use **Bayes' Theorem** to find the posterior probability $p(C_k \mid \mathbf{x})$:
+To classify a new point $x$, we use **Bayes' Theorem** to find the posterior probability $P(y \mid x)$:
 
-$$
-p(C_k \mid \mathbf{x}) = \frac{p(\mathbf{x} \mid C_k) p(C_k)}{p(\mathbf{x})}
-$$
+$$P(y \mid x) = \frac{P(x \mid y) P(y)}{P(x)}$$
 
-Where $p(\mathbf{x}) = \sum_j p(\mathbf{x} \mid C_j) p(C_j)$ is the normalization constant.
+### Dependent Events and Decomposition
+For dependent events $x$ and $y$, the joint probability is:
+$$P(x, y) = P(x \cap y) = P(x \mid y)P(y) = P(y \mid x)P(x)$$
 
----
-
-## 2. Gaussian Discriminant Analysis (GDA)
-
-If we assume the class-conditional densities are multivariate Gaussians:
-$$
-p(\mathbf{x} \mid C_k) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)
-$$
-
-- If all classes share the same covariance matrix $\boldsymbol{\Sigma}$, the decision boundary is **linear** (LDA).
-- If classes have different covariance matrices $\boldsymbol{\Sigma}_k$, the decision boundary is **quadratic** (QDA).
+Generative ML assumes $P(D; \theta) = P(x, y; \theta)$, while Discriminative ML assumes $P(D; \theta) = P(y \mid x; \theta)$.
 
 ---
 
-## 3. Visualizing Class Densities
+## 3. Gaussian Class Densities
 
-Observe how the classes are represented by their underlying distributions. The classification decision happens where the weighted densities cross.
+In models like Gaussian Discriminant Analysis (GDA), we assume classes follow a Gaussian distribution.
+
+**Example: Drawing Samples**
+If we have a class with distribution $P(x) \sim \mathcal{N}(2, 1.5)$, most values will fall within the range $[2 - 1.5, 2 + 1.5]$ (the high-density region).
+
+<LDAVsQDAViz />
+
+- If all classes share the same covariance matrix $\Sigma$, the decision boundary is **linear** (LDA).
+- If classes have different covariance matrices $\Sigma_k$, the decision boundary is **quadratic** (QDA).
 
 <GenerativeModelsViz />
 
@@ -47,11 +58,12 @@ Observe how the classes are represented by their underlying distributions. The c
 
 | Feature | Generative Models (e.g., GDA, Naive Bayes) | Discriminative Models (e.g., Logistic Regression) |
 | :--- | :--- | :--- |
-| **Goal** | Model $p(\mathbf{x}, C_k)$ | Model $p(C_k \mid \mathbf{x})$ directly |
-| **Data Efficiency** | Requires more data to model distributions well | Often more efficient for classification |
-| **Robustness** | Can handle missing data and detect outliers | Generally more robust to outliers in features |
-| **New Samples** | Can generate new data points from the learned $p(\mathbf{x} \mid C_k)$ | Cannot generate new data |
+| **Assumption** | $P(D; \theta) = P(x, y; \theta)$ | $P(D; \theta) = P(y \mid x; \theta)$ |
+| **Random Variables** | Both $x$ and $y$ are random variables | $y$ is a random variable, $x$ is not |
+| **Alternative Notation** | - | $P(y; x, \theta)$ |
+| **Goal** | Model $P(x, y)$ | Model $P(y \mid x)$ directly |
+| **New Samples** | Can generate new data points from $P(x \mid y)$ | Cannot generate new data |
 
 <Callout type="info">
-**Naive Bayes**: A special case of a generative model where we assume all features are **independent** given the class. This drastically simplifies the modeling of $p(\mathbf{x} \mid C_k)$ and works surprisingly well for text classification.
+**Bayes Rule for Naive Bayes**: For generative models, we often use $P(x \mid y) = \frac{P(y \mid x)P(x)}{P(y)}$ to transform the classification problem.
 </Callout>

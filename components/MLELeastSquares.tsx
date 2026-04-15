@@ -1,18 +1,25 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Cell } from 'recharts';
 import { chartGridProps, chartAxisProps, chartTooltipProps } from './charts/rechartsDefaults';
-import { ChartCard } from './charts/ChartCard';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
 
 const MLELeastSquares = () => {
+  const [noise, setNoise] = useState(2.0);
+  const [slope, setSlope] = useState(1.5);
+
+  // Generate data with adjustable noise
   const data = useMemo(() => {
     const points = [];
+    // Fixed seed-like randomness for smoother transitions
+    const randomOffsets = [0.1, -0.5, 0.8, -0.2, 0.4, -0.9, 0.3, -0.1, 0.6, -0.4];
     for (let x = 1; x <= 10; x++) {
-      const y = 2 * x + 5 + (Math.random() - 0.5) * 4;
+      const y = slope * x + 5 + randomOffsets[x-1] * noise;
       points.push({ x, y });
     }
     return points;
-  }, []);
+  }, [noise, slope]);
 
+  // Calculate OLS fit
   const { m, c, lineData } = useMemo(() => {
     let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
     data.forEach(p => {
@@ -24,41 +31,85 @@ const MLELeastSquares = () => {
     return { m, c, lineData };
   }, [data]);
 
-  // Residuals
   const residuals = data.map(p => ({
     x: p.x,
     y: p.y,
     yExpected: m * p.x + c,
-    residual: p.y - (m * p.x + c)
   }));
 
   return (
     <div className="my-8">
-      <ChartCard title="Ordinary Least Squares (OLS) Fit" subtitle="The line is chosen to minimize the sum of squared distances (vertical lines) between the data points and the line.">
-        <div className="h-[400px] w-full">
+      <ChartCard 
+        title="Interactive Least Squares Fit" 
+        subtitle="Ordinary Least Squares (OLS) minimizes the squared sum of residuals (red dashed lines). Adjust the noise to see how it affects the fit's confidence."
+      >
+        <ChartControls>
+          <ChartControl label="True Slope" value={slope.toFixed(1)} hint="The underlying pattern">
+            <input
+              type="range"
+              className="modern-slider"
+              min="0"
+              max="4"
+              step="0.1"
+              value={slope}
+              onChange={(e) => setSlope(parseFloat(e.target.value))}
+            />
+          </ChartControl>
+          <ChartControl label="Gaussian Noise Level" value={noise.toFixed(1)} hint="Randomness in the data">
+            <input
+              type="range"
+              className="modern-slider"
+              min="0"
+              max="10"
+              step="0.5"
+              value={noise}
+              onChange={(e) => setNoise(parseFloat(e.target.value))}
+            />
+          </ChartControl>
+        </ChartControls>
+
+        <div className="h-[400px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
               <CartesianGrid {...chartGridProps} />
-              <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
-              <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />
+              <XAxis type="number" dataKey="x" name="x" domain={[0, 11]} {...chartAxisProps} />
+              <YAxis type="number" dataKey="y" name="y" domain={[0, 25]} {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={lineData} type="monotone" dataKey="y" stroke="#82ca9d" strokeWidth={3} dot={false} />
-              {/* Vertical lines for residuals */}
+              <Scatter name="Data Points" data={data} fill="var(--chart-primary)" />
+              
+              <Line 
+                data={lineData} 
+                type="monotone" 
+                dataKey="y" 
+                stroke="var(--chart-success)" 
+                strokeWidth={4} 
+                dot={false}
+                animationDuration={200}
+              />
+              
               {residuals.map((r, i) => (
                 <Line
                   key={`res-${i}`}
                   data={[{ x: r.x, y: r.y }, { x: r.x, y: r.yExpected }]}
                   type="linear"
                   dataKey="y"
-                  stroke="#ff4d4f"
+                  stroke="var(--chart-error)"
                   strokeWidth={2}
-                  strokeDasharray="3 3"
+                  strokeDasharray="4 4"
                   dot={false}
                 />
               ))}
             </ScatterChart>
           </ResponsiveContainer>
+        </div>
+        
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="p-3 bg-green-50 rounded border border-green-100 text-xs text-green-800">
+            <strong>MLE Fit Result:</strong> y = {m.toFixed(2)}x + {c.toFixed(2)}
+          </div>
+          <div className="p-3 bg-red-50 rounded border border-red-100 text-xs text-red-800">
+             <strong>Residuals:</strong> Minimizing the total sum of the {residuals.length} red lines.
+          </div>
         </div>
       </ChartCard>
     </div>

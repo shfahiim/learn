@@ -3,7 +3,7 @@ import RegularizationPaths from '@/components/RegularizationPaths';
 
 # Regularized Least Squares
 
-When we have many features or limited data, the Ordinary Least Squares (OLS) estimator can result in very large coefficient values, leading to **overfitting**. Regularization adds a penalty term to the error function to keep the weights small.
+When we have many features or limited data, the Ordinary Least Squares (OLS) estimator can result in very large parameter values, leading to **overfitting**. Regularization adds a penalty term to the error function to keep the parameters small.
 
 ---
 
@@ -12,12 +12,12 @@ When we have many features or limited data, the Ordinary Least Squares (OLS) est
 The general form of a regularized error function is:
 
 $$
-E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^N (y_n - \mathbf{w}^T \mathbf{x}_n)^2 + \lambda R(\mathbf{w})
+E(\theta) = \frac{1}{2} \sum_{i=1}^m (y^{(i)} - \theta^T x^{(i)})^2 + \lambda R(\theta)
 $$
 
 Where:
 - $\lambda$ is the **regularization coefficient** (controls the trade-off).
-- $R(\mathbf{w})$ is the **penalty term**.
+- $R(\theta)$ is the **penalty term**.
 
 ---
 
@@ -25,12 +25,12 @@ Where:
 
 Ridge regression uses a quadratic penalty:
 $$
-R(\mathbf{w}) = \frac{1}{2} \|\mathbf{w}\|^2_2 = \frac{1}{2} \sum_{j=1}^M w_j^2
+R(\theta) = \frac{1}{2} \|\theta\|^2_2 = \frac{1}{2} \sum_{j=1}^n \theta_j^2
 $$
 
 **Key Features:**
 - Shrinks coefficients towards zero but **never exactly to zero**.
-- Has a closed-form solution: $\mathbf{w}_{Ridge} = (\mathbf{X}^T \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^T \mathbf{y}$.
+- Has a closed-form solution: $\theta_{Ridge} = (X^T X + \lambda I)^{-1} X^T y$.
 - Effectively handles multicollinearity (highly correlated features).
 
 ---
@@ -39,7 +39,7 @@ $$
 
 Lasso (Least Absolute Shrinkage and Selection Operator) uses an absolute value penalty:
 $$
-R(\mathbf{w}) = \|\mathbf{w}\|_1 = \sum_{j=1}^M |w_j|
+R(\theta) = \|\theta\|_1 = \sum_{j=1}^n |\theta_j|
 $$
 
 **Key Features:**
@@ -53,7 +53,7 @@ $$
 
 Elastic Net combines both $L_1$ and $L_2$ penalties:
 $$
-R(\mathbf{w}) = \alpha \|\mathbf{w}\|_1 + (1-\alpha) \frac{1}{2} \|\mathbf{w}\|^2_2
+R(\theta) = \alpha \|\theta\|_1 + (1-\alpha) \frac{1}{2} \|\theta\|^2_2
 $$
 It is useful when there are multiple features which are correlated with each other.
 
@@ -66,5 +66,5 @@ As $\lambda$ increases, the magnitude of the weights decreases.
 <RegularizationPaths />
 
 <Callout type="info" emoji="⚖️">
-**Standardization Requirement**: Always scale your features (e.g., Z-score normalization) before applying regularization. Since the penalty is applied to the magnitude of the weights, features with larger scales will be unfairly penalized.
+**Standardization Requirement**: Always scale your features (e.g., Z-score normalization) before applying regularization. Since the penalty is applied to the magnitude of the parameters $\theta$, features with larger scales will be unfairly penalized.
 </Callout>
