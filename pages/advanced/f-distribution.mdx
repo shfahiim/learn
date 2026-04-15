@@ -1,0 +1,54 @@
+import { Callout } from 'nextra/components';
+import { FDistributionViz } from '../../components/FDistributionViz';
+
+# F-Distribution
+
+<Callout type="info" emoji="⚖️">
+The F-Distribution is a continuous probability distribution that arises frequently as the null distribution of a test statistic, most notably in the **Analysis of Variance (ANOVA)**.
+</Callout>
+
+Unlike distributions used to model direct physical phenomena (like coin flips or waiting times), the F-distribution is a theoretical tool used exclusively to **compare the variances** of different populations.
+
+## Core Concepts
+
+The F-Distribution is formed by taking the ratio of two independent Chi-Square distributions, each divided by their respective degrees of freedom.
+
+If $U_1 \sim \chi^2(d_1)$ and $U_2 \sim \chi^2(d_2)$ are independent Chi-Square variables, then the statistic $F$ is defined as:
+
+$$
+F = \frac{U_1 / d_1}{U_2 / d_2}
+$$
+
+Because it is a ratio of variances (which are always positive because they involve squared differences), the F-value is always greater than or equal to zero. 
+$$
+F \ge 0
+$$
+
+## Degrees of Freedom
+
+The exact shape of the F-distribution is determined by two different parameters:
+1.  <span style={{color: '#ea580c', fontWeight: 'bold'}}>$d_1$ (Numerator degrees of freedom):</span> Usually related to the variance *between* the groups you are testing.
+2.  <span style={{color: '#9a3412', fontWeight: 'bold'}}>$d_2$ (Denominator degrees of freedom):</span> Usually related to the variance *within* the groups you are testing (the random noise or error).
+
+The distribution is heavily right-skewed. As both $d_1$ and $d_2$ approach infinity, the peak of the F-distribution approaches exactly $1.0$.
+
+---
+
+## Key Applications: ANOVA
+
+<Callout type="warning" emoji="🔍">
+The primary reason you learn the F-distribution is to perform an ANOVA (Analysis of Variance) test. 
+</Callout>
+
+Imagine you have three different diet plans, and you want to know if any of them lead to significantly different weight loss. You could do multiple t-tests (A vs B, B vs C, A vs C), but doing so drastically inflates your chance of a false positive!
+
+Instead, ANOVA calculates a single F-statistic. It asks a profound question: **"Is the variance *between* the three diet groups significantly larger than the random variance *within* the groups?"**
+
+*   <span style={{color: '#3b82f6', fontWeight: 'bold'}}>If $F \approx 1$:</span> The variance between groups is just random noise. The diets likely have no real difference.
+*   <span style={{color: '#ef4444', fontWeight: 'bold'}}>If $F \gg 1$:</span> The variance between groups is massive compared to the internal noise. At least one diet is performing fundamentally differently from the rest!
+
+## Interactive Visualization
+
+Use the sliders below to adjust the numerator ($d_1$) and denominator ($d_2$) degrees of freedom to see how the F-distribution changes its skew and peak.
+
+<FDistributionViz />

@@ -1,0 +1,67 @@
+import { Callout } from 'nextra/components';
+import { SkewnessViz } from '../../components/SkewnessViz';
+
+# Key Metrics: The "Shape" of a Distribution
+
+<Callout type="info" emoji="🧬">
+Visualizing a distribution curve is helpful, but statisticians rely on four mathematical "moments" to precisely describe the shape, center, and spread of any distribution without needing to draw it. Think of these as the **statistical fingerprints** of a random variable.
+</Callout>
+
+---
+
+## 1. Expected Value (The Mean)
+
+The Expected Value, denoted as $E[X]$ or $\mu$ (mu), is the theoretical long-run average of the random variable. It represents the **"center of mass"** or the balancing point of the distribution.
+
+*   **For Discrete variables:** Multiply every possible outcome by its probability, and sum them up.
+    $$ E[X] = \sum x \cdot p(x) $$
+*   **For Continuous variables:** Multiply every value by its probability density, and integrate across the entire range.
+    $$ E[X] = \int x \cdot f(x) dx $$
+
+<Callout type="warning" emoji="🎲">
+**Intuition Note:** The expected value does *not* have to be a value that can actually occur. The expected value of a 6-sided die roll is $3.5$, even though you can never actually roll a 3.5!
+</Callout>
+
+---
+
+## 2. Variance and Standard Deviation (The Spread)
+
+While the mean tells you where the center is, the **Variance** ($\sigma^2$) tells you how spread out or clustered the data is around that center.
+
+Variance is the average of the *squared differences* from the Mean. We square the differences so that negative errors don't cancel out positive errors.
+
+$$
+\text{Var}(X) = E[(X - \mu)^2]
+$$
+
+Because variance is measured in squared units (e.g., "squared dollars" or "squared inches"), it is mathematically awkward to interpret. Therefore, we almost always take the square root to get the **Standard Deviation** ($\sigma$), which brings the spread back into the original units.
+
+$$
+\sigma = \sqrt{\text{Var}(X)}
+$$
+
+---
+
+## 3. Skewness (The Lean)
+
+Skewness measures the **asymmetry** of a distribution.
+
+*   <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>Zero Skew:</span> The distribution is perfectly symmetrical (like the Normal distribution). The mean and median are perfectly identical.
+*   <span style={{color: '#10b981', fontWeight: 'bold'}}>Positive (Right) Skew:</span> The distribution has a long "tail" stretching off to the right. The mass of the data is concentrated on the left. *(e.g., Human income—most people earn an average amount, but a few billionaires stretch the tail infinitely to the right).* Mean $>$ Median.
+*   <span style={{color: '#ec4899', fontWeight: 'bold'}}>Negative (Left) Skew:</span> The distribution has a long tail stretching to the left. *(e.g., Human lifespan—most people live to old age, with a tail stretching down towards zero).* Mean $<$ Median.
+
+### Interactive Visualization: Skewness vs The Mean
+
+Notice how the tail of a skewed distribution physically "drags" the Mean away from the Median!
+
+<SkewnessViz />
+
+---
+
+## 4. Kurtosis (The Tails)
+
+Kurtosis measures the "tailedness" of a distribution relative to a standard Normal distribution. It tells you about the frequency of **extreme outliers**.
+
+*   <span style={{fontWeight: 'bold'}}>Mesokurtic (Kurtosis $\approx$ 3):</span> Standard Normal distribution tails.
+*   <span style={{color: '#ef4444', fontWeight: 'bold'}}>Leptokurtic (High Kurtosis):</span> "Fat tails." The distribution produces extreme outliers far more frequently than a Normal distribution. Financial market returns are famously leptokurtic.
+*   <span style={{color: '#3b82f6', fontWeight: 'bold'}}>Platykurtic (Low Kurtosis):</span> "Thin tails." The distribution produces fewer outliers. A Uniform distribution is highly platykurtic because it has absolutely zero probability of an outlier beyond its bounds.

@@ -1,0 +1,52 @@
+import { Callout } from 'nextra/components';
+import { ZScoreViz } from '../../components/ZScoreViz';
+
+# Standard Normal (Z-Distribution)
+
+<Callout type="info" emoji="📏">
+The Standard Normal distribution is a specific, foundational case of the Normal distribution. It is the universal "ruler" by which all other Normal distributions are measured and compared.
+</Callout>
+
+## Core Concepts
+
+A Standard Normal distribution is defined simply as a Normal distribution where the mean is exactly $0$ and the standard deviation is exactly $1$. 
+
+We denote this special random variable as $Z$:
+$$
+Z \sim \mathcal{N}(0, 1)
+$$
+
+### Probability Density Function (PDF)
+
+Because $\mu = 0$ and $\sigma = 1$, the terrifying PDF of the general normal distribution simplifies dramatically into a much cleaner equation:
+
+$$
+\phi(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2}
+$$
+
+## The Z-Score
+
+Why do we care about a distribution locked at $0$ and $1$? Because **any** Normal distribution in the universe can be transformed into the Standard Normal distribution using a Z-score.
+
+A Z-score tells you exactly **how many standard deviations** a specific data point ($x$) is away from its mean ($\mu$).
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+### Why is this powerful? (Apples to Oranges)
+
+Imagine you score an <span style={{color: '#3b82f6', fontWeight: 'bold'}}>85 on a Math test</span> (where the class mean was 70 and standard dev was 10) and a <span style={{color: '#ec4899', fontWeight: 'bold'}}>90 on an English test</span> (where the class mean was 85 and standard dev was 5). Which test did you actually perform better on relative to your peers?
+
+*   <span style={{color: '#3b82f6', fontWeight: 'bold'}}>Math Z-score:</span> $z = \frac{85 - 70}{10} = +1.5$
+*   <span style={{color: '#ec4899', fontWeight: 'bold'}}>English Z-score:</span> $z = \frac{90 - 85}{5} = +1.0$
+
+<Callout type="success" emoji="🎉">
+Even though the raw English score (90) was higher, your Math score was **1.5 standard deviations** above the average. By converting them both to Z-scores, you can see that you performed significantly better in Math relative to the rest of the class!
+</Callout>
+
+## Interactive Visualization
+
+Below is the standard normal distribution ($\mu=0, \sigma=1$). Use the slider to select a Z-Score and instantly calculate the probability (the area under the curve) to the left or right of that score.
+
+<ZScoreViz />

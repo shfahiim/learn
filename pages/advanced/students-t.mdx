@@ -1,0 +1,51 @@
+import { Callout } from 'nextra/components';
+import { TDistribution } from '../../components/TDistribution';
+
+# Student’s t-Distribution
+
+<Callout type="info" emoji="🍺">
+The Student's t-distribution is one of the most widely used distributions in statistics, specifically designed for situations where you have a **small sample size** and you **do not know the population's true standard deviation**.
+
+*Fun Fact: It is called "Student's" because it was published by William Sealy Gosset in 1908 under the pseudonym "Student" while he was working for the Guinness brewery. He developed it to monitor the quality of small batches of stout!*
+</Callout>
+
+## Core Concepts
+
+When you have a massive amount of data, the Central Limit Theorem allows you to use the Normal (Z) Distribution to calculate confidence intervals and p-values. 
+
+However, when your sample size is small (typically $n < 30$), using the Normal distribution gives you **false confidence**. Your estimate of the standard deviation is wobbly. 
+
+<Callout type="warning" emoji="⚖️">
+The t-distribution compensates for this uncertainty by having **"heavier tails"** (more probability mass in the extremes) and a lower peak than the Normal distribution. This makes your confidence intervals wider and more conservative.
+</Callout>
+
+### The t-statistic
+Similar to the Z-score, you calculate a t-score:
+$$
+t = \frac{\bar{x} - \mu}{s / \sqrt{n}}
+$$
+*(Where $s$ is your sample standard deviation, rather than the true population $\sigma$).*
+
+---
+
+## Degrees of Freedom (df)
+
+The exact shape of the t-distribution is controlled entirely by a single parameter: <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>degrees of freedom ($df$)</span>, which is simply your sample size minus one ($n - 1$).
+
+*   <span style={{color: '#ef4444', fontWeight: 'bold'}}>Low df (e.g., 1 or 2):</span> Very heavy tails. High uncertainty.
+*   <span style={{color: '#10b981', fontWeight: 'bold'}}>High df (e.g., 30+):</span> The t-distribution becomes mathematically indistinguishable from the Standard Normal Distribution.
+
+## Key Applications
+
+1.  **A/B Testing (t-tests):** Comparing the average conversion rate of Design A vs. Design B when you only have traffic data from a few days.
+2.  **Medical Trials:** Testing the efficacy of a new drug on a small cohort of 15 patients against a control group.
+
+## Interactive Visualization
+
+Use the slider below to adjust the Degrees of Freedom. 
+*   The solid purple curve is the **t-Distribution**.
+*   The dashed grey line is the **Standard Normal Distribution** (Z) for reference.
+
+Notice how at $df = 1$, the purple t-distribution has a much lower peak and much thicker tails. As you slide $df$ towards 30, watch the t-distribution morph upwards and inwards until it perfectly overlaps the Normal distribution!
+
+<TDistribution />

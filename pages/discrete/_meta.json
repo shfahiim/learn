@@ -1,0 +1,6 @@
+{
+  "bernoulli": "Bernoulli Distribution",
+  "binomial": "Binomial Distribution",
+  "poisson": "Poisson Distribution",
+  "uniform": "Uniform Distribution"
+}

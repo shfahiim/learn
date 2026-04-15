@@ -1,0 +1,58 @@
+import { Callout } from 'nextra/components';
+import { UniformDistribution } from '../../components/UniformDistribution';
+
+# Uniform Distribution (Continuous)
+
+<Callout type="info" emoji="🧱">
+The Continuous Uniform distribution is the simplest of all continuous distributions. It models a scenario where every single possible decimal value within a specific range has the exact same probability density.
+</Callout>
+
+## Core Concepts
+
+If a random variable $X$ follows a Continuous Uniform distribution, we write:
+$$
+X \sim \mathcal{U}(a, b)
+$$
+
+Where:
+*   <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>$a$</span> is the minimum possible value.
+*   <span style={{color: '#ec4899', fontWeight: 'bold'}}>$b$</span> is the maximum possible value.
+
+### Probability Density Function (PDF)
+
+Because every value is equally likely, the PDF is a completely **flat horizontal line** between $a$ and $b$. Because the total area under the line must equal exactly $1$, the height of the line is simply $1$ divided by the width of the interval.
+
+$$
+f(x) = \begin{cases} 
+\frac{1}{b - a} & \text{for } a \le x \le b \\
+0 & \text{for } x < a \text{ or } x > b 
+\end{cases}
+$$
+
+### Cumulative Distribution Function (CDF)
+
+The CDF grows perfectly linearly (like a straight ramp) from $0$ to $1$ between $a$ and $b$.
+
+$$
+F(x) = \begin{cases} 
+0 & \text{for } x < a \\
+\frac{x - a}{b - a} & \text{for } a \le x \le b \\
+1 & \text{for } x > b 
+\end{cases}
+$$
+
+## Key Metrics
+
+*   **Expected Value (Mean):** $E[X] = \frac{a + b}{2}$ *(Exactly in the middle)*
+*   **Variance:** $\text{Var}(X) = \frac{(b - a)^2}{12}$
+
+## Real-World Examples
+1.  **Random Number Generators:** The foundational `Math.random()` function in programming languages generates a continuous uniform distribution between $0$ and $1$.
+2.  **Waiting for a Train:** If a train comes exactly every 20 minutes, and you arrive at the station at a completely random time, your wait time is uniformly distributed between $0$ and $20$ minutes.
+
+## Interactive Visualization
+
+Use the sliders below to adjust the minimum ($a$) and maximum ($b$) boundaries.
+Notice how the total width changes, and in response, the height (density) perfectly scales up or down to ensure the total area of the pink rectangle remains exactly $1.0$.
+
+<UniformDistribution />

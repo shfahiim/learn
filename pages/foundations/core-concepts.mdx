@@ -1,0 +1,43 @@
+import { Callout } from 'nextra/components';
+
+# Core Concepts
+
+<Callout type="info" emoji="💡">
+Before we can analyze the beautiful curves and formulas of advanced statistics, we must establish the foundational language of probability.
+</Callout>
+
+## 1. What is Probability?
+
+At its core, probability is the mathematical study of uncertainty and randomness. We define it using three terms:
+
+*   <span style={{color: '#3b82f6', fontWeight: 'bold'}}>Experiment (or Trial):</span> Any procedure that can be infinitely repeated and has a well-defined set of possible outcomes. *(e.g., Flipping a coin, rolling a die, measuring the lifespan of a battery.)*
+*   <span style={{color: '#10b981', fontWeight: 'bold'}}>Sample Space ($\Omega$):</span> The set of all uniquely possible outcomes of an experiment. *(e.g., For a single coin flip, $\Omega = \{\text{Heads}, \text{Tails}\}$.)*
+*   <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>Event ($E$):</span> A specific subset of the sample space that we actually care about. *(e.g., Rolling an even number on a die, $E = \{2, 4, 6\}$.)*
+
+<Callout type="warning" emoji="📏">
+**The Golden Rule:** The probability of an event $P(E)$ is always a number between $0$ (impossible) and $1$ (absolutely certain).
+</Callout>
+
+---
+
+## 2. Random Variables
+
+<Callout type="error" emoji="🤔">
+A "Random Variable" is a terrible name for what is actually a very simple concept. It is neither random, nor is it a variable in the traditional algebraic sense!
+</Callout>
+
+> A **Random Variable** ($X$) is simply a function that translates a real-world outcome into a number.
+
+Math prefers numbers over words. We can't do calculus on the word "Heads," so we use a random variable to assign "Heads" to the number $1$, and "Tails" to $0$.
+
+There are two distinct families of random variables, and identifying which one you are working with is the first step in any statistical analysis.
+
+### A. Discrete Random Variables
+Discrete variables represent data that you **count**. They can only take on distinct, separated values. There are "gaps" between the possible values.
+*   **Examples:** The number of heads in 10 coin flips ($0, 1, 2, \dots, 10$). The number of cars in a parking lot. The number of students in a class.
+*   **Visualization:** Discrete data is visualized using **Bar Charts**, where each bar stands alone.
+
+### B. Continuous Random Variables
+Continuous variables represent data that you **measure**. They can take on literally any value within a given range, including infinite decimals.
+*   **Examples:** The exact time it takes to run a marathon (e.g., $14,532.443\dots$ seconds). The exact weight of an apple. The exact temperature outside.
+*   **Visualization:** Continuous data is visualized using smooth **Density Curves** (like the famous Bell Curve). You don't look at individual points; you look at the area under the curve.

@@ -1,0 +1,75 @@
+import { Callout } from 'nextra/components';
+import { BayesTheorem } from '../../components/BayesTheorem';
+
+# Bayes' Theorem and Conditional Probability
+
+<Callout type="info" emoji="🧠">
+**Bayes' Theorem** is arguably the single most important mathematical formula for understanding how we should update our beliefs in the face of new evidence. It forms the foundation of modern machine learning and artificial intelligence.
+</Callout>
+
+## The Core Concept: Conditional Probability
+
+Before Bayes, we must understand **Conditional Probability**. It asks: "What is the probability of event A happening, *given* that we already know event B has happened?"
+
+We write this as $P(A \mid B)$ (read as "Probability of A given B").
+
+$$
+P(A \mid B) = \frac{P(A \text{ and } B)}{P(B)}
+$$
+
+## Enter Bayes' Theorem
+
+Bayes' Theorem provides a rigorous way to reverse conditional probabilities. It allows us to compute $P(A \mid B)$ if we know $P(B \mid A)$.
+
+<Callout type="warning" emoji="⚠️">
+**Crucial Distinction:** $P(A \mid B)$ is **not** the same as $P(B \mid A)$. 
+*   The probability of having a cough given you have a cold $P(\text{Cough} \mid \text{Cold})$ is extremely high.
+*   The probability of having a cold given you have a cough $P(\text{Cold} \mid \text{Cough})$ is much lower (you could have allergies, dust, asthma, etc.).
+</Callout>
+
+The beautiful formula is:
+
+$$
+P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}
+$$
+
+Where:
+*   **$P(A)$ - The Prior:** Your initial belief before seeing any evidence.
+*   **$P(B \mid A)$ - The Likelihood:** How probable is the evidence, given that your belief is true?
+*   **$P(B)$ - The Evidence (Marginal Likelihood):** The total probability of observing the evidence under all possible circumstances.
+*   **$P(A \mid B)$ - The Posterior:** Your newly updated belief *after* seeing the evidence.
+
+---
+
+## The Base Rate Fallacy (Medical Testing Example)
+
+The most mind-blowing application of Bayes' rule happens in medical testing.
+
+Imagine a disease that affects **1% of the population** (The Prior). 
+We have a highly accurate test for it:
+*   If you have the disease, the test is **90% likely** to correctly catch it (Sensitivity).
+*   If you are completely healthy, the test is only **9% likely** to incorrectly say you have it (False Positive).
+
+You take the test. **It comes back POSITIVE.** 
+
+<Callout type="error" emoji="😨">
+**Intuition Trap!** Most doctors and patients guess that you have a 90% chance of having the disease. Let's see what Bayes' rule actually says...
+</Callout>
+
+$$
+P(\text{Disease} \mid \text{Positive Test}) = \frac{P(\text{Positive} \mid \text{Disease}) \cdot P(\text{Disease})}{P(\text{Positive Total})}
+$$
+
+$$
+= \frac{0.90 \cdot 0.01}{(0.90 \cdot 0.01) + (0.09 \cdot 0.99)} = \frac{0.009}{0.009 + 0.0891} = \frac{0.009}{0.0981} \approx 9.17\%
+$$
+
+**Wait, what?!** Even with a positive test, you only have a **9.17% chance** of actually having the disease!
+
+Why? Because the disease is so rare (1%) compared to the false positive rate (9%). The vast majority of positive tests will be healthy people triggering false positives.
+
+### See It To Believe It
+
+Use the interactive simulation below. Drag the "Disease Rarity" slider to see how heavily the Base Rate impacts the actual truth of your test results!
+
+<BayesTheorem />

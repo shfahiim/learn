@@ -1,0 +1,77 @@
+import React, { useState, useMemo } from 'react';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { jStat } from 'jstat';
+
+export function SkewnessViz() {
+  const [shape, setShape] = useState(2); // Alpha parameter for Beta distribution to control skew
+
+  const data = useMemo(() => {
+    const points = [];
+    const alpha = shape;
+    const betaParam = 10 - shape; // Keeps the total "weight" constant, just shifts it
+    
+    for (let x = 0; x <= 1; x += 0.01) {
+      // Avoid infinities at the edges of beta
+      let safeX = x;
+      if (safeX === 0) safeX = 0.001;
+      if (safeX === 1) safeX = 0.999;
+      
+      points.push({
+        x: Number(x.toFixed(2)),
+        Density: jStat.beta.pdf(safeX, alpha, betaParam)
+      });
+    }
+    
+    const mean = alpha / (alpha + betaParam);
+    const median = (alpha - 1/3) / (alpha + betaParam - 2/3); // Approximation for Beta median
+    
+    return { points, mean, median, alpha, beta: betaParam };
+  }, [shape]);
+
+  const skewType = data.alpha > data.beta ? "Negative (Left) Skew" : data.alpha < data.beta ? "Positive (Right) Skew" : "Symmetrical (Zero Skew)";
+  const color = data.alpha > data.beta ? "#ec4899" : data.alpha < data.beta ? "#10b981" : "#8b5cf6";
+
+  return (
+    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#f8fafc' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#0f172a' }}>Interactive Skewness: Mean vs Median</h3>
+      
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f1f5f9', borderRadius: '0.5rem' }}>
+        <p style={{ margin: 0, fontSize: '1.2rem', color: color, fontWeight: 'bold' }}>
+          {skewType}
+        </p>
+        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.95rem', color: '#475569' }}>
+          The <span style={{ color: '#ef4444', fontWeight: 'bold'}}>Mean ({data.mean.toFixed(2)})</span> is always pulled further into the tail than the <span style={{ color: '#3b82f6', fontWeight: 'bold'}}>Median ({data.median.toFixed(2)})</span>!
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
+        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155', textAlign: 'center' }}>Drag to change Skewness</label>
+          <input 
+            type="range" min="1.5" max="8.5" step="0.1" 
+            value={shape} onChange={(e) => setShape(parseFloat(e.target.value))}
+            style={{ width: '100%', accentColor: color }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#64748b' }}>
+            <span>Right Skew</span>
+            <span>Symmetrical</span>
+            <span>Left Skew</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ height: '300px', width: '100%' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data.points} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <XAxis dataKey="x" type="number" domain={[0, 1]} tickCount={11} />
+            <YAxis />
+            <Tooltip />
+            <Area type="monotone" dataKey="Density" stroke={color} fill={color} fillOpacity={0.2} isAnimationActive={false} />
+            <ReferenceLine x={data.mean} stroke="#ef4444" strokeWidth={2} label={{ value: 'Mean', position: 'top', fill: '#ef4444', fontSize: 12 }} />
+            <ReferenceLine x={data.median} stroke="#3b82f6" strokeDasharray="3 3" strokeWidth={2} label={{ value: 'Median', position: 'insideTopLeft', fill: '#3b82f6', fontSize: 12 }} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,6 @@
+{
+  "normal": "Normal (Gaussian)",
+  "standard-normal": "Standard Normal (Z)",
+  "uniform": "Uniform (Continuous)",
+  "exponential": "Exponential"
+}

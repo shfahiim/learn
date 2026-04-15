@@ -1,0 +1,49 @@
+import { Callout } from 'nextra/components';
+import { CLTDistribution } from '../../components/CLTDistribution';
+
+# The Central Limit Theorem (CLT)
+
+<Callout type="info" emoji="🌟">
+The Central Limit Theorem is arguably the most magical, counter-intuitive, and fundamentally important theorem in all of statistics. It is the reason why the Normal (Gaussian) distribution appears everywhere in nature and science.
+</Callout>
+
+## Core Concept
+
+The theorem states:
+> If you take sufficiently large random samples from **any** population with a finite variance, the distribution of the **sample means** will approximate a Normal Distribution.
+
+<Callout type="error" emoji="🤯">
+**Read that carefully:** The *original* population can be shaped like a square (Uniform), it can be heavily skewed to the left, it can be bimodal (two peaks), or it can look like complete random noise. 
+
+It doesn't matter! If you take enough samples, calculate the average of each sample, and plot those averages... a perfect Bell Curve will emerge from the chaos.
+</Callout>
+
+## The Mathematical Definition
+
+Let $X_1, X_2, \dots, X_n$ be a random sample of size <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>$n$</span> from a population with a mean $\mu$ and variance $\sigma^2$.
+
+Let $\bar{X}$ be the sample mean. As $n$ approaches infinity, the distribution of $\bar{X}$ approaches a Normal distribution:
+
+$$
+\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+$$
+
+This means:
+1.  The mean of your sample means will exactly equal the true population mean ($\mu$).
+2.  The variance of your sample means shrinks as your sample size ($n$) gets bigger ($\frac{\sigma^2}{n}$). This is why larger sample sizes give you more accurate estimates!
+
+---
+
+## Why Does This Matter?
+1.  **A/B Testing:** It allows us to compare the conversion rates of two website designs using Normal distribution math, even though clicks are discrete binary events (not continuous curves).
+2.  **Polling & Elections:** We can ask just 1,000 people who they are voting for and use the CLT to calculate a highly accurate margin of error for a population of 300 million.
+
+## Interactive Visualization: Seeing the Magic
+
+In the simulation below, we are drawing random numbers from a **Uniform Distribution** (a perfectly flat, rectangular distribution).
+
+1.  Set **Sample Size ($n$)** to `1`. You will see the raw, flat distribution.
+2.  Now, increase the **Sample Size** to `2`. You are now drawing two numbers, adding them, and plotting their average. The flat rectangle instantly turns into a triangle!
+3.  Now, drag the **Sample Size** to `10` or higher. From a flat rectangle, a perfect Bell Curve emerges. This is the Central Limit Theorem in action.
+
+<CLTDistribution />

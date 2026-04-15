@@ -1,0 +1,55 @@
+import { Callout } from 'nextra/components';
+import { NormalDistribution } from '../../components/NormalDistribution';
+
+# Normal (Gaussian) Distribution
+
+<Callout type="info" emoji="🔔">
+The Normal distribution, often called the **"bell curve,"** is the single most important probability distribution in statistics. It appears everywhere in nature and forms the backbone of machine learning, hypothesis testing, and inferential statistics.
+</Callout>
+
+## Core Concepts
+
+If a random variable $X$ follows a Normal distribution, we write:
+$$
+X \sim \mathcal{N}(\mu, \sigma^2)
+$$
+
+Where:
+*   $\mu$ (mu) is the **mean** (which dictates the center of the bell).
+*   $\sigma^2$ (sigma squared) is the **variance** (which dictates the spread). The square root, $\sigma$, is the standard deviation.
+
+### Probability Density Function (PDF)
+
+<Callout type="error" emoji="🤯">
+Don't panic! The equation below looks terrifying, but it perfectly defines the elegant, smooth shape of the bell curve.
+</Callout>
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+$$
+
+While complex, let's break down why this works mathematically:
+*   The $e^{-(\dots)^2}$ part creates the exponential decay that forms the "bell" shape.
+*   The $\frac{x-\mu}{\sigma}$ part centers the curve at $\mu$ and scales its width by $\sigma$.
+*   The $\frac{1}{\sigma\sqrt{2\pi}}$ part is a normalizing constant. It ensures that the total area under the entire curve equals exactly $1.0$.
+
+## The Empirical Rule (68-95-99.7)
+One of the most useful heuristics in statistics applies to all Normal distributions:
+
+*   <span style={{color: '#10b981', fontWeight: 'bold'}}>$\approx 68.27\%$</span> of data falls within **1 standard deviation** ($\pm 1\sigma$) of the mean.
+*   <span style={{color: '#3b82f6', fontWeight: 'bold'}}>$\approx 95.45\%$</span> of data falls within **2 standard deviations** ($\pm 2\sigma$) of the mean.
+*   <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>$\approx 99.73\%$</span> of data falls within **3 standard deviations** ($\pm 3\sigma$) of the mean.
+
+## Real-World Examples
+The Normal distribution is everywhere because of the *Central Limit Theorem* (covered later).
+1.  **Human Heights:** The heights of adult males in a country cluster around a mean and taper off symmetrically.
+2.  **Measurement Error:** The tiny errors a machine makes when precisely measuring weights or lengths.
+3.  **Test Scores:** Standardized tests like the SAT or GRE are explicitly designed to force scores into a normal distribution.
+
+## Interactive Visualization
+
+Below is an interactive graph. 
+*   Drag the **Mean ($\mu$)** to shift the entire curve left or right along the x-axis. The shape does not change.
+*   Drag the **Standard Deviation ($\sigma$)** to see how variance impacts the curve. A smaller $\sigma$ makes the curve tall and spiked (data is highly predictable). A larger $\sigma$ makes the curve flat and wide (data is highly spread out).
+
+<NormalDistribution />
