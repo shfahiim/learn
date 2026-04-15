@@ -27,11 +27,15 @@ jobs:
           node-version: "20"
           cache: "npm"
       
+      - name: Pages not enabled (skipping deploy)
+        if: ${{ !github.event.repository.has_pages }}
+        run: echo "GitHub Pages is not enabled for this repository. Enable it in Settings → Pages → Build and deployment → GitHub Actions, then re-run this workflow."
+
       - name: Setup Pages
+        if: ${{ github.event.repository.has_pages }}
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
-          enablement: true
       
       - name: Install dependencies
         run: npm install
@@ -45,6 +49,7 @@ jobs:
           path: ./out
 
   deploy:
+    if: ${{ github.event.repository.has_pages }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
