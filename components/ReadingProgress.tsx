@@ -9,7 +9,6 @@ export function ReadingProgress() {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
 
-      // Calculate how far the user has scrolled
       const scrollableDistance = documentHeight - windowHeight;
       const currentProgress = scrollableDistance > 0 ? (scrollTop / scrollableDistance) * 100 : 0;
       
@@ -17,38 +16,33 @@ export function ReadingProgress() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Init
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const radius = 18;
-  const stroke = 3;
+  const radius = 15;
+  const stroke = 2.5;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div style={{ 
+    <div className="reading-progress-container" style={{ 
       position: 'fixed',
-      bottom: '24px',
-      right: '24px',
-      zIndex: 9999,
+      top: '14px',
+      zIndex: 10001,
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center', 
-      width: '44px', 
-      height: '44px',
-      backgroundColor: 'var(--chart-panel-bg)',
-      backdropFilter: 'blur(8px)',
-      borderRadius: '50%',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      border: '1px solid var(--chart-border)'
+      width: '36px', 
+      height: '36px',
+      pointerEvents: 'none'
     }}>
       <svg height={radius * 2} width={radius * 2} style={{ transform: 'rotate(-90deg)' }}>
         <circle
           stroke="var(--chart-muted)"
-          strokeOpacity={0.2}
+          strokeOpacity={0.15}
           fill="transparent"
           strokeWidth={stroke}
           r={normalizedRadius}

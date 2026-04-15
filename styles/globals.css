@@ -24,6 +24,17 @@
   --chart-muted: #94a3b8;
 }
 
+/* Reading Progress Positioning */
+.reading-progress-container {
+  right: 1.5rem; /* Default for desktop */
+}
+
+@media (max-width: 640px) {
+  .reading-progress-container {
+    right: 54px !important; /* Specific spot on mobile to not overlap menu */
+  }
+}
+
 /* Mobile responsive padding and margins for charts */
 .chart-wrapper {
   padding: 1.5rem;
@@ -32,7 +43,7 @@
 
 @media (max-width: 640px) {
   .chart-wrapper {
-    padding: 0.75rem !important; /* Smaller padding on mobile to save space */
+    padding: 0.75rem !important;
   }
 }
 

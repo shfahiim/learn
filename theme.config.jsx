@@ -1,5 +1,9 @@
 export default {
-  logo: <span>Probability Distributions Guide</span>,
+  logo: (
+    <div className="nx-flex nx-items-center nx-gap-4">
+      <span className="nx-font-bold">Probability Distributions Guide</span>
+    </div>
+  ),
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
