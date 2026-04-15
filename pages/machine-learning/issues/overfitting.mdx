@@ -1,0 +1,51 @@
+import { Callout } from 'nextra/components';
+import OverfittingViz from '@/components/OverfittingViz';
+
+# Overfitting and Underfitting
+
+The ultimate goal of any machine learning model is **generalization**: the ability to perform well on new, unseen data. Two common pitfalls prevent this: **Overfitting** and **Underfitting**.
+
+---
+
+## 1. Underfitting (High Bias)
+
+Underfitting occurs when a model is too simple to capture the underlying structure of the data. 
+
+- **Symptom**: High error on both training and test data.
+- **Cause**: The model makes strong, incorrect assumptions (e.g., trying to fit a straight line to data that is clearly curved).
+- **Solution**: Increase model complexity, use more features, or reduce regularization.
+
+---
+
+## 2. Overfitting (High Variance)
+
+Overfitting occurs when a model is so complex that it starts "memorizing" the noise in the training data rather than the actual signal.
+
+- **Symptom**: Very low error on training data, but high error on test data.
+- **Cause**: The model is too flexible and has too many parameters relative to the amount of data (e.g., using a 10th-degree polynomial to fit 5 points).
+- **Solution**: Use more training data, simplify the model (feature selection), or apply **regularization**.
+
+---
+
+## The Goldilocks Zone
+
+We want a model that is "just right"—complex enough to capture the trend, but simple enough to ignore the random noise.
+
+<OverfittingViz />
+
+---
+
+## Signals of Overfitting
+
+| Training Error | Test Error | Status |
+| :--- | :--- | :--- |
+| High | High | **Underfitting** (Model is too simple) |
+| Low | High | **Overfitting** (Model is memorizing noise) |
+| Low | Low | **Good Fit** (Model generalizes well) |
+
+<Callout type="info">
+**The Bias-Variance Tradeoff**: 
+- **Bias** is the error from erroneous assumptions in the learning algorithm. 
+- **Variance** is the error from sensitivity to small fluctuations in the training set.
+We strive to minimize the sum of both.
+</Callout>

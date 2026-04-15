@@ -1,0 +1,61 @@
+import { Callout } from 'nextra/components';
+import KernelTrickViz from '@/components/KernelTrickViz';
+import SVMViz from '@/components/SVMViz';
+
+# Kernel Methods and Sparse Kernel Machines
+
+Kernel methods are a powerful class of algorithms that allow linear models to solve non-linear problems by projecting data into a higher-dimensional feature space.
+
+---
+
+## 1. The Kernel Trick
+
+The key insight of kernel methods is that many linear algorithms only depend on the **inner product** between data points ($\mathbf{x}_i \cdot \mathbf{x}_j$). 
+
+Instead of explicitly mapping data to a high-dimensional space $\phi(\mathbf{x})$ (which could be infinite-dimensional!), we can use a **Kernel Function** $k(\mathbf{x}_i, \mathbf{x}_j)$ that computes the inner product in that space directly:
+
+$$
+k(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j)
+$$
+
+### Common Kernels:
+- **Linear**: $k(\mathbf{x}, \mathbf{x}') = \mathbf{x}^T \mathbf{x}'$
+- **Polynomial**: $k(\mathbf{x}, \mathbf{x}') = (\gamma \mathbf{x}^T \mathbf{x}' + r)^d$
+- **RBF (Gaussian)**: $k(\mathbf{x}, \mathbf{x}') = \exp(-\gamma \|\mathbf{x} - \mathbf{x}'\|^2)$
+
+<KernelTrickViz />
+
+---
+
+## 2. Sparse Kernel Machines: SVMs
+
+**Support Vector Machines (SVMs)** are the most famous sparse kernel machines. They aim to find the decision boundary that maximizes the **margin** between classes.
+
+### The Objective:
+We want to find $\mathbf{w}$ and $b$ that maximize the margin $2/\|\mathbf{w}\|$ subject to:
+$$
+t_n (\mathbf{w}^T \phi(\mathbf{x}_n) + b) \ge 1
+$$
+where $t_n \in \{-1, 1\}$ are the class labels.
+
+### Support Vectors:
+Unlike other models, the SVM solution only depends on a small subset of the training points—those that lie exactly on the margin. These are called **Support Vectors**. This leads to a "sparse" solution.
+
+<SVMViz />
+
+---
+
+## 3. Soft Margins and Slack Variables
+
+In real-world data, classes are rarely perfectly separable. We introduce **slack variables** $\xi_n$ to allow some points to be on the wrong side of the margin (or boundary), penalized by a parameter $C$:
+
+$$
+\min \frac{1}{2} \|\mathbf{w}\|^2 + C \sum_{n=1}^N \xi_n
+$$
+
+- Large $C$: Narrow margin, few misclassifications (High Variance).
+- Small $C$: Wide margin, allows more misclassifications (High Bias).
+
+<Callout type="info" emoji="🚀">
+**Relevance Vector Machines (RVM)**: While SVMs are sparse and deterministic, RVMs provide a Bayesian alternative that is even sparser and provides predictive uncertainty, though they are computationally more expensive to train.
+</Callout>

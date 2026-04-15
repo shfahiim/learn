@@ -1,0 +1,58 @@
+import { Callout } from 'nextra/components';
+import CurseOfDimensionality from '@/components/CurseOfDimensionality';
+
+# The Curse of Dimensionality
+
+In machine learning, "more data" usually means better results. However, "more features" (higher dimensionality) can often lead to a significant drop in performance. This phenomenon is known as the **Curse of Dimensionality**.
+
+---
+
+## 1. Data Sparsity
+
+As the number of features (dimensions) increases, the volume of the feature space grows exponentially. Consequently, the data points you have become increasingly sparse.
+
+Imagine you have 100 points:
+- In **1D**, they can densely cover a line.
+- In **2D**, they are scattered across a square.
+- In **3D**, they are lost in a cube.
+- In **10D**, the distance between any two points is likely to be massive.
+
+To maintain the same "density" of data, the number of samples needed grows **exponentially** with the dimension.
+
+---
+
+## 2. Distance Concentration
+
+In high-dimensional spaces, the concept of "distance" starts to lose its meaning. For many distributions, the difference between the distance to the nearest neighbor and the distance to the farthest neighbor becomes negligible relative to the minimum distance.
+
+$$
+\lim_{d \to \infty} \frac{\text{dist}_{\max} - \text{dist}_{\min}}{\text{dist}_{\min}} = 0
+$$
+
+This makes algorithms based on distance (like k-NN or clustering) highly unreliable in high-D spaces.
+
+---
+
+## 3. Geometric Intuition
+
+Consider a unit cube ($d$-dimensional). If we take a smaller cube inside it with side length $0.5$, its volume is $(0.5)^d$.
+- In **1D**: Volume is $0.5$ ($50\%$ of the space).
+- In **2D**: Volume is $0.25$ ($25\%$ of the space).
+- In **10D**: Volume is $\approx 0.00097$ ($<0.1\%$ of the space).
+
+In high dimensions, almost all the volume of the cube is near its "shell," and the "center" is practically empty!
+
+<CurseOfDimensionality />
+
+---
+
+## How to Combat the Curse
+
+1.  **Feature Selection**: Only keep the most relevant features.
+2.  **Dimensionality Reduction**: Techniques like **PCA** (Principal Component Analysis) or **t-SNE** to project data into a lower-dimensional space.
+3.  **Regularization**: Penalizing complex models to prevent them from "finding patterns" in the sparsity (noise).
+4.  **Increasing Data**: If possible, get more samples, though this is rarely enough to overcome exponential growth.
+
+<Callout type="warning" emoji="⚠️">
+When working with high-dimensional data, always visualize the distribution of distances before assuming that $k$-NN or other distance-based models will work effectively.
+</Callout>

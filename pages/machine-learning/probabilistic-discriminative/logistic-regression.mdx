@@ -1,0 +1,65 @@
+import { Callout } from 'nextra/components';
+import LogisticRegressionViz from '@/components/LogisticRegressionViz';
+
+# Logistic Regression
+
+Despite its name, **Logistic Regression** is a classification algorithm. Unlike generative models which model the class-conditional distributions, logistic regression directly models the posterior probability of the classes.
+
+---
+
+## 1. The Sigmoid Function
+
+Logistic regression uses a linear combination of inputs, but instead of outputting the result directly, it passes it through the **Sigmoid (Logistic) Function**:
+
+$$
+\sigma(a) = \frac{1}{1 + \exp(-a)}
+$$
+
+The model is defined as:
+$$
+p(C_1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b)
+$$
+
+The output is always between 0 and 1, allowing us to interpret it as a **probability**.
+
+<LogisticRegressionViz />
+
+---
+
+## 2. Training: Maximum Likelihood
+
+To train the model, we use the **Cross-Entropy Loss** function, which is derived from the principle of maximum likelihood for a Bernoulli distribution:
+
+$$
+E(\mathbf{w}) = -\sum_{n=1}^N \{ y_n \ln \sigma_n + (1-y_n) \ln(1-\sigma_n) \}
+$$
+
+Where $\sigma_n = \sigma(\mathbf{w}^T \mathbf{x}_n)$. 
+
+Unlike linear regression, there is no closed-form solution. We must use iterative optimization methods like **Gradient Descent**.
+
+---
+
+## 3. Decision Boundary
+
+The decision boundary is the set of points where the probability of both classes is equal:
+$$
+p(C_1 \mid \mathbf{x}) = 0.5 \iff \mathbf{w}^T \mathbf{x} + b = 0
+$$
+
+This is a **linear decision boundary** in the feature space.
+
+---
+
+## Comparison: Generative vs. Discriminative
+
+| Feature | Gaussian Discriminant Analysis (GDA) | Logistic Regression |
+| :--- | :--- | :--- |
+| **Paradigm** | Generative | Discriminative |
+| **Assumptions** | Strong (Gaussian features) | Weak (Functional form of posterior) |
+| **Robustness** | Sensitive to outliers | More robust to outliers |
+| **Data Usage** | Models full distribution $p(\mathbf{x}, C)$ | Models only boundary $p(C \mid \mathbf{x})$ |
+
+<Callout type="info">
+**Iterative Reweighted Least Squares (IRLS)**: While we often use simple Gradient Descent, a more efficient second-order optimization method for logistic regression is IRLS, which is essentially the Newton-Raphson algorithm applied to the log-likelihood.
+</Callout>

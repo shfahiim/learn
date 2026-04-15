@@ -1,0 +1,57 @@
+import { Callout } from 'nextra/components';
+import ParametricVsNonParametric from '@/components/ParametricVsNonParametric';
+
+# Parametric and Non-Parametric Models
+
+One of the first decisions in model selection is deciding between a **parametric** or **non-parametric** approach. This choice determines how much flexibility your model has and how it scales with more data.
+
+---
+
+## Parametric Models
+
+Parametric models assume that the data follows a specific, fixed functional form with a finite number of parameters. 
+
+**Core Characteristics:**
+- **Fixed Parameters**: The number of parameters (e.g., weights $\mathbf{w}$ and bias $b$) is fixed and does not change with the amount of training data.
+- **Assumptions**: They make strong assumptions about the underlying distribution (e.g., Linear Regression assumes a linear relationship).
+- **Efficiency**: Generally faster to train and require less memory.
+
+**Mathematical Formulation (e.g., Linear Regression):**
+$$y = \mathbf{w}^T \mathbf{x} + b$$
+Parameters: $\{\mathbf{w}, b\}$
+
+**Trade-offs:**
+- **Pros**: Easy to interpret, fast, works well even with smaller datasets if assumptions are correct.
+- **Cons**: High risk of **Underfitting** if the true relationship isn't linear.
+
+---
+
+## Non-Parametric Models
+
+Non-parametric models do **not** assume a fixed functional form. Instead, their complexity grows as you add more data.
+
+**Core Characteristics:**
+- **Flexible Complexity**: They can adapt to nearly any shape of data.
+- **Data-Driven**: The "parameters" are effectively determined by the training data itself.
+- **Scaling**: Often require more computational power and memory as the dataset grows.
+
+**Examples:**
+- **k-Nearest Neighbors (k-NN)**: Predicts based on the $k$ closest data points.
+- **Kernel Methods**: Uses similarity functions to define boundaries.
+- **Decision Trees**: Splits the feature space into regions based on data distribution.
+
+**Trade-offs:**
+- **Pros**: Highly flexible, can capture complex non-linear patterns.
+- **Cons**: High risk of **Overfitting**, computationally expensive on large datasets.
+
+---
+
+## Visual Comparison
+
+Below is a comparison of a simple parametric model (Linear Regression) versus a flexible non-parametric model (Moving Average/k-NN style fit) on the same noisy sinusoidal data.
+
+<ParametricVsNonParametric />
+
+<Callout type="info">
+**The "Non-Parametric" Misnomer**: These models *do* have parameters; the name simply means the *number* of parameters is not fixed in advance and grows with the data.
+</Callout>

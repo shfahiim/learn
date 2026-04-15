@@ -1,0 +1,55 @@
+import { Callout } from 'nextra/components';
+import FisherDiscriminantViz from '@/components/FisherDiscriminantViz';
+
+# Fisher's Linear Discriminant
+
+While linear regression aims to predict continuous values, **Linear Discriminant Analysis (LDA)** aims to project data into a lower-dimensional space while preserving the maximum class separability. Fisher's Linear Discriminant is a specific approach to finding this projection.
+
+---
+
+## 1. The Goal: Separation and Compactness
+
+The idea is to find a projection vector $\mathbf{w}$ such that when we project the data points onto it:
+1.  The **distance between the class means** is as large as possible.
+2.  The **variance within each class** is as small as possible.
+
+---
+
+## 2. Fisher's Criterion
+
+We define the between-class scatter $\mathbf{S}_B$ and the within-class scatter $\mathbf{S}_W$:
+
+$$
+J(\mathbf{w}) = \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}
+$$
+
+Fisher's goal is to find the vector $\mathbf{w}$ that maximizes this ratio $J(\mathbf{w})$. 
+
+**For two classes:**
+$$
+\mathbf{w} \propto \mathbf{S}_W^{-1} (\mathbf{m}_2 - \mathbf{m}_1)
+$$
+where $\mathbf{m}_1, \mathbf{m}_2$ are the class means.
+
+---
+
+## 3. Projection and Classification
+
+Once we find the optimal $\mathbf{w}$, we project any input $\mathbf{x}$ onto it: $y = \mathbf{w}^T \mathbf{x}$. We then set a threshold on $y$ to classify the point.
+
+<FisherDiscriminantViz />
+
+---
+
+## LDA vs. PCA
+
+| Feature | PCA (Principal Component Analysis) | LDA (Linear Discriminant Analysis) |
+| :--- | :--- | :--- |
+| **Type** | Unsupervised | Supervised |
+| **Goal** | Maximize variance (Signal) | Maximize class separability |
+| **Labels** | Ignores labels | Uses class labels |
+| **Use Case** | General dimensionality reduction | Pre-processing for classification |
+
+<Callout type="info">
+**Multiple Classes**: Fisher's discriminant can be generalized to $K > 2$ classes by seeking a projection into a $(K-1)$-dimensional space.
+</Callout>

@@ -1,4 +1,8 @@
 {
-  "index": "Courses",
-  "probability": "Probability"
+  "index": {
+    "title": "Home",
+    "display": "hidden"
+  },
+  "probability": "Probability",
+  "machine-learning": "Machine Learning"
 }

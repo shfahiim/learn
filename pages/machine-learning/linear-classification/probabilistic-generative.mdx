@@ -1,0 +1,57 @@
+import { Callout } from 'nextra/components';
+import GenerativeModelsViz from '@/components/GenerativeModelsViz';
+
+# Probabilistic Generative Models
+
+Generative models take a different approach to classification: they try to model how the data was generated for each class. Instead of just learning a boundary, they learn the distribution of the features for each class.
+
+---
+
+## 1. The Generative Approach
+
+A generative model learns:
+1.  **Class-Conditional Densities**: $p(\mathbf{x} \mid C_k)$ (How does the data for class $k$ look?)
+2.  **Class Priors**: $p(C_k)$ (How common is class $k$?)
+
+To classify a new point $\mathbf{x}$, we use **Bayes' Theorem** to find the posterior probability $p(C_k \mid \mathbf{x})$:
+
+$$
+p(C_k \mid \mathbf{x}) = \frac{p(\mathbf{x} \mid C_k) p(C_k)}{p(\mathbf{x})}
+$$
+
+Where $p(\mathbf{x}) = \sum_j p(\mathbf{x} \mid C_j) p(C_j)$ is the normalization constant.
+
+---
+
+## 2. Gaussian Discriminant Analysis (GDA)
+
+If we assume the class-conditional densities are multivariate Gaussians:
+$$
+p(\mathbf{x} \mid C_k) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)
+$$
+
+- If all classes share the same covariance matrix $\boldsymbol{\Sigma}$, the decision boundary is **linear** (LDA).
+- If classes have different covariance matrices $\boldsymbol{\Sigma}_k$, the decision boundary is **quadratic** (QDA).
+
+---
+
+## 3. Visualizing Class Densities
+
+Observe how the classes are represented by their underlying distributions. The classification decision happens where the weighted densities cross.
+
+<GenerativeModelsViz />
+
+---
+
+## Comparison: Generative vs. Discriminative
+
+| Feature | Generative Models (e.g., GDA, Naive Bayes) | Discriminative Models (e.g., Logistic Regression) |
+| :--- | :--- | :--- |
+| **Goal** | Model $p(\mathbf{x}, C_k)$ | Model $p(C_k \mid \mathbf{x})$ directly |
+| **Data Efficiency** | Requires more data to model distributions well | Often more efficient for classification |
+| **Robustness** | Can handle missing data and detect outliers | Generally more robust to outliers in features |
+| **New Samples** | Can generate new data points from the learned $p(\mathbf{x} \mid C_k)$ | Cannot generate new data |
+
+<Callout type="info">
+**Naive Bayes**: A special case of a generative model where we assume all features are **independent** given the class. This drastically simplifies the modeling of $p(\mathbf{x} \mid C_k)$ and works surprisingly well for text classification.
+</Callout>

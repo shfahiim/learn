@@ -1,0 +1,57 @@
+import { Callout } from 'nextra/components';
+import SupervisedVsUnsupervised from '@/components/SupervisedVsUnsupervised';
+
+# Supervised and Unsupervised Learning
+
+Machine learning algorithms are broadly categorized based on how they utilize data. The two most prominent paradigms are **Supervised Learning** and **Unsupervised Learning**.
+
+---
+
+## Supervised Learning
+
+In Supervised Learning, models are trained on **labeled data**. This means for every input example $\mathbf{x}_i$, the algorithm is also given a "ground truth" target label $y_i$.
+
+The goal is to learn a mapping $f: \mathbf{x} \to y$ that generalizes well to unseen data.
+
+### Key Tasks:
+1.  **Regression**: Predicting a continuous value (e.g., predicting house prices based on square footage).
+2.  **Classification**: Predicting a discrete category (e.g., identifying if an email is "Spam" or "Not Spam").
+
+### Common Algorithms:
+- Linear Regression
+- Logistic Regression
+- Decision Trees & Random Forests
+- Support Vector Machines (SVM)
+- Neural Networks
+
+---
+
+## Unsupervised Learning
+
+Unsupervised Learning works with **unlabeled data**. The algorithm is only given inputs $\mathbf{x}_i$ and must discover hidden patterns, structures, or distributions within the data $p(\mathbf{x})$.
+
+There is no "right answer" provided; the model focuses on finding similarities or differences.
+
+### Key Tasks:
+1.  **Clustering**: Grouping similar data points together (e.g., customer segmentation).
+2.  **Dimensionality Reduction**: Simplifying data by reducing features while preserving essential information (e.g., PCA).
+3.  **Anomaly Detection**: Finding unusual data points that deviate from the norm.
+4.  **Density Estimation**: Estimating the underlying distribution of the data.
+
+### Common Algorithms:
+- k-means Clustering
+- Principal Component Analysis (PCA)
+- Autoencoders
+- Gaussian Mixture Models (GMM)
+
+---
+
+## Visualizing the Difference
+
+Observe how supervised learning utilizes labels (colors) to understand class distinctions, while unsupervised learning sees only raw data distribution.
+
+<SupervisedVsUnsupervised />
+
+<Callout type="info">
+**Semi-Supervised Learning**: A hybrid approach where the model is trained on a small amount of labeled data and a large amount of unlabeled data. This is common when labeling data is expensive but raw data is abundant.
+</Callout>

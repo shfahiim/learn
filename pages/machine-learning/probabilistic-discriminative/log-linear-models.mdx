@@ -1,0 +1,47 @@
+import { Callout } from 'nextra/components';
+
+# Log-Linear Models (Softmax Regression)
+
+Log-linear models are a generalization of logistic regression to handle multiclass classification. Instead of a single sigmoid, we use the **Softmax function**.
+
+---
+
+## 1. The Softmax Function
+
+Given $K$ possible classes, the probability that an input $\mathbf{x}$ belongs to class $k$ is:
+
+$$
+p(C_k \mid \mathbf{x}) = \frac{\exp(a_k)}{\sum_{j=1}^K \exp(a_j)}
+$$
+
+Where $a_k = \mathbf{w}_k^T \mathbf{x} + b_k$ is the linear predictor for class $k$.
+
+---
+
+## 2. Training: Cross-Entropy Loss
+
+The multiclass cross-entropy loss function is:
+
+$$
+E(\mathbf{w}_1, \dots, \mathbf{w}_K) = -\sum_{n=1}^N \sum_{k=1}^K t_{nk} \ln y_{nk}
+$$
+
+Where:
+- $t_{nk}$ is the **indicator variable** (1 if the $n$-th sample belongs to class $k$, 0 otherwise).
+- $y_{nk} = p(C_k \mid \mathbf{x}_n)$ is the predicted probability.
+
+This is the standard loss function for most modern neural network classifiers.
+
+---
+
+## 3. Key Properties
+
+- **Sum to One**: $\sum_{k=1}^K p(C_k \mid \mathbf{x}) = 1$.
+- **Probabilities**: $0 \le p(C_k \mid \mathbf{x}) \le 1$.
+- **Decision Rule**: We assign the sample to the class with the highest probability.
+
+<Callout type="info">
+**Softmax and Temperature**: Sometimes we divide the linear predictors $a_k$ by a temperature parameter $T$: $p(C_k \mid \mathbf{x}) = \frac{\exp(a_k/T)}{\sum \exp(a_j/T)}$.
+- High $T$ makes the distribution more **uniform** (higher uncertainty).
+- Low $T$ makes the distribution more **peaked** (higher confidence).
+</Callout>

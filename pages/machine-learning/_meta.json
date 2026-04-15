@@ -1,0 +1,11 @@
+{
+  "index": "Overview",
+  "supervised-unsupervised": "Supervised vs Unsupervised",
+  "issues": "Issues in ML",
+  "linear-regression": "Linear Regression",
+  "linear-classification": "Linear Classification",
+  "probabilistic-discriminative": "Probabilistic Discriminative Models",
+  "kernel-methods": "Kernel Methods & SVMs",
+  "clustering-mixture": "Clustering & Mixture Models",
+  "sequential-data": "Sequential Data & Markov Models"
+}

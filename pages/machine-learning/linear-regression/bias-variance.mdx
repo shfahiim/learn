@@ -1,0 +1,47 @@
+import { Callout } from 'nextra/components';
+import BiasVarianceTradeoff from '@/components/BiasVarianceTradeoff';
+
+# Bias-Variance Decomposition
+
+Every machine learning model's error can be decomposed into three fundamentally different components. Understanding this decomposition is crucial for diagnosing whether a model is underfitting, overfitting, or simply limited by the quality of the data.
+
+---
+
+## 1. The Decomposition Formula
+
+For any model $\hat{f}(x)$, the expected test error at a point $x$ can be written as:
+
+$$
+\mathbb{E}[(y - \hat{f}(x))^2] = \text{Bias}[\hat{f}(x)]^2 + \text{Var}[\hat{f}(x)] + \sigma^2
+$$
+
+Where:
+- **$\text{Bias}^2$**: Error from erroneous assumptions in the learning algorithm. High bias leads to **Underfitting**.
+- **$\text{Var}$**: Error from sensitivity to small fluctuations in the training set. High variance leads to **Overfitting**.
+- **$\sigma^2$**: **Irreducible Error** (Noise). This is the minimum possible error that no model can overcome (e.g., due to measurement errors).
+
+---
+
+## 2. The Tradeoff
+
+There is a natural tension between bias and variance:
+- **Simple Models** (e.g., Linear Regression) usually have **High Bias** and **Low Variance**. They are consistent but might miss the true complexity.
+- **Complex Models** (e.g., Deep Neural Networks) usually have **Low Bias** and **High Variance**. They can fit any shape but are very sensitive to the specific training data used.
+
+The goal is to find the "Sweet Spot" where the total error is minimized.
+
+<BiasVarianceTradeoff />
+
+---
+
+## 3. Diagnosing the Error
+
+| Scenario | Bias | Variance | Likely Issue | Solution |
+| :--- | :--- | :--- | :--- | :--- |
+| Train Error: 15% <br/> Test Error: 16% | **High** | Low | Underfitting | Add features, increase complexity |
+| Train Error: 1% <br/> Test Error: 12% | Low | **High** | Overfitting | Regularization, more data |
+| Train Error: 14% <br/> Test Error: 30% | **High** | **High** | Very Poor Model | Change algorithm/approach |
+
+<Callout type="info">
+**The "Modern" Exception**: Recent research in deep learning has observed a phenomenon called "Double Descent," where increasing model complexity *beyond* the interpolation threshold can actually lead to a further decrease in test error, challenging the traditional U-shaped bias-variance curve.
+</Callout>

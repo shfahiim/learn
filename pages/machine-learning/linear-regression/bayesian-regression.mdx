@@ -1,0 +1,59 @@
+import { Callout } from 'nextra/components';
+import BayesianRegressionViz from '@/components/BayesianRegressionViz';
+
+# Bayesian Linear Regression
+
+Standard linear regression provides a single "best-fit" line (point estimates for weights). **Bayesian Linear Regression** treats the weights as random variables, allowing us to quantify our uncertainty about the model's parameters and its predictions.
+
+---
+
+## 1. The Bayesian Framework
+
+Instead of finding a single $\mathbf{w}$, we compute the **Posterior Distribution** over weights using Bayes' Theorem:
+
+$$
+p(\mathbf{w} \mid \mathbf{y}, \mathbf{X}) = \frac{p(\mathbf{y} \mid \mathbf{X}, \mathbf{w}) p(\mathbf{w})}{p(\mathbf{y} \mid \mathbf{X})}
+$$
+
+Where:
+- $p(\mathbf{w})$ is the **Prior**: Our belief about the weights before seeing any data. Usually, we assume a zero-mean Gaussian prior: $p(\mathbf{w}) = \mathcal{N}(\mathbf{w} \mid \mathbf{0}, \alpha^{-1} \mathbf{I})$.
+- $p(\mathbf{y} \mid \mathbf{X}, \mathbf{w})$ is the **Likelihood**: How well the weights explain the observed data.
+- $p(\mathbf{w} \mid \mathbf{y}, \mathbf{X})$ is the **Posterior**: Our updated belief after seeing the data.
+
+---
+
+## 2. Predictive Distribution
+
+The real power of Bayesian regression lies in the **Predictive Distribution**. For a new input $\mathbf{x}^*$, we don't just get a single value $y^*$; we get a distribution:
+
+$$
+p(y^* \mid \mathbf{x}^*, \mathbf{y}, \mathbf{X}) = \int p(y^* \mid \mathbf{x}^*, \mathbf{w}) p(\mathbf{w} \mid \mathbf{y}, \mathbf{X}) d\mathbf{w}
+$$
+
+This distribution is also Gaussian:
+$$
+p(y^* \mid \mathbf{x}^*, \mathbf{y}, \mathbf{X}) = \mathcal{N}(y^* \mid \mu^*, (\sigma^*)^2)
+$$
+
+---
+
+## 3. Visualizing Uncertainty
+
+A major advantage of the Bayesian approach is that the model "knows what it doesn't know." The predictive variance $(\sigma^*)^2$ is small in regions where we have lots of training data and grows large in regions where data is sparse.
+
+<BayesianRegressionViz />
+
+---
+
+## Comparison: OLS vs. Bayesian
+
+| Feature | Ordinary Least Squares (OLS) | Bayesian Linear Regression |
+| :--- | :--- | :--- |
+| **Output** | Single line (Point estimates) | Distribution of lines (Posterior) |
+| **Prior Knowledge** | Not explicitly used | Encoded via the Prior $p(\mathbf{w})$ |
+| **Uncertainty** | Not directly provided | Quantified via Predictive Variance |
+| **Overfitting** | Prone if no regularization | Naturally regularized by the Prior |
+
+<Callout type="info">
+**Regularization Connection**: It can be shown that finding the **MAP (Maximum A Posteriori)** estimate with a Gaussian prior is mathematically equivalent to **Ridge Regression**. The regularization parameter $\lambda$ is effectively the ratio of the noise variance to the prior variance.
+</Callout>

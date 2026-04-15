@@ -1,0 +1,45 @@
+import { Callout } from 'nextra/components';
+import ModelSelectionViz from '@/components/ModelSelectionViz';
+
+# Model Selection
+
+Model selection is the process of choosing the best model from a set of candidate models. This involves balancing model complexity to achieve the best generalization on new data.
+
+---
+
+## 1. The Validation Set
+
+We cannot use the **Test Set** to choose our model, as that would "leak" information and lead to over-optimistic results. Instead, we split the training data further:
+
+1.  **Training Set**: Used to fit the parameters of the model.
+2.  **Validation Set**: Used to tune hyperparameters and choose the best model architecture.
+3.  **Test Set**: Used ONLY once at the very end to estimate real-world performance.
+
+---
+
+## 2. Cross-Validation
+
+When data is scarce, we use **k-Fold Cross-Validation**:
+- Split training data into $k$ "folds".
+- Train $k$ times, each time using $k-1$ folds for training and 1 fold for validation.
+- Average the validation performance across all $k$ runs.
+
+---
+
+## 3. Information Criteria
+
+Sometimes we prefer models that are simpler, even if they have slightly higher training error.
+- **AIC (Akaike Information Criterion)**: Rewards goodness of fit but penalizes the number of parameters.
+- **BIC (Bayesian Information Criterion)**: Similar to AIC but with a stronger penalty for the number of parameters.
+
+---
+
+## 4. Visualizing the Selection Curve
+
+The optimal model is located at the point where the validation error is at its minimum.
+
+<ModelSelectionViz />
+
+<Callout type="info" emoji="💡">
+**Early Stopping**: In iterative algorithms like Neural Networks, we can monitor the validation error during training and stop as soon as it begins to rise, effectively "selecting" the best version of the model automatically.
+</Callout>
