@@ -1,5 +1,26 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Transformation of Variables
 
 When we have a random variable $X$ with a known distribution, we often want to know the distribution of a new variable $Y = g(X)$.
 
 The fundamental technique involves using the cumulative distribution function (CDF) or the Jacobian (for continuous transformations) to map the probabilities from $X$'s domain into $Y$'s domain.
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Linear Transformation">
+  <MathQuestion>
+    Let $X$ be the temperature in Celsius, normally distributed with $\mu = 20$ and $\sigma = 5$. We apply a transformation to convert to Fahrenheit: $Y = 1.8X + 32$. What is the distribution of $Y$?
+  </MathQuestion>
+  <MathSolution>
+    A linear transformation of a Normal variable results in another Normal variable. We just need to transform the mean and variance.
+    
+    **Mean:** $E[Y] = 1.8(E[X]) + 32 = 1.8(20) + 32 = 36 + 32 = 68$
+    
+    **Variance:** $Var(Y) = (1.8)^2 Var(X) = 3.24 \times 5^2 = 3.24 \times 25 = 81$
+    (Note: The standard deviation is $\sqrt{81} = 9$, which is simply $1.8 \times 5$).
+    
+    Therefore, $Y$ is normally distributed with **Mean 68 and Standard Deviation 9** ($Y \sim N(68, 81)$).
+  </MathSolution>
+</MathExample>

@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { CLTDistribution } from '../../components/CLTDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # The Central Limit Theorem (CLT)
 
@@ -47,3 +48,22 @@ In the simulation below, we are drawing random numbers from a **Uniform Distribu
 3.  Now, drag the **Sample Size** to `10` or higher. From a flat rectangle, a perfect Bell Curve emerges. This is the Central Limit Theorem in action.
 
 <CLTDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: The Power of the CLT">
+  <MathQuestion>
+    The weight of apples in an orchard is heavily right-skewed with a mean of 150g and a standard deviation of 40g. If you randomly sample 64 apples and take the average weight, what is the probability the sample average is greater than 160g?
+  </MathQuestion>
+  <MathSolution>
+    Because $n = 64 \ge 30$, the Central Limit Theorem applies. The distribution of the *sample mean* $\bar{x}$ will be approximately Normal.
+    
+    - Mean of $\bar{x} = \mu = 150$
+    - Standard Error (SE) $= \frac{\sigma}{\sqrt{n}} = \frac{40}{\sqrt{64}} = \frac{40}{8} = 5$
+    
+    Now, calculate the Z-score for $\bar{x} = 160$:
+    $Z = \frac{160 - 150}{5} = \frac{10}{5} = 2.0$
+    
+    Using the Empirical Rule (or Z-table), the probability of $Z > 2.0$ is about **2.5%**. Even though individual apples are highly skewed, the *average of 64 apples* follows a strict Normal curve!
+  </MathSolution>
+</MathExample>

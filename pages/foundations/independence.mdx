@@ -1,3 +1,5 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Independence and Conditional Independence
 
 ## Independence
@@ -9,3 +11,22 @@ Mathematically: $P(A \cap B) = P(A) \times P(B)$
 Two events $A$ and $B$ might be dependent, but become independent once we know a third event $C$.
 
 Mathematically: $P(A \cap B | C) = P(A|C) \times P(B|C)$
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Verifying Independence">
+  <MathQuestion>
+    A standard deck of 52 cards is well-shuffled. Let Event $A$ be drawing a Heart. Let Event $B$ be drawing a King. Are events $A$ and $B$ independent?
+  </MathQuestion>
+  <MathSolution>
+    To check independence, we must verify if $P(A \cap B) = P(A) \times P(B)$.
+    
+    - $P(A) = 13/52 = 1/4$ (There are 13 Hearts)
+    - $P(B) = 4/52 = 1/13$ (There are 4 Kings)
+    - $P(A \cap B)$ is the probability of drawing the King of Hearts. There is exactly 1 King of Hearts, so $P(A \cap B) = 1/52$.
+    
+    Check the math: $(1/4) \times (1/13) = 1/52$. 
+    Since $1/52 = 1/52$, the events **are independent**.
+  </MathSolution>
+</MathExample>

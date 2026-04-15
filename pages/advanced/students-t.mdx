@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { TDistribution } from '../../components/TDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Student’s t-Distribution
 
@@ -49,3 +50,20 @@ Use the slider below to adjust the Degrees of Freedom.
 Notice how at $df = 1$, the purple t-distribution has a much lower peak and much thicker tails. As you slide $df$ towards 30, watch the t-distribution morph upwards and inwards until it perfectly overlaps the Normal distribution!
 
 <TDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Calculating a t-Statistic">
+  <MathQuestion>
+    A sample of $n=16$ batteries has a mean lifespan of $\bar{x} = 95$ hours and a sample standard deviation of $s = 8$ hours. Test the hypothesis that the true population mean is $\mu = 100$ hours by calculating the t-statistic.
+  </MathQuestion>
+  <MathSolution>
+    Because the population standard deviation is unknown and the sample is small ($n<30$), we use the t-statistic.
+    
+    $t = \frac{\bar{x} - \mu}{s / \sqrt{n}}$
+    
+    $t = \frac{95 - 100}{8 / \sqrt{16}} = \frac{-5}{8 / 4} = \frac{-5}{2} = -2.5$
+    
+    The sample mean is **2.5 standard errors below** the hypothesized mean. (With $df = 15$, this is highly significant).
+  </MathSolution>
+</MathExample>

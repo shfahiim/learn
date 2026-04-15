@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { BayesTheorem } from '../../components/BayesTheorem';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Bayes' Theorem and Conditional Probability
 
@@ -73,3 +74,28 @@ Why? Because the disease is so rare (1%) compared to the false positive rate (9%
 Use the interactive simulation below. Drag the "Disease Rarity" slider to see how heavily the Base Rate impacts the actual truth of your test results!
 
 <BayesTheorem />
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: The Spam Filter (Bayes' Rule)">
+  <MathQuestion>
+    Suppose 20% of all emails are spam. A spam filter correctly flags 90% of spam emails as "Spam", but also incorrectly flags 5% of regular emails as "Spam". If you see an email in your Spam folder, what is the probability it is *actually* spam?
+  </MathQuestion>
+  <MathSolution>
+    Let $S$ = is spam, $F$ = flagged as spam. We want to find $P(S|F)$.
+    
+    - $P(S) = 0.20$ (Prior)
+    - $P(\neg S) = 0.80$
+    - $P(F|S) = 0.90$ (True Positive Rate)
+    - $P(F|\neg S) = 0.05$ (False Positive Rate)
+    
+    Total probability of being flagged:
+    $P(F) = P(F|S)P(S) + P(F|\neg S)P(\neg S) = (0.90 \times 0.20) + (0.05 \times 0.80) = 0.18 + 0.04 = 0.22$
+    
+    Apply Bayes:
+    $P(S|F) = \frac{P(F|S)P(S)}{P(F)} = \frac{0.18}{0.22} \approx 0.818$
+    
+    Even though the filter is 90% accurate, an email in the spam folder only has an **81.8%** chance of being actual spam.
+  </MathSolution>
+</MathExample>

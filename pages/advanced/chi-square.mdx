@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { ChiSquareDistribution } from '../../components/ChiSquareDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Chi-Square ($\chi^2$) Distribution
 
@@ -56,3 +57,22 @@ Notice two critical things:
 2. When $k$ is small, the distribution is heavily skewed to the right. As $k$ grows larger, the Central Limit Theorem takes over, and the Chi-Square distribution slowly begins to look like a symmetrical Normal Distribution!
 
 <ChiSquareDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Chi-Square Test Statistic">
+  <MathQuestion>
+    You flip a coin 100 times. You expect 50 Heads and 50 Tails. You actually get 60 Heads and 40 Tails. Calculate the Chi-Square test statistic $\chi^2$.
+  </MathQuestion>
+  <MathSolution>
+    Formula: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+    
+    For Heads: $\frac{(60 - 50)^2}{50} = \frac{10^2}{50} = \frac{100}{50} = 2$
+    
+    For Tails: $\frac{(40 - 50)^2}{50} = \frac{(-10)^2}{50} = \frac{100}{50} = 2$
+    
+    $\chi^2 = 2 + 2 = 4.0$
+    
+    (To finish a real test, you would compare $4.0$ to a Chi-Square table with 1 degree of freedom).
+  </MathSolution>
+</MathExample>

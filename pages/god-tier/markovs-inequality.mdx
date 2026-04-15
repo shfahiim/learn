@@ -1,3 +1,5 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Markov's Inequality
 
 Markov's inequality gives an upper bound for the probability that a non-negative random variable is greater than or equal to some positive constant.
@@ -5,3 +7,22 @@ Markov's inequality gives an upper bound for the probability that a non-negative
 $P(X \ge a) \le \frac{E[X]}{a}$
 
 It is the stepping stone used to prove Chebyshev's inequality!
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Using Markov's Inequality">
+  <MathQuestion>
+    A factory produces lightbulbs with an average lifespan of 1000 hours. The distribution is unknown, but lifespan must be non-negative. Use Markov's Inequality to find an upper bound on the probability that a lightbulb lasts *at least* 4000 hours.
+  </MathQuestion>
+  <MathSolution>
+    Markov's formula: $P(X \ge a) \le \frac{E[X]}{a}$
+    
+    - $E[X] = 1000$
+    - $a = 4000$
+    
+    $P(X \ge 4000) \le \frac{1000}{4000} = 0.25$
+    
+    Without knowing anything else about the distribution, we guarantee that **at most 25%** of the lightbulbs will last 4000 hours or more.
+  </MathSolution>
+</MathExample>

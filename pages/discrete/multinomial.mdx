@@ -1,3 +1,29 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Multinomial Distribution
 
 A generalization of the Binomial distribution. Instead of just "Success" and "Failure", each trial can result in one of $k$ distinct categories (like rolling a 6-sided die instead of flipping a 2-sided coin).
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Multinomial Distribution">
+  <MathQuestion>
+    A bowl of candy has 50% Red, 30% Green, and 20% Blue candies. You grab 5 candies at random (with replacement). What is the probability you get exactly 2 Red, 2 Green, and 1 Blue candy?
+  </MathQuestion>
+  <MathSolution>
+    Multinomial formula: $\frac{n!}{x_1! x_2! x_3!} (p_1)^{x_1} (p_2)^{x_2} (p_3)^{x_3}$
+    
+    - $n = 5$
+    - Red: $x_1 = 2, p_1 = 0.5$
+    - Green: $x_2 = 2, p_2 = 0.3$
+    - Blue: $x_3 = 1, p_3 = 0.2$
+    
+    $\frac{5!}{2! 2! 1!} = \frac{120}{4} = 30$
+    
+    Probability = $30 \times (0.5)^2 \times (0.3)^2 \times (0.2)^1$
+    Probability = $30 \times 0.25 \times 0.09 \times 0.2 = 0.135$
+    
+    There is a **13.5%** chance of grabbing this exact combination.
+  </MathSolution>
+</MathExample>

@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { BinomialDistribution } from '../../components/BinomialDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Binomial Distribution
 
@@ -52,3 +53,26 @@ Let's break down this formula:
 </Callout>
 
 <BinomialDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Binomial Probabilities">
+  <MathQuestion>
+    A manufacturing process produces defective parts 10% of the time ($p=0.1$). If you randomly inspect 5 parts ($n=5$), what is the probability of finding *exactly* 2 defective parts?
+  </MathQuestion>
+  <MathSolution>
+    This is a Binomial setting. We use the formula: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$
+    
+    - $n = 5$
+    - $k = 2$
+    - $p = 0.1$
+    - $1-p = 0.9$
+    
+    $\binom{5}{2} = \frac{5!}{2!(3!)} = 10$
+    
+    $P(X=2) = 10 \times (0.1)^2 \times (0.9)^3$
+    $P(X=2) = 10 \times 0.01 \times 0.729 = 0.0729$
+    
+    There is a **7.29%** chance of finding exactly 2 defective parts.
+  </MathSolution>
+</MathExample>

@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { ExponentialDistribution } from '../../components/ExponentialDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Exponential Distribution
 
@@ -69,3 +70,21 @@ Use the slider below to adjust the rate parameter ($\lambda$).
 Notice how the density is highly concentrated near zero, meaning shorter wait times are always more probable than longer wait times. As the rate $\lambda$ increases, the curve decays even faster.
 
 <ExponentialDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Exponential Lifespan">
+  <MathQuestion>
+    The lifespan of a certain electronic component follows an exponential distribution with an average life of 4 years. What is the probability that a component fails within the first year?
+  </MathQuestion>
+  <MathSolution>
+    First, find the rate parameter $\lambda$. Since the mean is $1/\lambda = 4$, then $\lambda = 0.25$.
+    
+    The CDF of the exponential distribution is $P(X \le x) = 1 - e^{-\lambda x}$.
+    
+    We want $P(X \le 1)$:
+    $1 - e^{-0.25(1)} = 1 - e^{-0.25} \approx 1 - 0.7788 = 0.2212$
+    
+    There is a **22.12%** probability the component fails in the first year.
+  </MathSolution>
+</MathExample>

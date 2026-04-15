@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { FDistributionViz } from '../../components/FDistributionViz';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # F-Distribution
 
@@ -52,3 +53,19 @@ Instead, ANOVA calculates a single F-statistic. It asks a profound question: **"
 Use the sliders below to adjust the numerator ($d_1$) and denominator ($d_2$) degrees of freedom to see how the F-distribution changes its skew and peak.
 
 <FDistributionViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: The F-Statistic in ANOVA">
+  <MathQuestion>
+    In an ANOVA test, the Between-Group Variance (Mean Square Between) is $45$ and the Within-Group Variance (Mean Square Error) is $15$. What is the F-statistic?
+  </MathQuestion>
+  <MathSolution>
+    The F-statistic is the ratio of two variances:
+    $F = \frac{\text{Between-Group Variance}}{\text{Within-Group Variance}}$
+    
+    $F = \frac{45}{15} = 3.0$
+    
+    Because $F > 1$, the variance *between* the groups is larger than the variance *within* the groups, suggesting the group means might actually be different.
+  </MathSolution>
+</MathExample>

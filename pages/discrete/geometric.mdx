@@ -1,5 +1,26 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Geometric Distribution
 
 The Geometric distribution models the number of trials needed to get the **first success** in a series of Bernoulli trials.
 
 $P(X = k) = (1-p)^{k-1}p$
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Geometric Waiting Time">
+  <MathQuestion>
+    A basketball player makes 80% of his free throws ($p=0.8$). What is the probability that he misses his first two shots, but makes his *first* successful shot on the 3rd attempt?
+  </MathQuestion>
+  <MathSolution>
+    This is a Geometric distribution where we want the first success on trial $k=3$.
+    
+    Formula: $P(X = k) = (1-p)^{k-1}p$
+    
+    $P(X = 3) = (1 - 0.8)^{3-1}(0.8) = (0.2)^2 (0.8)$
+    $P(X = 3) = 0.04 \times 0.8 = 0.032$
+    
+    There is a **3.2%** chance his first success happens exactly on the 3rd shot.
+  </MathSolution>
+</MathExample>

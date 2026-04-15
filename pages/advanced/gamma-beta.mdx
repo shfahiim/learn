@@ -1,6 +1,7 @@
 import { Callout } from 'nextra/components';
 import { BetaDistributionViz } from '../../components/BetaDistributionViz';
 import { GammaDistributionViz } from '../../components/GammaDistributionViz';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Gamma and Beta Distributions
 
@@ -60,3 +61,19 @@ $$
 ### Interactive Gamma Visualization
 
 <GammaDistributionViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Bayesian Update with Beta">
+  <MathQuestion>
+    You believe a trick coin might be biased towards Heads. You assign a weak Prior Beta distribution of $\alpha = 2$ and $\beta = 2$. You flip the coin 10 times and observe 8 Heads and 2 Tails. What is your Posterior Beta distribution?
+  </MathQuestion>
+  <MathSolution>
+    Because Beta is a conjugate prior to the Binomial distribution, the math is incredibly simple. You just add the observed successes to $\alpha$ and failures to $\beta$.
+    
+    - $\alpha_{new} = \alpha_{prior} + \text{Heads} = 2 + 8 = 10$
+    - $\beta_{new} = \beta_{prior} + \text{Tails} = 2 + 2 = 4$
+    
+    Your new Posterior distribution is **Beta(10, 4)**. The mean has shifted from $0.50$ to $10/14 \approx 0.71$.
+  </MathSolution>
+</MathExample>

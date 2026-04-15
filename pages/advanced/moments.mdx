@@ -1,3 +1,5 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Moments and MGFs
 
 ## Moments
@@ -7,3 +9,25 @@ The $n$-th moment of a random variable $X$ is defined as $E[X^n]$.
 
 ## Moment Generating Functions (MGF)
 The MGF is a magical function $M_X(t) = E[e^{tX}]$. If you can find the MGF, you can find any moment of the distribution by taking its derivative and evaluating it at $t=0$.
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Using the MGF for a Poisson">
+  <MathQuestion>
+    The Moment Generating Function of a Poisson distribution with rate $\lambda$ is $M_X(t) = e^{\lambda(e^t - 1)}$. Use the MGF to find the First Moment (the Mean) of the Poisson distribution.
+  </MathQuestion>
+  <MathSolution>
+    To find the first moment, we take the first derivative of the MGF with respect to $t$, and evaluate it at $t=0$.
+    
+    $\frac{d}{dt} M_X(t) = \frac{d}{dt} e^{\lambda(e^t - 1)}$
+    
+    Using the chain rule:
+    $M_X'(t) = e^{\lambda(e^t - 1)} \cdot \frac{d}{dt}[\lambda(e^t - 1)] = e^{\lambda(e^t - 1)} \cdot (\lambda e^t)$
+    
+    Evaluate at $t=0$:
+    $M_X'(0) = e^{\lambda(e^0 - 1)} \cdot (\lambda e^0) = e^{\lambda(1 - 1)} \cdot (\lambda \cdot 1) = e^0 \cdot \lambda = 1 \cdot \lambda = \lambda$
+    
+    Thus, the Mean of the Poisson distribution is exactly **$\lambda$**.
+  </MathSolution>
+</MathExample>

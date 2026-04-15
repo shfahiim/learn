@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { MathDescriptionsViz } from '../../components/MathDescriptionsViz';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # The Mathematical Descriptions
 
@@ -80,3 +81,22 @@ $$
 Switch between the PDF and CDF views below. Notice how the **Area under the curve** in the PDF view perfectly matches the exact **Y-axis height** in the CDF view!
 
 <MathDescriptionsViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: PDF vs CDF">
+  <MathQuestion>
+    Let the continuous random variable $X$ have a probability density function (PDF) $f(x) = 2x$ for $0 \le x \le 1$. 
+    Find the cumulative distribution function (CDF) $F(x)$ and calculate $P(X \le 0.5)$.
+  </MathQuestion>
+  <MathSolution>
+    The CDF $F(x)$ is the integral of the PDF from the lower bound to $x$:
+    
+    $F(x) = \int_{0}^{x} 2t \, dt = \left[ t^2 \right]_0^x = x^2$
+    
+    To find the probability $P(X \le 0.5)$, we just plug $0.5$ into the CDF:
+    $F(0.5) = (0.5)^2 = 0.25$
+    
+    There is a 25% probability that $X$ is less than or equal to 0.5.
+  </MathSolution>
+</MathExample>

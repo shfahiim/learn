@@ -1,3 +1,33 @@
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
+
 # Hypergeometric Distribution
 
 The probability of $k$ successes in $n$ draws, **without replacement**, from a finite population of size $N$ that contains exactly $K$ successes.
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Hypergeometric (Without Replacement)">
+  <MathQuestion>
+    A deck of 52 cards contains 4 Aces. You draw 5 cards from the deck *without replacement*. What is the probability you draw exactly 2 Aces?
+  </MathQuestion>
+  <MathSolution>
+    Because we are drawing *without replacement* from a finite population, this is Hypergeometric.
+    
+    Formula: $\frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}$
+    - Total Population $N = 52$
+    - Total Successes $K = 4$ (Aces)
+    - Sample Size $n = 5$
+    - Desired Successes $k = 2$
+    
+    $\frac{\binom{4}{2} \binom{48}{3}}{\binom{52}{5}}$
+    
+    - $\binom{4}{2} = 6$
+    - $\binom{48}{3} = 17,296$
+    - $\binom{52}{5} = 2,598,960$
+    
+    $P(X=2) = \frac{6 \times 17,296}{2,598,960} = \frac{103,776}{2,598,960} \approx 0.0399$
+    
+    There is a **3.99%** chance of drawing exactly 2 Aces in a 5-card hand.
+  </MathSolution>
+</MathExample>

@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { PoissonDistribution } from '../../components/PoissonDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Poisson Distribution
 
@@ -58,3 +59,21 @@ Use the slider below to adjust the average rate ($\lambda$).
 Notice how the distribution is heavily right-skewed for very low values of $\lambda$ (like 1 or 2). However, as $\lambda$ grows larger, the distribution spreads out and becomes increasingly symmetrical, once again approximating the shape of a Normal distribution.
 
 <PoissonDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Poisson Call Center">
+  <MathQuestion>
+    A tech support center receives an average of 3 calls per hour ($\lambda = 3$). What is the probability they receive exactly 0 calls in the next hour?
+  </MathQuestion>
+  <MathSolution>
+    Poisson formula: $P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$
+    
+    - $\lambda = 3$
+    - $k = 0$
+    
+    $P(X = 0) = \frac{3^0 e^{-3}}{0!} = \frac{1 \times 0.0498}{1} = 0.0498$
+    
+    There is a **4.98%** chance the call center will be completely silent for the next hour.
+  </MathSolution>
+</MathExample>

@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { UniformDistribution } from '../../components/UniformDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Uniform Distribution (Continuous)
 
@@ -56,3 +57,21 @@ Use the sliders below to adjust the minimum ($a$) and maximum ($b$) boundaries.
 Notice how the total width changes, and in response, the height (density) perfectly scales up or down to ensure the total area of the pink rectangle remains exactly $1.0$.
 
 <UniformDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Continuous Waiting Time">
+  <MathQuestion>
+    A subway train arrives precisely every 15 minutes. If you arrive at the station at a totally random time, your waiting time $X$ is uniformly distributed between 0 and 15. What is the probability you have to wait *more* than 10 minutes?
+  </MathQuestion>
+  <MathSolution>
+    This is a Continuous Uniform Distribution $U(0, 15)$.
+    
+    The PDF is $f(x) = \frac{1}{b-a} = \frac{1}{15-0} = \frac{1}{15}$
+    
+    We want $P(X > 10)$, which is the area under the curve from 10 to 15:
+    $\text{Base} \times \text{Height} = (15 - 10) \times \frac{1}{15} = 5 \times \frac{1}{15} = \frac{5}{15} = \frac{1}{3}$
+    
+    There is a **33.3%** chance you will wait more than 10 minutes.
+  </MathSolution>
+</MathExample>

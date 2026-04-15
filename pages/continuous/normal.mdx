@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components';
 import { NormalDistribution } from '../../components/NormalDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # Normal (Gaussian) Distribution
 
@@ -53,3 +54,17 @@ Below is an interactive graph.
 *   Drag the **Standard Deviation ($\sigma$)** to see how variance impacts the curve. A smaller $\sigma$ makes the curve tall and spiked (data is highly predictable). A larger $\sigma$ makes the curve flat and wide (data is highly spread out).
 
 <NormalDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Normal Curve Empirical Rule">
+  <MathQuestion>
+    A population of adult male heights is normally distributed with a mean $\mu = 70$ inches and a standard deviation $\sigma = 3$ inches. What percentage of men are between 64 inches and 76 inches tall?
+  </MathQuestion>
+  <MathSolution>
+    Notice that 64 inches is exactly $\mu - 2\sigma$ ($70 - 2(3) = 64$).
+    Notice that 76 inches is exactly $\mu + 2\sigma$ ($70 + 2(3) = 76$).
+    
+    According to the Empirical Rule (68-95-99.7), approximately **95%** of normally distributed data falls within 2 standard deviations of the mean.
+  </MathSolution>
+</MathExample>

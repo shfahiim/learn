@@ -1,4 +1,5 @@
 import { LLNDistribution } from '../../components/LLNDistribution';
+import { MathExample, MathQuestion, MathSolution } from '../components/MathExample';
 
 # The Law of Large Numbers (LLN)
 
@@ -34,3 +35,16 @@ Click "Start Flipping Coin" to simulate flipping the coin rapidly.
 Notice how wildly the running average swings in the beginning when the sample size is small. But as the number of flips crosses 100, 500, and 1000, the jagged line flattens out and stubbornly locks itself to the red dashed line (the true mean).
 
 <LLNDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Law of Large Numbers (Casino)">
+  <MathQuestion>
+    A roulette wheel has an expected value of -$0.05 per spin for the player. You play 10 times and somehow win $50. The casino owner isn't worried. Why does the LLN explain the casino's confidence?
+  </MathQuestion>
+  <MathSolution>
+    The Law of Large Numbers states that as the number of trials ($n$) approaches infinity, the actual sample average converges strictly to the theoretical Expected Value.
+    
+    You only played $n=10$ times. In small samples, variance rules and extreme outcomes (like you winning $50) are common. However, over the course of a year, the casino will see $n = 1,000,000$ spins. The LLN guarantees that their profit will converge exactly to $0.05 per spin, cementing their edge regardless of short-term anomalies.
+  </MathSolution>
+</MathExample>
