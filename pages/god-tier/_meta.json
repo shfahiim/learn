@@ -1,5 +1,6 @@
 {
+  "markovs-inequality": "Markov's Inequality",
+  "chebyshevs-theorem": "Chebyshev's Theorem",
   "lln": "Law of Large Numbers",
-  "clt": "Central Limit Theorem",
-  "chebyshevs-theorem": "Chebyshev's Theorem"
+  "clt": "Central Limit Theorem"
 }

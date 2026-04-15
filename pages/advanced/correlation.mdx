@@ -1,0 +1,22 @@
+import { Callout } from 'nextra/components';
+import { CorrelationViz } from '../../components/CorrelationViz';
+
+# Correlation and Association
+
+<Callout type="warning" emoji="⚠️">
+**Correlation does not imply causation.** Two variables can move together perfectly without one causing the other.
+</Callout>
+
+## Correlation Coefficient
+The Pearson correlation coefficient ($r$) measures the linear relationship between two variables, ranging from -1 to 1.
+
+## Rank Correlation
+Spearman's Rank Correlation evaluates how well the relationship between two variables can be described using a monotonic function, without requiring it to be perfectly linear.
+
+## Homoscedasticity vs. Heteroscedasticity
+- **Homoscedasticity:** The variance of errors is constant across all levels of the independent variable.
+- **Heteroscedasticity:** The variance of errors changes (often forming a cone shape in a scatter plot), which violates many linear regression assumptions.
+
+## Interactive Correlation Explorer
+
+<CorrelationViz />

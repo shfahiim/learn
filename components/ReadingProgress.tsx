@@ -22,17 +22,33 @@ export function ReadingProgress() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const radius = 12;
-  const stroke = 2.5;
+  const radius = 18;
+  const stroke = 3;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px' }}>
+    <div style={{ 
+      position: 'fixed',
+      bottom: '24px',
+      right: '24px',
+      zIndex: 9999,
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      width: '44px', 
+      height: '44px',
+      backgroundColor: 'var(--chart-panel-bg)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: '50%',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      border: '1px solid var(--chart-border)'
+    }}>
       <svg height={radius * 2} width={radius * 2} style={{ transform: 'rotate(-90deg)' }}>
         <circle
-          stroke="var(--chart-border, #e2e8f0)"
+          stroke="var(--chart-muted)"
+          strokeOpacity={0.2}
           fill="transparent"
           strokeWidth={stroke}
           r={normalizedRadius}
@@ -40,7 +56,7 @@ export function ReadingProgress() {
           cy={radius}
         />
         <circle
-          stroke="var(--chart-primary, #6366f1)"
+          stroke="var(--chart-primary)"
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={circumference + ' ' + circumference}

@@ -1,6 +1,9 @@
 {
-  "students-t": "Student's t-Distribution",
+  "correlation": "Correlation",
   "chi-square": "Chi-Square Distribution",
+  "students-t": "Student's t-Distribution",
   "f-distribution": "F-Distribution",
-  "gamma-beta": "Gamma and Beta"
+  "gamma-beta": "Gamma & Beta",
+  "moments": "Moments & MGFs",
+  "transformations": "Transformations"
 }

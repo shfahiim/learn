@@ -1,0 +1,24 @@
+import { Callout } from 'nextra/components';
+
+# Set Theory & Probability Axioms
+
+<Callout type="info" emoji="✨">
+Probability is built on the language of sets.
+</Callout>
+
+## 1. Sets and Events
+
+- **Union ($\cup$):** $A \cup B$ means event A happens OR event B happens.
+- **Intersection ($\cap$):** $A \cap B$ means event A AND event B happen simultaneously.
+- **Mutually Exclusive:** If $A \cap B = \emptyset$, the events cannot happen together.
+
+## 2. Counting Methods
+
+- **Permutations:** Order matters. $P(n, r) = \frac{n!}{(n-r)!}$
+- **Combinations:** Order does not matter. $C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$
+
+## 3. Kolmogorov's Axioms
+
+1. The probability of any event is non-negative: $P(E) \ge 0$.
+2. The probability of the entire sample space is 1: $P(\Omega) = 1$.
+3. For mutually exclusive events, $P(A \cup B) = P(A) + P(B)$.

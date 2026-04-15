@@ -1,6 +1,9 @@
 {
   "core-concepts": "Core Concepts",
-  "math-descriptions": "Mathematical Descriptions",
-  "key-metrics": "Key Metrics",
-  "bayes-theorem": "Bayes' Theorem"
+  "set-theory": "Set Theory & Axioms",
+  "interpretations": "Interpretations of Prob.",
+  "independence": "Independence",
+  "bayes-theorem": "Bayes' Theorem",
+  "math-descriptions": "Math Descriptions",
+  "key-metrics": "Key Metrics"
 }

@@ -1,6 +1,9 @@
 {
   "bernoulli": "Bernoulli Distribution",
   "binomial": "Binomial Distribution",
+  "geometric": "Geometric Distribution",
+  "multinomial": "Multinomial Distribution",
+  "hypergeometric": "Hypergeometric",
   "poisson": "Poisson Distribution",
-  "uniform": "Uniform Distribution"
+  "uniform": "Discrete Uniform"
 }

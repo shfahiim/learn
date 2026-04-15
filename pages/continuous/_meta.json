@@ -1,6 +1,7 @@
 {
-  "normal": "Normal (Gaussian)",
+  "uniform": "Continuous Uniform",
+  "normal": "Normal Distribution",
   "standard-normal": "Standard Normal (Z)",
-  "uniform": "Uniform (Continuous)",
-  "exponential": "Exponential"
+  "qq-plots": "Q-Q Plots",
+  "exponential": "Exponential Distribution"
 }
