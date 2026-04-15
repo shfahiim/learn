@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ZAxis } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { chartGridProps, chartAxisProps, chartTooltipProps } from './charts/rechartsDefaults';
 import { ChartCard } from './charts/ChartCard';
 
@@ -31,9 +31,9 @@ const KernelTrickViz = () => {
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data}>
+              <Scatter name="Data" data={data} fill="#8884d8">
                 {data.map((entry, index) => (
-                  <circle key={`cell-${index}`} cx={0} cy={0} r={4} fill={entry.color} />
+                  <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Scatter>
             </ScatterChart>
@@ -49,9 +49,9 @@ const KernelTrickViz = () => {
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="z" name="z (Mapped)" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data}>
+              <Scatter name="Data" data={data} fill="#8884d8">
                 {data.map((entry, index) => (
-                  <circle key={`cell-${index}`} cx={0} cy={0} r={4} fill={entry.color} />
+                  <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Scatter>
             </ScatterChart>
