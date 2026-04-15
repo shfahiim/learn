@@ -1,0 +1,60 @@
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Moments and MGFs
+
+Moments are summary statistics of a distribution. They capture **location**, **spread**, and **shape**.
+
+## Moments (raw vs central)
+
+- **Raw moment:** $E[X^n]$
+- **Central moment:** $E[(X-\mu)^n]$ where $\mu = E[X]$
+
+Common moments:
+
+- **Mean:** $E[X]$
+- **Variance:** $\mathrm{Var}(X)=E[(X-\mu)^2] = E[X^2]-\mu^2$
+- **Skewness (shape):** based on $E[(X-\mu)^3]$
+- **Kurtosis (tails/peakedness):** based on $E[(X-\mu)^4]$
+
+## Moment Generating Function (MGF)
+
+The **MGF** is
+
+$$
+M_X(t)=E[e^{tX}].
+$$
+
+Why it’s useful:
+
+- Differentiating at $t=0$ gives raw moments:
+
+$$
+M_X^{(n)}(0)=E[X^n].
+$$
+
+- If an MGF exists in a neighborhood around $0$, it uniquely identifies the distribution.
+
+> Note: Some distributions don’t have an MGF (e.g., Cauchy). In those cases people often use the **characteristic function** instead.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Using the MGF for a Poisson">
+  <MathQuestion>
+    The Moment Generating Function of a Poisson distribution with rate $\lambda$ is $M_X(t) = e^{\lambda(e^t - 1)}$. Use the MGF to find the First Moment (the Mean) of the Poisson distribution.
+  </MathQuestion>
+  <MathSolution>
+    To find the first moment, we take the first derivative of the MGF with respect to $t$, and evaluate it at $t=0$.
+
+    $\frac{d}{dt} M_X(t) = \frac{d}{dt} e^{\lambda(e^t - 1)}$
+
+    Using the chain rule:
+
+    $M_X'(t) = e^{\lambda(e^t - 1)} \cdot \frac{d}{dt}[\lambda(e^t - 1)] = e^{\lambda(e^t - 1)} \cdot (\lambda e^t)$
+
+    Evaluate at $t=0$:
+
+    $M_X'(0) = e^{\lambda(e^0 - 1)} \cdot (\lambda e^0) = e^{\lambda(1 - 1)} \cdot \lambda = \lambda$
+
+    Thus, the Mean of the Poisson distribution is exactly **$\lambda$**.
+  </MathSolution>
+</MathExample>

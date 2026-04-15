@@ -1,0 +1,44 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Set Theory & Probability Axioms
+
+<Callout type="info" emoji="✨">
+Probability is built on the language of sets.
+</Callout>
+
+## 1. Sets and Events
+
+- **Union ($\cup$):** $A \cup B$ means event A happens OR event B happens.
+- **Intersection ($\cap$):** $A \cap B$ means event A AND event B happen simultaneously.
+- **Mutually Exclusive:** If $A \cap B = \emptyset$, the events cannot happen together.
+
+## 2. Counting Methods
+
+- **Permutations:** Order matters. $P(n, r) = \frac{n!}{(n-r)!}$
+- **Combinations:** Order does not matter. $C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$
+
+## 3. Kolmogorov's Axioms
+
+1. The probability of any event is non-negative: $P(E) \ge 0$.
+2. The probability of the entire sample space is 1: $P(\Omega) = 1$.
+3. For mutually exclusive events, $P(A \cup B) = P(A) + P(B)$.
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Union and Intersection">
+  <MathQuestion>
+    In a class of 50 students, 30 study Math (Set $M$) and 25 study Physics (Set $P$). If 10 students study *both* subjects, what is the probability that a randomly selected student studies Math OR Physics?
+  </MathQuestion>
+  <MathSolution>
+    We use the inclusion-exclusion principle: $P(M \cup P) = P(M) + P(P) - P(M \cap P)$
+    
+    First, convert to probabilities:
+    - $P(M) = 30 / 50 = 0.60$
+    - $P(P) = 25 / 50 = 0.50$
+    - $P(M \cap P) = 10 / 50 = 0.20$
+    
+    $P(M \cup P) = 0.60 + 0.50 - 0.20 = 0.90$ (or 90%)
+  </MathSolution>
+</MathExample>

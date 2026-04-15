@@ -1,0 +1,79 @@
+import { Callout } from 'nextra/components';
+import { PoissonDistribution } from '@/components/PoissonDistribution';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Poisson Distribution
+
+<Callout type="info" emoji="⏱️">
+The Poisson distribution is a discrete probability distribution that expresses the probability of a given number of events occurring in a **fixed interval of time or space**. 
+</Callout>
+
+It is used when events happen independently of each other and at a constant average rate.
+
+## Core Concepts
+
+If a random variable $X$ follows a Poisson distribution, we write:
+$$
+X \sim \text{Poisson}(\lambda)
+$$
+
+Where:
+*   <span style={{color: '#10b981', fontWeight: 'bold'}}>$\lambda$ (lambda)</span> is the average number of events in the given interval (the "rate" parameter).
+
+### Probability Mass Function (PMF)
+
+The probability of observing exactly $k$ events in the interval is given by:
+
+$$
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
+
+Where:
+*   $e$ is Euler's number ($e \approx 2.71828$).
+*   $k!$ is the factorial of $k$.
+
+### Assumptions of a Poisson Process
+For a real-world process to be truly modeled by Poisson, it must meet these criteria:
+1.  $k$ can be any positive integer ($0, 1, 2, 3, \dots$) theoretically up to infinity.
+2.  The occurrence of one event does not affect the probability of a second event (Independence).
+3.  The average rate ($\lambda$) is constant over the interval.
+4.  Two events cannot occur at the exact same instant in time.
+
+## Key Metrics
+
+<Callout type="warning" emoji="🪄">
+**Mathematical Magic:** A fascinating property of the Poisson distribution is that its expected value and its variance are exactly the same number!
+</Callout>
+
+*   **Expected Value (Mean):** $E[X] = \lambda$
+*   **Variance:** $\text{Var}(X) = \lambda$
+
+## Real-World Examples
+1.  **Network Traffic:** The number of requests arriving at a web server per minute.
+2.  **Customer Service:** The number of calls received by a call center per hour.
+3.  **Astronomy:** The number of meteorites hitting a specific region of the atmosphere in a year.
+
+## Interactive Visualization
+
+Use the slider below to adjust the average rate ($\lambda$).
+Notice how the distribution is heavily right-skewed for very low values of $\lambda$ (like 1 or 2). However, as $\lambda$ grows larger, the distribution spreads out and becomes increasingly symmetrical, once again approximating the shape of a Normal distribution.
+
+<PoissonDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Poisson Call Center">
+  <MathQuestion>
+    A tech support center receives an average of 3 calls per hour ($\lambda = 3$). What is the probability they receive exactly 0 calls in the next hour?
+  </MathQuestion>
+  <MathSolution>
+    Poisson formula: $P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$
+    
+    - $\lambda = 3$
+    - $k = 0$
+    
+    $P(X = 0) = \frac{3^0 e^{-3}}{0!} = \frac{1 \times 0.0498}{1} = 0.0498$
+    
+    There is a **4.98%** chance the call center will be completely silent for the next hour.
+  </MathSolution>
+</MathExample>

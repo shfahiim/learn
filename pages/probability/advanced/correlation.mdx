@@ -1,0 +1,40 @@
+import { Callout } from 'nextra/components';
+import { CorrelationViz } from '@/components/CorrelationViz';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Correlation and Association
+
+<Callout type="warning" emoji="⚠️">
+**Correlation does not imply causation.** Two variables can move together perfectly without one causing the other.
+</Callout>
+
+## Correlation Coefficient
+The Pearson correlation coefficient ($r$) measures the linear relationship between two variables, ranging from -1 to 1.
+
+## Rank Correlation
+Spearman's Rank Correlation evaluates how well the relationship between two variables can be described using a monotonic function, without requiring it to be perfectly linear.
+
+## Homoscedasticity vs. Heteroscedasticity
+- **Homoscedasticity:** The variance of errors is constant across all levels of the independent variable.
+- **Heteroscedasticity:** The variance of errors changes (often forming a cone shape in a scatter plot), which violates many linear regression assumptions.
+
+## Interactive Correlation Explorer
+
+<CorrelationViz />
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Covariance and Pearson r">
+  <MathQuestion>
+    Two variables $X$ and $Y$ have a Covariance of $Cov(X,Y) = 15$. The standard deviation of $X$ is $\sigma_x = 4$ and the standard deviation of $Y$ is $\sigma_y = 5$. Calculate the Pearson correlation coefficient $r$.
+  </MathQuestion>
+  <MathSolution>
+    The formula for the Pearson correlation coefficient is:
+    $r = \frac{Cov(X,Y)}{\sigma_x \sigma_y}$
+    
+    $r = \frac{15}{4 \times 5} = \frac{15}{20} = 0.75$
+    
+    The correlation is **0.75**, indicating a strong positive linear relationship between $X$ and $Y$.
+  </MathSolution>
+</MathExample>

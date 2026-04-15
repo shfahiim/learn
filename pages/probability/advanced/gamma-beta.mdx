@@ -1,0 +1,79 @@
+import { Callout } from 'nextra/components';
+import { BetaDistributionViz } from '@/components/BetaDistributionViz';
+import { GammaDistributionViz } from '@/components/GammaDistributionViz';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Gamma and Beta Distributions
+
+<Callout type="info" emoji="🎩">
+While the Normal, Binomial, and Poisson distributions are the workhorses of classical (Frequentist) statistics, the **Gamma** and **Beta** distributions are the fundamental building blocks of **Bayesian statistics**.
+</Callout>
+
+They are highly flexible "chameleon" distributions. Instead of modeling a specific physical process (like a coin flip), they are used to model **our beliefs** about other probabilities and rates.
+
+---
+
+## 1. The Beta Distribution
+
+The Beta distribution is unique because it is entirely bounded between $0$ and $1$. Because probabilities themselves must be between $0$ and $1$, the Beta distribution is the ultimate tool for **modeling probabilities**.
+
+### Core Concept
+In Bayesian statistics, you don't just say *"The coin has a 50% chance of landing heads."* Instead, you use a Beta distribution to say *"I am 90% confident that the true probability of heads is somewhere between 45% and 55%."* 
+
+The Beta distribution is defined by two "shape" parameters: <span style={{color: '#22c55e', fontWeight: 'bold'}}>$\alpha$ (alpha)</span> and <span style={{color: '#166534', fontWeight: 'bold'}}>$\beta$ (beta)</span>.
+$$
+X \sim \text{Beta}(\alpha, \beta)
+$$
+
+### The Intuition
+
+<Callout type="warning" emoji="🧠">
+Think of $\alpha$ as "prior successes" and $\beta$ as "prior failures".
+</Callout>
+
+*   **If $\alpha = 1, \beta = 1$:** The distribution is completely flat (Uniform). You have absolutely no idea what the true probability is.
+*   **If $\alpha = 10, \beta = 10$:** The distribution is a bell shape perfectly centered at $0.5$. You strongly believe the coin is fair.
+*   **If $\alpha = 80, \beta = 20$:** The distribution is spiked at $0.8$. You strongly believe there is an 80% chance of success.
+
+### Interactive Beta Visualization
+
+<BetaDistributionViz />
+
+---
+
+## 2. The Gamma Distribution
+
+If the Beta distribution is used to model probabilities (values between 0 and 1), the Gamma distribution is used to model **rates** or **continuous waiting times** (values strictly greater than 0).
+
+It is a generalization of the Exponential distribution. While the Exponential distribution models the time until the *next single event*, the Gamma distribution models the time until the <span style={{color: '#64748b', fontWeight: 'bold'}}>$k$-th event</span> occurs!
+
+### Core Concept
+The Gamma distribution is defined by two parameters: a shape parameter <span style={{color: '#475569', fontWeight: 'bold'}}>$k$</span> and a scale parameter <span style={{color: '#94a3b8', fontWeight: 'bold'}}>$\theta$</span> (or alternatively, a rate parameter $\beta$).
+$$
+X \sim \text{Gamma}(k, \theta)
+$$
+
+### Real-World Applications
+1.  **Queuing Models:** How long will it take for the next 5 customers to arrive?
+2.  **Insurance:** Modeling the size of incoming insurance claims (which are heavily right-skewed and cannot be negative).
+3.  **Bayesian Priors:** Just as Beta is used as a prior for Binomial probabilities, Gamma is used as the conjugate prior for Poisson rates ($\lambda$).
+
+### Interactive Gamma Visualization
+
+<GammaDistributionViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Bayesian Update with Beta">
+  <MathQuestion>
+    You believe a trick coin might be biased towards Heads. You assign a weak Prior Beta distribution of $\alpha = 2$ and $\beta = 2$. You flip the coin 10 times and observe 8 Heads and 2 Tails. What is your Posterior Beta distribution?
+  </MathQuestion>
+  <MathSolution>
+    Because Beta is a conjugate prior to the Binomial distribution, the math is incredibly simple. You just add the observed successes to $\alpha$ and failures to $\beta$.
+    
+    - $\alpha_{new} = \alpha_{prior} + \text{Heads} = 2 + 8 = 10$
+    - $\beta_{new} = \beta_{prior} + \text{Tails} = 2 + 2 = 4$
+    
+    Your new Posterior distribution is **Beta(10, 4)**. The mean has shifted from $0.50$ to $10/14 \approx 0.71$.
+  </MathSolution>
+</MathExample>

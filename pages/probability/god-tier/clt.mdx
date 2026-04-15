@@ -1,0 +1,69 @@
+import { Callout } from 'nextra/components';
+import { CLTDistribution } from '@/components/CLTDistribution';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# The Central Limit Theorem (CLT)
+
+<Callout type="info" emoji="🌟">
+The Central Limit Theorem is arguably the most magical, counter-intuitive, and fundamentally important theorem in all of statistics. It is the reason why the Normal (Gaussian) distribution appears everywhere in nature and science.
+</Callout>
+
+## Core Concept
+
+The theorem states:
+> If you take sufficiently large random samples from **any** population with a finite variance, the distribution of the **sample means** will approximate a Normal Distribution.
+
+<Callout type="error" emoji="🤯">
+**Read that carefully:** The *original* population can be shaped like a square (Uniform), it can be heavily skewed to the left, it can be bimodal (two peaks), or it can look like complete random noise. 
+
+It doesn't matter! If you take enough samples, calculate the average of each sample, and plot those averages... a perfect Bell Curve will emerge from the chaos.
+</Callout>
+
+## The Mathematical Definition
+
+Let $X_1, X_2, \dots, X_n$ be a random sample of size <span style={{color: '#8b5cf6', fontWeight: 'bold'}}>$n$</span> from a population with a mean $\mu$ and variance $\sigma^2$.
+
+Let $\bar{X}$ be the sample mean. As $n$ approaches infinity, the distribution of $\bar{X}$ approaches a Normal distribution:
+
+$$
+\bar{X} \sim \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)
+$$
+
+This means:
+1.  The mean of your sample means will exactly equal the true population mean ($\mu$).
+2.  The variance of your sample means shrinks as your sample size ($n$) gets bigger ($\frac{\sigma^2}{n}$). This is why larger sample sizes give you more accurate estimates!
+
+---
+
+## Why Does This Matter?
+1.  **A/B Testing:** It allows us to compare the conversion rates of two website designs using Normal distribution math, even though clicks are discrete binary events (not continuous curves).
+2.  **Polling & Elections:** We can ask just 1,000 people who they are voting for and use the CLT to calculate a highly accurate margin of error for a population of 300 million.
+
+## Interactive Visualization: Seeing the Magic
+
+In the simulation below, we are drawing random numbers from a **Uniform Distribution** (a perfectly flat, rectangular distribution).
+
+1.  Set **Sample Size ($n$)** to `1`. You will see the raw, flat distribution.
+2.  Now, increase the **Sample Size** to `2`. You are now drawing two numbers, adding them, and plotting their average. The flat rectangle instantly turns into a triangle!
+3.  Now, drag the **Sample Size** to `10` or higher. From a flat rectangle, a perfect Bell Curve emerges. This is the Central Limit Theorem in action.
+
+<CLTDistribution />
+
+## Test Your Knowledge
+
+<MathExample title="Example: The Power of the CLT">
+  <MathQuestion>
+    The weight of apples in an orchard is heavily right-skewed with a mean of 150g and a standard deviation of 40g. If you randomly sample 64 apples and take the average weight, what is the probability the sample average is greater than 160g?
+  </MathQuestion>
+  <MathSolution>
+    Because $n = 64 \ge 30$, the Central Limit Theorem applies. The distribution of the *sample mean* $\bar{x}$ will be approximately Normal.
+    
+    - Mean of $\bar{x} = \mu = 150$
+    - Standard Error (SE) $= \frac{\sigma}{\sqrt{n}} = \frac{40}{\sqrt{64}} = \frac{40}{8} = 5$
+    
+    Now, calculate the Z-score for $\bar{x} = 160$:
+    $Z = \frac{160 - 150}{5} = \frac{10}{5} = 2.0$
+    
+    Using the Empirical Rule (or Z-table), the probability of $Z > 2.0$ is about **2.5%**. Even though individual apples are highly skewed, the *average of 64 apples* follows a strict Normal curve!
+  </MathSolution>
+</MathExample>

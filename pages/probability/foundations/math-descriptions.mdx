@@ -1,0 +1,102 @@
+import { Callout } from 'nextra/components';
+import { MathDescriptionsViz } from '@/components/MathDescriptionsViz';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# The Mathematical Descriptions
+
+<Callout type="info" emoji="📐">
+To work with probability distributions, statisticians have developed three core mathematical functions. Depending on whether your random variable is **discrete** (counting) or **continuous** (measuring), you will use different functions.
+</Callout>
+
+## 1. Probability Mass Function (PMF)
+
+<Callout type="default" emoji="📊">
+**Used for:** Discrete Random Variables.
+</Callout>
+
+The PMF tells you the exact probability that a discrete random variable is **exactly equal** to some value. Because the variable is discrete, you can think of the PMF as assigning a "mass" of probability to specific, isolated points.
+
+**Notation:**
+$$
+P(X = x) = p(x)
+$$
+
+**Rules:**
+1.  Every individual probability must be between 0 and 1: $0 \le p(x) \le 1$
+2.  The sum of all probabilities across all possible outcomes must equal exactly 1: $\sum p(x) = 1$
+
+*Example: The PMF of rolling a fair 6-sided die is $p(x) = 1/6$ for $x \in \{1, 2, 3, 4, 5, 6\}$.*
+
+---
+
+## 2. Probability Density Function (PDF)
+
+<Callout type="error" emoji="🌊">
+**Used for:** Continuous Random Variables.
+**Warning:** The PDF does *not* output a direct probability!
+</Callout>
+
+The PDF is the continuous equivalent of the PMF, but it requires a paradigm shift. For a continuous variable (like exact human height), the probability of someone being *exactly* 180.00000000... cm tall is technically zero! 
+
+Instead of looking at exact points, the PDF describes the probability **density**. To find an actual probability, you must calculate the **area under the curve** over a specific range using calculus (integration).
+
+**Notation:**
+$$
+f(x)
+$$
+
+**To find the probability of falling between $a$ and $b$:**
+$$
+P(a \le X \le b) = \int_{a}^{b} f(x) dx
+$$
+
+**Rules:**
+1.  Density can never be negative: $f(x) \ge 0$
+2.  The total area under the entire curve must equal exactly 1: $\int_{-\infty}^{\infty} f(x) dx = 1$
+
+---
+
+## 3. Cumulative Distribution Function (CDF)
+
+<Callout type="warning" emoji="📈">
+**Used for:** Both Discrete and Continuous Random Variables.
+</Callout>
+
+The CDF is arguably the most practical function. It answers the question: "What is the probability that my variable will be **less than or equal to** a specific value $x$?"
+
+It is the running total (cumulative sum or integral) of the probabilities up to that point.
+
+**Notation:**
+$$
+F(x) = P(X \le x)
+$$
+
+**Rules:**
+1.  It always starts at 0: $\lim_{x \to -\infty} F(x) = 0$
+2.  It always ends at 1: $\lim_{x \to \infty} F(x) = 1$
+3.  It is monotonically non-decreasing (it never goes down, it only goes up or stays flat).
+
+## Interactive Visualization: PDF vs CDF
+
+Switch between the PDF and CDF views below. Notice how the **Area under the curve** in the PDF view perfectly matches the exact **Y-axis height** in the CDF view!
+
+<MathDescriptionsViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: PDF vs CDF">
+  <MathQuestion>
+    Let the continuous random variable $X$ have a probability density function (PDF) $f(x) = 2x$ for $0 \le x \le 1$. 
+    Find the cumulative distribution function (CDF) $F(x)$ and calculate $P(X \le 0.5)$.
+  </MathQuestion>
+  <MathSolution>
+    The CDF $F(x)$ is the integral of the PDF from the lower bound to $x$:
+    
+    $F(x) = \int_{0}^{x} 2t \, dt = \left[ t^2 \right]_0^x = x^2$
+    
+    To find the probability $P(X \le 0.5)$, we just plug $0.5$ into the CDF:
+    $F(0.5) = (0.5)^2 = 0.25$
+    
+    There is a 25% probability that $X$ is less than or equal to 0.5.
+  </MathSolution>
+</MathExample>

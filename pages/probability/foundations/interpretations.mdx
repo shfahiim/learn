@@ -1,0 +1,24 @@
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Interpretations of Probability
+
+## 1. Frequentist
+Probability is the long-run relative frequency of an event occurring in repeated trials.
+
+## 2. Subjective (Bayesian)
+Probability is a degree of belief or certainty about an event, which can be updated as new information arrives.
+
+
+## Test Your Knowledge
+
+<MathExample title="Example: Frequentist vs. Bayesian">
+  <MathQuestion>
+    A factory machine produces defective parts 5% of the time. You draw a part at random. 
+    Explain how a Frequentist and a Bayesian would interpret the statement "There is a 5% probability this part is defective."
+  </MathQuestion>
+  <MathSolution>
+    **Frequentist Interpretation:** If we were to draw millions of parts from this machine over a very long period of time, exactly 5% of them would be defective. The probability is a fixed property of the machine.
+    
+    **Bayesian Interpretation:** Before testing the specific part you are holding, your personal *degree of belief* that it is defective is 5%. Once you inspect it, that probability updates to either 100% (it is defective) or 0% (it is not).
+  </MathSolution>
+</MathExample>
