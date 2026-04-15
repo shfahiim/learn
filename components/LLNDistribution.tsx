@@ -38,21 +38,21 @@ export function LLNDistribution() {
   };
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Law of Large Numbers (Coin Flip Simulation)</h3>
-      <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: '#666' }}>
+      <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: 'inherit' }}>
         Expected Value (True Mean): 0.5. Current Running Average: {runningAvg.toFixed(4)}
       </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
           <button 
             onClick={() => setIsPlaying(!isPlaying)}
-            style={{ padding: '0.5rem 1rem', background: '#0070f3', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{ padding: '0.5rem 1rem', background: 'var(--chart-bg)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
           >
             {isPlaying ? 'Pause' : 'Start Flipping Coin'}
           </button>
           <button 
             onClick={reset}
-            style={{ padding: '0.5rem 1rem', background: '#ef4444', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{ padding: '0.5rem 1rem', background: 'var(--chart-bg)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
           >
             Reset
           </button>
@@ -63,7 +63,7 @@ export function LLNDistribution() {
             <XAxis dataKey="x" type="number" domain={[0, 1000]} label={{ value: 'Number of Flips', position: 'insideBottomRight', offset: -5 }} />
             <YAxis domain={[0, 1]} label={{ value: 'Running Average', angle: -90, position: 'insideLeft' }} />
             <Tooltip />
-            <Line type="stepAfter" dataKey="Average" stroke="#10b981" dot={false} isAnimationActive={false} />
+            <Line type="stepAfter" dataKey="Average" stroke="#10b981" dot={false} />
             <ReferenceLine y={expectedValue} stroke="#ef4444" strokeDasharray="3 3" />
           </LineChart>
         </ResponsiveContainer>

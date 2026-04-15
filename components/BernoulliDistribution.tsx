@@ -12,12 +12,12 @@ export function BernoulliDistribution() {
   }, [p]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Bernoulli Distribution</h3>
       <div style={{ marginBottom: '1.5rem' }}>
         <label style={{ display: 'block', marginBottom: '0.5rem' }}>Probability of Success (p): {p}</label>
         <input 
-          type="range" 
+          type="range" className="modern-slider" 
           min="0" max="1" step="0.01" 
           value={p} 
           onChange={(e) => setP(parseFloat(e.target.value))}
@@ -30,7 +30,7 @@ export function BernoulliDistribution() {
             <XAxis dataKey="outcome" />
             <YAxis domain={[0, 1]} />
             <Tooltip />
-            <Bar dataKey="Probability" fill="#8884d8" isAnimationActive={false} />
+            <Bar dataKey="Probability" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>

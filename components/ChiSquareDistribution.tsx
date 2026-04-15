@@ -17,13 +17,13 @@ export function ChiSquareDistribution() {
   }, [k]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Chi-Square Distribution</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Degrees of Freedom (k): {k}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="1" max="15" step="1" 
             value={k} 
             onChange={(e) => setK(parseInt(e.target.value))}
@@ -37,7 +37,7 @@ export function ChiSquareDistribution() {
             <XAxis dataKey="x" type="number" domain={[0, 20]} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="#f43f5e" fill="#f43f5e" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="monotone" dataKey="Density" stroke="#f43f5e" fill="#f43f5e" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

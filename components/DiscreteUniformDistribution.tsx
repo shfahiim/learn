@@ -22,13 +22,13 @@ export function DiscreteUniformDistribution() {
   }, [minVal, maxVal]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Discrete Uniform Distribution</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Minimum (a): {Math.min(minVal, maxVal)}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="0" max="10" step="1" 
             value={Math.min(minVal, maxVal)} 
             onChange={(e) => {
@@ -41,7 +41,7 @@ export function DiscreteUniformDistribution() {
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Maximum (b): {Math.max(minVal, maxVal)}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="1" max="20" step="1" 
             value={Math.max(minVal, maxVal)} 
             onChange={(e) => {
@@ -58,7 +58,7 @@ export function DiscreteUniformDistribution() {
             <XAxis dataKey="x" />
             <YAxis domain={[0, 1]} />
             <Tooltip />
-            <Bar dataKey="Probability" fill="#3b82f6" isAnimationActive={false} />
+            <Bar dataKey="Probability" fill="#3b82f6" />
           </BarChart>
         </ResponsiveContainer>
       </div>

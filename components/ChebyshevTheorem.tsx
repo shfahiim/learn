@@ -25,22 +25,22 @@ export function ChebyshevTheorem() {
   }, []);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#fdf4ff' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#86198f' }}>Interactive Chebyshev's Inequality</h3>
+    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Chebyshev's Inequality</h3>
       
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#fae8ff', borderRadius: '0.5rem' }}>
-          <p style={{ margin: 0, fontSize: '1.1rem', color: '#701a75' }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+          <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
               At least <strong style={{ fontSize: '1.5rem', color: '#c026d3' }}>{minPercent.toFixed(1)}%</strong> of the data must fall within <strong>{k} standard deviations</strong> from the mean!
           </p>
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
         <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#4a044e' }}>Standard Deviations (k): {k}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Standard Deviations (k): {k}</label>
           <input 
-            type="range" min="1.1" max="5" step="0.1" 
+            type="range" className="modern-slider" min="1.1" max="5" step="0.1" 
             value={k} onChange={(e) => setK(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: '#d946ef' }}
+            style={{ width: '100%' }}
           />
         </div>
       </div>
@@ -56,7 +56,7 @@ export function ChebyshevTheorem() {
             <YAxis />
             <Tooltip />
             <ReferenceArea x1={(-k).toFixed(1)} x2={(k).toFixed(1)} fill="#fbcfe8" fillOpacity={0.6} />
-            <Bar dataKey="Density" fill="#c026d3" isAnimationActive={false} />
+            <Bar dataKey="Density" fill="#c026d3" />
           </BarChart>
         </ResponsiveContainer>
       </div>

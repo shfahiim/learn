@@ -18,12 +18,12 @@ export function PoissonDistribution() {
   }, [lambda]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Poisson Distribution</h3>
       <div style={{ marginBottom: '1.5rem' }}>
         <label style={{ display: 'block', marginBottom: '0.5rem' }}>Average Rate (λ): {lambda}</label>
         <input 
-          type="range" 
+          type="range" className="modern-slider" 
           min="1" max="50" step="1" 
           value={lambda} 
           onChange={(e) => setLambda(parseInt(e.target.value))}
@@ -36,7 +36,7 @@ export function PoissonDistribution() {
             <XAxis dataKey="k" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="Probability" fill="#10b981" isAnimationActive={false} />
+            <Bar dataKey="Probability" fill="#10b981" />
           </BarChart>
         </ResponsiveContainer>
       </div>

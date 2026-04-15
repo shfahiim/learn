@@ -22,8 +22,8 @@ export function MathDescriptionsViz() {
   }, [bound]);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#f0f9ff' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#0369a1' }}>
+    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>
         Interactive: {view === 'PDF' ? 'Probability Density (PDF)' : 'Cumulative Distribution (CDF)'}
       </h3>
       
@@ -42,11 +42,11 @@ export function MathDescriptionsViz() {
         </button>
       </div>
 
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#e0f2fe', borderRadius: '0.5rem' }}>
-        <p style={{ margin: 0, fontSize: '1.1rem', color: '#075985' }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+        <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
           Probability $P(X \le {bound}) =$ <strong style={{ fontSize: '1.3rem', color: '#0284c7' }}>{(probability * 100).toFixed(2)}%</strong>
         </p>
-        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#0c4a6e' }}>
+        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: 'inherit' }}>
           {view === 'PDF' 
             ? "In a PDF, probability is the AREA UNDER THE CURVE (shaded in blue)." 
             : "In a CDF, probability is simply the Y-AXIS VALUE at that point."}
@@ -55,11 +55,11 @@ export function MathDescriptionsViz() {
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
         <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#0c4a6e' }}>Drag Upper Bound (x): {bound}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Drag Upper Bound (x): {bound}</label>
           <input 
-            type="range" min="-4" max="4" step="0.1" 
+            type="range" className="modern-slider" min="-4" max="4" step="0.1" 
             value={bound} onChange={(e) => setBound(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: '#0ea5e9' }}
+            style={{ width: '100%' }}
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ export function MathDescriptionsViz() {
             {view === 'PDF' && (
               <ReferenceArea x1={-4} x2={bound} fill="#bae6fd" fillOpacity={0.7} />
             )}
-            <Area type="monotone" dataKey="Value" stroke="#0284c7" fill={view === 'CDF' ? '#bae6fd' : 'none'} strokeWidth={3} isAnimationActive={false} />
+            <Area type="monotone" dataKey="Value" stroke="#0284c7" fill={view === 'CDF' ? '#bae6fd' : 'none'} strokeWidth={3} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

@@ -18,33 +18,33 @@ export function FDistributionViz() {
   }, [d1, d2]);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#fff7ed' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#9a3412' }}>Interactive F-Distribution (ANOVA)</h3>
+    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive F-Distribution (ANOVA)</h3>
       
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#ffedd5', borderRadius: '0.5rem' }}>
-          <p style={{ margin: 0, fontSize: '1.1rem', color: '#c2410c' }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+          <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
               Notice how the shape changes purely based on the ratio of the two Degrees of Freedom!
           </p>
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#7c2d12' }}>Numerator DF (d₁): {d1}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Numerator DF (d₁): {d1}</label>
           <input 
-            type="range" min="1" max="50" step="1" 
+            type="range" className="modern-slider" min="1" max="50" step="1" 
             value={d1} onChange={(e) => setD1(parseInt(e.target.value))}
-            style={{ width: '100%', accentColor: '#ea580c' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#9a3412' }}>Between-group variance</small>
+          <small style={{ color: 'inherit' }}>Between-group variance</small>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#7c2d12' }}>Denominator DF (d₂): {d2}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Denominator DF (d₂): {d2}</label>
           <input 
-            type="range" min="1" max="50" step="1" 
+            type="range" className="modern-slider" min="1" max="50" step="1" 
             value={d2} onChange={(e) => setD2(parseInt(e.target.value))}
-            style={{ width: '100%', accentColor: '#ea580c' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#9a3412' }}>Within-group variance (Error)</small>
+          <small style={{ color: 'inherit' }}>Within-group variance (Error)</small>
         </div>
       </div>
 
@@ -54,7 +54,7 @@ export function FDistributionViz() {
             <XAxis dataKey="x" type="number" domain={[0, 5]} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="#ea580c" fill="#ea580c" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="monotone" dataKey="Density" stroke="#ea580c" fill="#ea580c" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

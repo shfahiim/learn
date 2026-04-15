@@ -18,27 +18,27 @@ export function GammaDistributionViz() {
   }, [k, theta]);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#f8fafc' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#0f172a' }}>Interactive Gamma Distribution</h3>
+    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Gamma Distribution</h3>
       
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155' }}>Shape (k): {k}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Shape (k): {k}</label>
           <input 
-            type="range" min="1" max="10" step="0.5" 
+            type="range" className="modern-slider" min="1" max="10" step="0.5" 
             value={k} onChange={(e) => setK(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: '#64748b' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#475569' }}>Number of events to wait for</small>
+          <small style={{ color: 'inherit' }}>Number of events to wait for</small>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155' }}>Scale (θ): {theta}</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Scale (θ): {theta}</label>
           <input 
-            type="range" min="0.5" max="5" step="0.5" 
+            type="range" className="modern-slider" min="0.5" max="5" step="0.5" 
             value={theta} onChange={(e) => setTheta(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: '#64748b' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#475569' }}>Mean time between events</small>
+          <small style={{ color: 'inherit' }}>Mean time between events</small>
         </div>
       </div>
 
@@ -48,7 +48,7 @@ export function GammaDistributionViz() {
             <XAxis dataKey="WaitTime" type="number" domain={[0, 20]} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="#64748b" fill="#64748b" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="monotone" dataKey="Density" stroke="#64748b" fill="#64748b" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

@@ -17,12 +17,12 @@ export function ExponentialDistribution() {
   }, [lambda]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Exponential Distribution</h3>
       <div style={{ marginBottom: '1.5rem' }}>
         <label style={{ display: 'block', marginBottom: '0.5rem' }}>Rate Parameter (λ): {lambda}</label>
         <input 
-          type="range" 
+          type="range" className="modern-slider" 
           min="0.1" max="5" step="0.1" 
           value={lambda} 
           onChange={(e) => setLambda(parseFloat(e.target.value))}
@@ -35,7 +35,7 @@ export function ExponentialDistribution() {
             <XAxis dataKey="x" type="number" domain={[0, 5]} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="monotone" dataKey="Density" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

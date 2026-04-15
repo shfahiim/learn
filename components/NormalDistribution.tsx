@@ -18,13 +18,13 @@ export function NormalDistribution() {
   }, [mean, stdDev]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Normal Distribution</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Mean (μ): {mean}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="-3" max="3" step="0.1" 
             value={mean} 
             onChange={(e) => setMean(parseFloat(e.target.value))}
@@ -34,7 +34,7 @@ export function NormalDistribution() {
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Standard Deviation (σ): {stdDev}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="0.1" max="3" step="0.1" 
             value={stdDev} 
             onChange={(e) => setStdDev(parseFloat(e.target.value))}
@@ -48,7 +48,7 @@ export function NormalDistribution() {
             <XAxis dataKey="x" type="number" domain={[-5, 5]} tickCount={11} />
             <YAxis domain={[0, 1]} />
             <Tooltip />
-            <Area type="monotone" dataKey="y" stroke="#0070f3" fill="#0070f3" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="monotone" dataKey="y" stroke="#0070f3" fill="#0070f3" fillOpacity={0.2} />
             <ReferenceLine x={mean} stroke="#ff0000" strokeDasharray="3 3" />
           </AreaChart>
         </ResponsiveContainer>

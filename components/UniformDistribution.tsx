@@ -32,13 +32,13 @@ export function UniformDistribution() {
   }, [a, b]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Uniform Distribution (Continuous)</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Minimum (a): {Math.min(a, b)}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="0" max="9" step="1" 
             value={Math.min(a, b)} 
             onChange={(e) => {
@@ -51,7 +51,7 @@ export function UniformDistribution() {
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Maximum (b): {Math.max(a, b)}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="1" max="10" step="1" 
             value={Math.max(a, b)} 
             onChange={(e) => {
@@ -68,7 +68,7 @@ export function UniformDistribution() {
             <XAxis dataKey="x" type="number" domain={[0, 10]} />
             <YAxis domain={[0, 1]} />
             <Tooltip />
-            <Area type="stepAfter" dataKey="Density" stroke="#ec4899" fill="#ec4899" fillOpacity={0.2} isAnimationActive={false} />
+            <Area type="stepAfter" dataKey="Density" stroke="#ec4899" fill="#ec4899" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

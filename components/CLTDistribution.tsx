@@ -42,16 +42,16 @@ export function CLTDistribution() {
   }, [sampleSize, numDraws]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Central Limit Theorem (Sampling from Uniform)</h3>
-      <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: '#666' }}>
+      <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: 'inherit' }}>
         We are drawing random numbers from a flat, rectangular distribution. Notice what shape the averages make!
       </p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Sample Size (n): {sampleSize}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="1" max="50" step="1" 
             value={sampleSize} 
             onChange={(e) => setSampleSize(parseInt(e.target.value))}
@@ -61,7 +61,7 @@ export function CLTDistribution() {
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Number of Samples Drawn: {numDraws}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="10" max="5000" step="10" 
             value={numDraws} 
             onChange={(e) => setNumDraws(parseInt(e.target.value))}
@@ -75,7 +75,7 @@ export function CLTDistribution() {
             <XAxis dataKey="range" tick={{fontSize: 10}} />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="Count" fill="#8b5cf6" isAnimationActive={false} />
+            <Bar dataKey="Count" fill="#8b5cf6" />
           </BarChart>
         </ResponsiveContainer>
       </div>

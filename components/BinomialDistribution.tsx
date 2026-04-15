@@ -18,13 +18,13 @@ export function BinomialDistribution() {
   }, [n, p]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid #eaeaea', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Binomial Distribution</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Number of Trials (n): {n}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="1" max="100" step="1" 
             value={n} 
             onChange={(e) => setN(parseInt(e.target.value))}
@@ -34,7 +34,7 @@ export function BinomialDistribution() {
         <div style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Probability of Success (p): {p}</label>
           <input 
-            type="range" 
+            type="range" className="modern-slider" 
             min="0" max="1" step="0.01" 
             value={p} 
             onChange={(e) => setP(parseFloat(e.target.value))}
@@ -48,7 +48,7 @@ export function BinomialDistribution() {
             <XAxis dataKey="x" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="y" fill="#0070f3" isAnimationActive={false} />
+            <Bar dataKey="y" fill="#0070f3" />
           </BarChart>
         </ResponsiveContainer>
       </div>

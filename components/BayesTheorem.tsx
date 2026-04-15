@@ -31,9 +31,9 @@ export function BayesTheorem() {
   const COLORS = ['#10b981', '#ef4444'];
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid #eaeaea', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: '#f8fafc' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: '#0f172a' }}>Interactive Bayes' Theorem: Medical Testing</h3>
-      <p style={{ textAlign: 'center', fontSize: '0.95rem', marginBottom: '1.5rem', color: '#475569' }}>
+    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Bayes' Theorem: Medical Testing</h3>
+      <p style={{ textAlign: 'center', fontSize: '0.95rem', marginBottom: '1.5rem', color: 'inherit' }}>
         If you test positive, what is the <strong>actual</strong> probability you have the disease?
         <br/>
         <strong style={{ fontSize: '1.2rem', color: '#10b981' }}>{data.posterior.toFixed(1)}%</strong>
@@ -41,31 +41,31 @@ export function BayesTheorem() {
       
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155' }}>Disease Rarity (Base Rate): {priorPos}%</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Disease Rarity (Base Rate): {priorPos}%</label>
           <input 
-            type="range" min="0.1" max="10" step="0.1" 
+            type="range" className="modern-slider" min="0.1" max="10" step="0.1" 
             value={priorPos} onChange={(e) => setPriorPos(parseFloat(e.target.value))}
-            style={{ width: '100%', accentColor: '#3b82f6' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#64748b' }}>How common is the disease in the population?</small>
+          <small style={{ color: 'inherit' }}>How common is the disease in the population?</small>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155' }}>Test Accuracy (Sensitivity): {tpr}%</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Test Accuracy (Sensitivity): {tpr}%</label>
           <input 
-            type="range" min="50" max="100" step="1" 
+            type="range" className="modern-slider" min="50" max="100" step="1" 
             value={tpr} onChange={(e) => setTpr(parseInt(e.target.value))}
-            style={{ width: '100%', accentColor: '#10b981' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#64748b' }}>If sick, chance of testing positive.</small>
+          <small style={{ color: 'inherit' }}>If sick, chance of testing positive.</small>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#334155' }}>False Positive Rate: {fpr}%</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>False Positive Rate: {fpr}%</label>
           <input 
-            type="range" min="0" max="20" step="1" 
+            type="range" className="modern-slider" min="0" max="20" step="1" 
             value={fpr} onChange={(e) => setFpr(parseInt(e.target.value))}
-            style={{ width: '100%', accentColor: '#ef4444' }}
+            style={{ width: '100%' }}
           />
-          <small style={{ color: '#64748b' }}>If healthy, chance of incorrectly testing positive.</small>
+          <small style={{ color: 'inherit' }}>If healthy, chance of incorrectly testing positive.</small>
         </div>
       </div>
       
@@ -80,7 +80,6 @@ export function BayesTheorem() {
               outerRadius={100}
               paddingAngle={5}
               dataKey="value"
-              isAnimationActive={false}
             >
               {data.chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
