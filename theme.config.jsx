@@ -1,5 +1,10 @@
+import { ReadingProgress } from './components/ReadingProgress';
+
 export default {
   logo: <span>Probability Distributions Guide</span>,
+  navbar: {
+    extra: <ReadingProgress />,
+  },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

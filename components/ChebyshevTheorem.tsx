@@ -25,17 +25,17 @@ export function ChebyshevTheorem() {
   }, []);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Chebyshev's Inequality</h3>
       
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+      <div className="chart-wrapper" style={{ textAlign: 'center', marginBottom: '1.5rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
           <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
               At least <strong style={{ fontSize: '1.5rem', color: '#c026d3' }}>{minPercent.toFixed(1)}%</strong> of the data must fall within <strong>{k} standard deviations</strong> from the mean!
           </p>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 300px', maxWidth: '400px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Standard Deviations (k): {k}</label>
           <input 
             type="range" className="modern-slider" min="1.1" max="5" step="0.1" 
@@ -49,14 +49,14 @@ export function ChebyshevTheorem() {
           <em>The pink shaded area shows the bounds of ±{k}σ. Even for this weird, two-humped distribution, the mathematical guarantee holds true!</em>
       </p>
 
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="x" />
             <YAxis />
             <Tooltip />
-            <ReferenceArea x1={(-k).toFixed(1)} x2={(k).toFixed(1)} fill="#fbcfe8" fillOpacity={0.6} />
-            <Bar dataKey="Density" fill="#c026d3" />
+            <ReferenceArea x1={(-k).toFixed(1)} x2={(k).toFixed(1)} fill="var(--chart-primary)" fillOpacity={0.6} />
+            <Bar dataKey="Density" fill="var(--chart-primary)" />
           </BarChart>
         </ResponsiveContainer>
       </div>

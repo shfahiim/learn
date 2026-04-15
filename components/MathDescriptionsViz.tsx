@@ -22,12 +22,12 @@ export function MathDescriptionsViz() {
   }, [bound]);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>
         Interactive: {view === 'PDF' ? 'Probability Density (PDF)' : 'Cumulative Distribution (CDF)'}
       </h3>
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
         <button 
           onClick={() => setView('PDF')}
           style={{ padding: '0.5rem 1rem', background: view === 'PDF' ? '#0ea5e9' : '#e0f2fe', color: view === 'PDF' ? 'white' : '#0369a1', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}
@@ -42,7 +42,7 @@ export function MathDescriptionsViz() {
         </button>
       </div>
 
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+      <div className="chart-wrapper" style={{ textAlign: 'center', marginBottom: '1.5rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
         <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
           Probability $P(X \le {bound}) =$ <strong style={{ fontSize: '1.3rem', color: '#0284c7' }}>{(probability * 100).toFixed(2)}%</strong>
         </p>
@@ -53,8 +53,8 @@ export function MathDescriptionsViz() {
         </p>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 300px', maxWidth: '400px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Drag Upper Bound (x): {bound}</label>
           <input 
             type="range" className="modern-slider" min="-4" max="4" step="0.1" 
@@ -64,16 +64,16 @@ export function MathDescriptionsViz() {
         </div>
       </div>
 
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="x" type="number" domain={[-4, 4]} />
             <YAxis domain={[0, view === 'PDF' ? 0.45 : 1.1]} />
             <Tooltip />
             {view === 'PDF' && (
-              <ReferenceArea x1={-4} x2={bound} fill="#bae6fd" fillOpacity={0.7} />
+              <ReferenceArea x1={-4} x2={bound} fill="var(--chart-primary)" fillOpacity={0.7} />
             )}
-            <Area type="monotone" dataKey="Value" stroke="#0284c7" fill={view === 'CDF' ? '#bae6fd' : 'none'} strokeWidth={3} />
+            <Area type="monotone" dataKey="Value" stroke="var(--chart-primary)" fill={view === 'CDF' ? '#bae6fd' : 'none'} strokeWidth={3} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

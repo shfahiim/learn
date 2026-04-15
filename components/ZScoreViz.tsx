@@ -23,17 +23,17 @@ export function ZScoreViz() {
   }, [zScore, direction]);
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Z-Score Probability</h3>
       
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
+      <div className="chart-wrapper" style={{ textAlign: 'center', marginBottom: '1.5rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
         <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
           Probability $P(Z {direction === 'less' ? '<' : '>'} {zScore}) =$ <strong style={{ fontSize: '1.4rem', color: '#a21caf' }}>{(probability * 100).toFixed(2)}%</strong>
         </p>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        <div style={{ flex: '1 1 200px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Z-Score (z): {zScore}</label>
           <input 
             type="range" className="modern-slider" min="-3.5" max="3.5" step="0.1" 
@@ -41,7 +41,7 @@ export function ZScoreViz() {
             style={{ width: '100%' }}
           />
         </div>
-        <div style={{ flex: '1 1 200px', display: 'flex', alignItems: 'flex-end' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px', display: 'flex', alignItems: 'flex-end' }}>
              <select 
                 value={direction} 
                 onChange={(e) => setDirection(e.target.value as 'less' | 'greater')}
@@ -53,7 +53,7 @@ export function ZScoreViz() {
         </div>
       </div>
 
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="x" type="number" domain={[-4, 4]} tickCount={9} />
@@ -62,9 +62,9 @@ export function ZScoreViz() {
             <ReferenceArea 
                 x1={direction === 'less' ? -4 : zScore} 
                 x2={direction === 'less' ? zScore : 4} 
-                fill="#fbcfe8" fillOpacity={0.7} 
+                fill="var(--chart-primary)" fillOpacity={0.7} 
             />
-            <Area type="monotone" dataKey="Density" stroke="#d946ef" fill="none" strokeWidth={3} />
+            <Area type="monotone" dataKey="Density" stroke="var(--chart-primary)" fill="none" strokeWidth={3} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

@@ -31,7 +31,7 @@ export function BayesTheorem() {
   const COLORS = ['#10b981', '#ef4444'];
 
   return (
-    <div style={{ padding: '1.5rem', border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Bayes' Theorem: Medical Testing</h3>
       <p style={{ textAlign: 'center', fontSize: '0.95rem', marginBottom: '1.5rem', color: 'inherit' }}>
         If you test positive, what is the <strong>actual</strong> probability you have the disease?
@@ -39,8 +39,8 @@ export function BayesTheorem() {
         <strong style={{ fontSize: '1.2rem', color: '#10b981' }}>{data.posterior.toFixed(1)}%</strong>
       </p>
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
-        <div style={{ flex: '1 1 200px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Disease Rarity (Base Rate): {priorPos}%</label>
           <input 
             type="range" className="modern-slider" min="0.1" max="10" step="0.1" 
@@ -49,7 +49,7 @@ export function BayesTheorem() {
           />
           <small style={{ color: 'inherit' }}>How common is the disease in the population?</small>
         </div>
-        <div style={{ flex: '1 1 200px' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Test Accuracy (Sensitivity): {tpr}%</label>
           <input 
             type="range" className="modern-slider" min="50" max="100" step="1" 
@@ -58,7 +58,7 @@ export function BayesTheorem() {
           />
           <small style={{ color: 'inherit' }}>If sick, chance of testing positive.</small>
         </div>
-        <div style={{ flex: '1 1 200px' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>False Positive Rate: {fpr}%</label>
           <input 
             type="range" className="modern-slider" min="0" max="20" step="1" 
@@ -69,7 +69,7 @@ export function BayesTheorem() {
         </div>
       </div>
       
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

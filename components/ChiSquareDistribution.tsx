@@ -17,10 +17,10 @@ export function ChiSquareDistribution() {
   }, [k]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Chi-Square Distribution</h3>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ flex: '1 1 200px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Degrees of Freedom (k): {k}</label>
           <input 
             type="range" className="modern-slider" 
@@ -31,13 +31,13 @@ export function ChiSquareDistribution() {
           />
         </div>
       </div>
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="x" type="number" domain={[0, 20]} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="#f43f5e" fill="#f43f5e" fillOpacity={0.2} />
+            <Area type="monotone" dataKey="Density" stroke="var(--chart-danger)" fill="var(--chart-danger)" fillOpacity={0.2} />
           </AreaChart>
         </ResponsiveContainer>
       </div>

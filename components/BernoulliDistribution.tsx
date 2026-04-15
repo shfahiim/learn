@@ -12,9 +12,9 @@ export function BernoulliDistribution() {
   }, [p]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Bernoulli Distribution</h3>
-      <div style={{ marginBottom: '1.5rem' }}>
+      <div className="chart-wrapper" style={{ marginBottom: '1.5rem' }}>
         <label style={{ display: 'block', marginBottom: '0.5rem' }}>Probability of Success (p): {p}</label>
         <input 
           type="range" className="modern-slider" 
@@ -24,13 +24,13 @@ export function BernoulliDistribution() {
           style={{ width: '100%' }}
         />
       </div>
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="outcome" />
             <YAxis domain={[0, 1]} />
             <Tooltip />
-            <Bar dataKey="Probability" fill="#8884d8" />
+            <Bar dataKey="Probability" fill="var(--chart-primary)" />
           </BarChart>
         </ResponsiveContainer>
       </div>

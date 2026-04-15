@@ -24,6 +24,18 @@
   --chart-muted: #94a3b8;
 }
 
+/* Mobile responsive padding and margins for charts */
+.chart-wrapper {
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .chart-wrapper {
+    padding: 0.75rem !important; /* Smaller padding on mobile to save space */
+  }
+}
+
 input[type=range].modern-slider {
   -webkit-appearance: none;
   appearance: none;

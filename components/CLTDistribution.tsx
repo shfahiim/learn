@@ -42,13 +42,13 @@ export function CLTDistribution() {
   }, [sampleSize, numDraws]);
 
   return (
-    <div style={{ padding: '1rem', border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
+    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Central Limit Theorem (Sampling from Uniform)</h3>
       <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: 'inherit' }}>
         We are drawing random numbers from a flat, rectangular distribution. Notice what shape the averages make!
       </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ flex: '1 1 200px' }}>
+      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Sample Size (n): {sampleSize}</label>
           <input 
             type="range" className="modern-slider" 
@@ -58,7 +58,7 @@ export function CLTDistribution() {
             style={{ width: '100%' }}
           />
         </div>
-        <div style={{ flex: '1 1 200px' }}>
+        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>Number of Samples Drawn: {numDraws}</label>
           <input 
             type="range" className="modern-slider" 
@@ -69,13 +69,13 @@ export function CLTDistribution() {
           />
         </div>
       </div>
-      <div style={{ height: '300px', width: '100%' }}>
+      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <XAxis dataKey="range" tick={{fontSize: 10}} />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="Count" fill="#8b5cf6" />
+            <Bar dataKey="Count" fill="var(--chart-primary)" />
           </BarChart>
         </ResponsiveContainer>
       </div>
