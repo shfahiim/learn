@@ -2,27 +2,48 @@ import { MathExample, MathQuestion, MathSolution } from '../../components/MathEx
 
 # Markov's Inequality
 
-Markov's inequality gives an upper bound for the probability that a non-negative random variable is greater than or equal to some positive constant.
+**Markov's inequality** is a distribution-free tail bound. It says that if a random variable is **non-negative**, then its mean controls how large it can be.
 
-$P(X \ge a) \le \frac{E[X]}{a}$
+## Statement
 
-It is the stepping stone used to prove Chebyshev's inequality!
+If $X \ge 0$ and $a>0$:
 
+$$
+P(X \ge a) \le \frac{E[X]}{a}.
+$$
+
+## Intuition
+
+If the average of $X$ is small, then $X$ cannot be “large” too often — otherwise the mean would be forced upward.
+
+Markov is often the first stepping stone to stronger bounds:
+
+- Apply Markov to $(X-\mu)^2$ to get **Chebyshev’s inequality**.
+
+## When it’s useful
+
+- When you only know **$E[X]$** (mean) and nothing else about the distribution
+- For quick, conservative guarantees
+- In proofs (building block for Chebyshev and concentration results)
+
+## Tightness (why it can be loose)
+
+Markov can be conservative because it uses only the mean. If the distribution has heavy tails or lots of mass near 0, the bound may be far from the true probability.
 
 ## Test Your Knowledge
 
-<MathExample title="Example: Using Markov's Inequality">
+<MathExample title="Example: Using Markov's inequality">
   <MathQuestion>
     A factory produces lightbulbs with an average lifespan of 1000 hours. The distribution is unknown, but lifespan must be non-negative. Use Markov's Inequality to find an upper bound on the probability that a lightbulb lasts *at least* 4000 hours.
   </MathQuestion>
   <MathSolution>
-    Markov's formula: $P(X \ge a) \le \frac{E[X]}{a}$
-    
+    Markov's formula: $P(X \ge a) \le \frac{E[X]}{a}$.
+
     - $E[X] = 1000$
     - $a = 4000$
-    
-    $P(X \ge 4000) \le \frac{1000}{4000} = 0.25$
-    
+
+    $P(X \ge 4000) \le \frac{1000}{4000} = 0.25$.
+
     Without knowing anything else about the distribution, we guarantee that **at most 25%** of the lightbulbs will last 4000 hours or more.
   </MathSolution>
 </MathExample>

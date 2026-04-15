@@ -1,77 +1,107 @@
-import React, { useState, useMemo } from 'react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useId, useMemo, useState } from 'react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function UniformDistribution() {
   const [a, setA] = useState(1);
   const [b, setB] = useState(5);
+  const gradientId = useId();
 
   const data = useMemo(() => {
     const points = [];
-    const minVal = Math.min(a, b);
-    const maxVal = Math.max(a, b);
-    
-    // Add points before 'a'
+    const minVal = a;
+    const maxVal = b;
+
     for (let x = 0; x < minVal; x += 0.5) {
       points.push({ x: Number(x.toFixed(1)), Density: 0 });
     }
-    
-    // The flat top
+
     const height = 1 / (maxVal - minVal);
     points.push({ x: minVal, Density: height });
     for (let x = minVal + 0.5; x < maxVal; x += 0.5) {
       points.push({ x: Number(x.toFixed(1)), Density: height });
     }
     points.push({ x: maxVal, Density: height });
-    
-    // Add points after 'b'
+
     for (let x = maxVal + 0.5; x <= 10; x += 0.5) {
       points.push({ x: Number(x.toFixed(1)), Density: 0 });
     }
-    
+
     return points;
   }, [a, b]);
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Uniform Distribution (Continuous)</h3>
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Minimum (a): {Math.min(a, b)}</label>
-          <input 
-            type="range" className="modern-slider" 
-            min="0" max="9" step="1" 
-            value={Math.min(a, b)} 
+    <ChartCard
+      title="Continuous Uniform Distribution"
+      subtitle="A flat density on [a, b] (all values equally likely)."
+    >
+      <ChartControls>
+        <ChartControl label="Minimum (a)" value={a}>
+          <input
+            type="range"
+            className="modern-slider"
+            min="0"
+            max="9"
+            step="1"
+            value={a}
             onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (val < Math.max(a, b)) setA(val);
+              const val = parseInt(e.target.value);
+              setA(Math.min(val, b - 1));
             }}
-            style={{ width: '100%' }}
           />
-        </div>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Maximum (b): {Math.max(a, b)}</label>
-          <input 
-            type="range" className="modern-slider" 
-            min="1" max="10" step="1" 
-            value={Math.max(a, b)} 
+        </ChartControl>
+        <ChartControl label="Maximum (b)" value={b}>
+          <input
+            type="range"
+            className="modern-slider"
+            min="1"
+            max="10"
+            step="1"
+            value={b}
             onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (val > Math.min(a, b)) setB(val);
+              const val = parseInt(e.target.value);
+              setB(Math.max(val, a + 1));
             }}
-            style={{ width: '100%' }}
           />
-        </div>
-      </div>
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+        </ChartControl>
+      </ChartControls>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="x" type="number" domain={[0, 10]} />
-            <YAxis domain={[0, 1]} />
-            <Tooltip />
-            <Area type="stepAfter" dataKey="Density" stroke="var(--chart-primary)" fill="var(--chart-primary)" fillOpacity={0.2} />
+          <AreaChart data={data} margin={{ top: 12, right: 12, left: 8, bottom: 6 }}>
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-primary)" stopOpacity={0.28} />
+                <stop offset="100%" stopColor="var(--chart-primary)" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid {...chartGridProps} />
+            <XAxis dataKey="x" type="number" domain={[0, 10]} tickCount={11} {...chartAxisProps} />
+            <YAxis domain={[0, 1]} {...chartAxisProps} />
+            <Tooltip {...chartTooltipProps} />
+
+            <Area
+              type="stepAfter"
+              dataKey="Density"
+              stroke="var(--chart-primary)"
+              strokeWidth={2.5}
+              fill={`url(#${gradientId})`}
+              fillOpacity={1}
+              dot={false}
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

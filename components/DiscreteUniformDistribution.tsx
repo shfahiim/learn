@@ -1,67 +1,91 @@
-import React, { useState, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useId, useMemo, useState } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function DiscreteUniformDistribution() {
   const [minVal, setMinVal] = useState(1);
   const [maxVal, setMaxVal] = useState(6);
+  const gradientId = useId();
 
   const data = useMemo(() => {
     const points = [];
-    const a = Math.min(minVal, maxVal);
-    const b = Math.max(minVal, maxVal);
+    const a = minVal;
+    const b = maxVal;
     const n = b - a + 1;
     const prob = 1 / n;
-    
+
     for (let x = a; x <= b; x++) {
       points.push({
         x: x.toString(),
-        Probability: prob
+        Probability: prob,
       });
     }
     return points;
   }, [minVal, maxVal]);
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Discrete Uniform Distribution</h3>
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Minimum (a): {Math.min(minVal, maxVal)}</label>
-          <input 
-            type="range" className="modern-slider" 
-            min="0" max="10" step="1" 
-            value={Math.min(minVal, maxVal)} 
+    <ChartCard
+      title="Discrete Uniform Distribution"
+      subtitle="Each integer outcome in [a, b] has the same probability."
+    >
+      <ChartControls>
+        <ChartControl label="Minimum (a)" value={minVal}>
+          <input
+            type="range"
+            className="modern-slider"
+            min="0"
+            max="19"
+            step="1"
+            value={minVal}
             onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (val <= Math.max(minVal, maxVal)) setMinVal(val);
+              const val = parseInt(e.target.value);
+              setMinVal(Math.min(val, maxVal));
             }}
-            style={{ width: '100%' }}
           />
-        </div>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Maximum (b): {Math.max(minVal, maxVal)}</label>
-          <input 
-            type="range" className="modern-slider" 
-            min="1" max="20" step="1" 
-            value={Math.max(minVal, maxVal)} 
+        </ChartControl>
+        <ChartControl label="Maximum (b)" value={maxVal}>
+          <input
+            type="range"
+            className="modern-slider"
+            min="1"
+            max="20"
+            step="1"
+            value={maxVal}
             onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (val >= Math.min(minVal, maxVal)) setMaxVal(val);
+              const val = parseInt(e.target.value);
+              setMaxVal(Math.max(val, minVal));
             }}
-            style={{ width: '100%' }}
           />
-        </div>
-      </div>
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+        </ChartControl>
+      </ChartControls>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="x" />
-            <YAxis domain={[0, 1]} />
-            <Tooltip />
-            <Bar dataKey="Probability" fill="var(--chart-primary)" />
+          <BarChart data={data} margin={{ top: 12, right: 12, left: 8, bottom: 6 }}>
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-primary)" stopOpacity={0.95} />
+                <stop offset="100%" stopColor="var(--chart-primary)" stopOpacity={0.55} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid {...chartGridProps} />
+            <XAxis dataKey="x" {...chartAxisProps} />
+            <YAxis domain={[0, 1]} {...chartAxisProps} />
+            <Tooltip {...chartTooltipProps} />
+            <Bar dataKey="Probability" fill={`url(#${gradientId})`} radius={[10, 10, 8, 8]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

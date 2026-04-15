@@ -1,31 +1,42 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import { ChartCard } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function LLNDistribution() {
   const [flips, setFlips] = useState(0);
   const [runningAvg, setRunningAvg] = useState(0);
-  const [history, setHistory] = useState<{x: number, Average: number}[]>([]);
+  const [history, setHistory] = useState<{ x: number; Average: number }[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const expectedValue = 0.5; // Fair coin
+  const expectedValue = 0.5;
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
     if (isPlaying && flips < 1000) {
       interval = setInterval(() => {
         const newFlip = Math.random() < 0.5 ? 1 : 0;
-        setFlips(prev => {
-            const nextFlips = prev + 1;
-            setRunningAvg(prevAvg => {
-                const nextAvg = ((prevAvg * prev) + newFlip) / nextFlips;
-                setHistory(h => [...h, { x: nextFlips, Average: nextAvg }]);
-                return nextAvg;
-            });
-            return nextFlips;
+        setFlips((prev) => {
+          const nextFlips = prev + 1;
+          setRunningAvg((prevAvg) => {
+            const nextAvg = (prevAvg * prev + newFlip) / nextFlips;
+            setHistory((h) => [...h, { x: nextFlips, Average: nextAvg }]);
+            return nextAvg;
+          });
+          return nextFlips;
         });
-      }, 50); // fast updates
+      }, 50);
     } else if (flips >= 1000) {
-        setIsPlaying(false);
+      setIsPlaying(false);
     }
     return () => clearInterval(interval);
   }, [isPlaying, flips]);
@@ -38,36 +49,49 @@ export function LLNDistribution() {
   };
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Law of Large Numbers (Coin Flip Simulation)</h3>
-      <p style={{ textAlign: 'center', fontSize: '0.9rem', marginBottom: '1rem', color: 'inherit' }}>
-        Expected Value (True Mean): 0.5. Current Running Average: {runningAvg.toFixed(4)}
-      </p>
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-          <button 
-            onClick={() => setIsPlaying(!isPlaying)}
-            style={{ padding: '0.5rem 1rem', background: 'var(--chart-bg)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-          >
-            {isPlaying ? 'Pause' : 'Start Flipping Coin'}
-          </button>
-          <button 
-            onClick={reset}
-            style={{ padding: '0.5rem 1rem', background: 'var(--chart-bg)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-          >
-            Reset
-          </button>
+    <ChartCard title="Law of large numbers" subtitle="Flip a fair coin and watch the running average converge to 0.5.">
+      <div className="chart-kpi">
+        <div className="chart-kpi-muted">Expected value</div>
+        <div className="chart-kpi-value">0.5</div>
+        <div className="chart-kpi-muted">
+          Running average after <span style={{ fontWeight: 750 }}>{flips}</span> flips:{' '}
+          <span style={{ fontWeight: 750 }}>{runningAvg.toFixed(4)}</span>
+        </div>
       </div>
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+
+      <div className="chart-button-row">
+        <button
+          type="button"
+          className="chart-button chart-button-primary"
+          data-active={isPlaying}
+          onClick={() => setIsPlaying((v) => !v)}
+        >
+          {isPlaying ? 'Pause' : 'Start'}
+        </button>
+        <button type="button" className="chart-button" onClick={reset}>
+          Reset
+        </button>
+      </div>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="x" type="number" domain={[0, 1000]} label={{ value: 'Number of Flips', position: 'insideBottomRight', offset: -5 }} />
-            <YAxis domain={[0, 1]} label={{ value: 'Running Average', angle: -90, position: 'insideLeft' }} />
-            <Tooltip />
-            <Line type="stepAfter" dataKey="Average" stroke="var(--chart-primary)" dot={false} />
-            <ReferenceLine y={expectedValue} stroke="var(--chart-danger)" strokeDasharray="3 3" />
+          <LineChart data={history} margin={{ top: 12, right: 16, left: 8, bottom: 8 }}>
+            <CartesianGrid {...chartGridProps} />
+            <XAxis {...chartAxisProps} dataKey="x" type="number" domain={[0, 1000]} tickCount={6} />
+            <YAxis {...chartAxisProps} domain={[0, 1]} tickCount={6} />
+            <Tooltip {...chartTooltipProps} />
+            <Line
+              type="stepAfter"
+              dataKey="Average"
+              stroke="var(--chart-primary)"
+              strokeWidth={2.5}
+              dot={false}
+              isAnimationActive={false}
+            />
+            <ReferenceLine y={expectedValue} stroke="var(--chart-danger)" strokeDasharray="4 4" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

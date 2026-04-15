@@ -1,57 +1,90 @@
-import React, { useState, useMemo } from 'react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useId, useMemo, useState } from 'react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { jStat } from 'jstat';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function GammaDistributionViz() {
-  const [k, setK] = useState(2); // Shape
-  const [theta, setTheta] = useState(2); // Scale
+  const [k, setK] = useState(2);
+  const [theta, setTheta] = useState(2);
+  const gradientId = useId();
 
   const data = useMemo(() => {
     const points = [];
     for (let x = 0.1; x <= 20; x += 0.2) {
       points.push({
         WaitTime: Number(x.toFixed(1)),
-        Density: jStat.gamma.pdf(x, k, theta)
+        Density: jStat.gamma.pdf(x, k, theta),
       });
     }
     return points;
   }, [k, theta]);
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Gamma Distribution</h3>
-      
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Shape (k): {k}</label>
-          <input 
-            type="range" className="modern-slider" min="1" max="10" step="0.5" 
-            value={k} onChange={(e) => setK(parseFloat(e.target.value))}
-            style={{ width: '100%' }}
+    <ChartCard
+      title="Gamma Distribution"
+      subtitle="A flexible family for waiting times; controlled by shape k and scale θ."
+    >
+      <ChartControls>
+        <ChartControl label="Shape (k)" value={k.toFixed(1)} hint="Number of events to wait for">
+          <input
+            type="range"
+            className="modern-slider"
+            min="1"
+            max="10"
+            step="0.5"
+            value={k}
+            onChange={(e) => setK(parseFloat(e.target.value))}
           />
-          <small style={{ color: 'inherit' }}>Number of events to wait for</small>
-        </div>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Scale (θ): {theta}</label>
-          <input 
-            type="range" className="modern-slider" min="0.5" max="5" step="0.5" 
-            value={theta} onChange={(e) => setTheta(parseFloat(e.target.value))}
-            style={{ width: '100%' }}
+        </ChartControl>
+        <ChartControl label="Scale (θ)" value={theta.toFixed(1)} hint="Mean time between events">
+          <input
+            type="range"
+            className="modern-slider"
+            min="0.5"
+            max="5"
+            step="0.5"
+            value={theta}
+            onChange={(e) => setTheta(parseFloat(e.target.value))}
           />
-          <small style={{ color: 'inherit' }}>Mean time between events</small>
-        </div>
-      </div>
+        </ChartControl>
+      </ChartControls>
 
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="WaitTime" type="number" domain={[0, 20]} />
-            <YAxis />
-            <Tooltip />
-            <Area type="monotone" dataKey="Density" stroke="var(--chart-primary)" fill="var(--chart-primary)" fillOpacity={0.2} />
+          <AreaChart data={data} margin={{ top: 12, right: 12, left: 8, bottom: 6 }}>
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-primary)" stopOpacity={0.32} />
+                <stop offset="100%" stopColor="var(--chart-primary)" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid {...chartGridProps} />
+            <XAxis dataKey="WaitTime" type="number" domain={[0, 20]} tickCount={11} {...chartAxisProps} />
+            <YAxis {...chartAxisProps} />
+            <Tooltip {...chartTooltipProps} />
+
+            <Area
+              type="monotone"
+              dataKey="Density"
+              stroke="var(--chart-primary)"
+              strokeWidth={2.5}
+              fill={`url(#${gradientId})`}
+              fillOpacity={1}
+              dot={false}
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

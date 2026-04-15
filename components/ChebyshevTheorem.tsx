@@ -1,65 +1,81 @@
-import React, { useState, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts';
+import React, { useId, useMemo, useState } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ReferenceArea,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function ChebyshevTheorem() {
-  const [k, setK] = useState(2); // Number of standard deviations
-  
-  const minPercent = useMemo(() => {
-    return (1 - (1 / (k * k))) * 100;
-  }, [k]);
+  const [k, setK] = useState(2);
+  const gradId = useId();
 
-  // Generate a mock bimodal (non-normal) distribution to prove the theorem
+  const minPercent = useMemo(() => (1 - 1 / (k * k)) * 100, [k]);
+
+  // Mock bimodal (non-normal) distribution to demonstrate the guarantee.
   const data = useMemo(() => {
-      const points = [];
-      for (let i = -5; i <= 5; i += 0.5) {
-          let height = 10;
-          if (i < -3 || i > 3) height = 2;
-          if (i === -2 || i === 2) height = 40; // Bimodal peaks
-          if (i > -1 && i < 1) height = 5;
-          points.push({
-              x: i.toFixed(1),
-              Density: height
-          });
-      }
-      return points;
+    const points: { x: string; Density: number }[] = [];
+    for (let i = -5; i <= 5; i += 0.5) {
+      let height = 10;
+      if (i < -3 || i > 3) height = 2;
+      if (i === -2 || i === 2) height = 40;
+      if (i > -1 && i < 1) height = 5;
+      points.push({ x: i.toFixed(1), Density: height });
+    }
+    return points;
   }, []);
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Chebyshev's Inequality</h3>
-      
-      <div className="chart-wrapper" style={{ textAlign: 'center', marginBottom: '1.5rem', backgroundColor: 'var(--chart-bg)', borderRadius: '0.5rem' }}>
-          <p style={{ margin: 0, fontSize: '1.1rem', color: 'inherit' }}>
-              At least <strong style={{ fontSize: '1.5rem', color: '#c026d3' }}>{minPercent.toFixed(1)}%</strong> of the data must fall within <strong>{k} standard deviations</strong> from the mean!
-          </p>
-      </div>
-
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 300px', maxWidth: '400px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Standard Deviations (k): {k}</label>
-          <input 
-            type="range" className="modern-slider" min="1.1" max="5" step="0.1" 
-            value={k} onChange={(e) => setK(parseFloat(e.target.value))}
-            style={{ width: '100%' }}
-          />
+    <ChartCard title="Chebyshev’s inequality" subtitle="A distribution-free bound: a guaranteed minimum fraction lies within k standard deviations.">
+      <div className="chart-kpi">
+        <div className="chart-kpi-muted">Guaranteed minimum within ±{k.toFixed(1)}σ</div>
+        <div className="chart-kpi-value" style={{ color: 'var(--chart-secondary)' }}>
+          {minPercent.toFixed(1)}%
         </div>
+        <div className="chart-kpi-muted">The shaded band shows the ±kσ region.</div>
       </div>
-      
-      <p style={{ textAlign: 'center', fontSize: '0.85rem', color: '#a21caf' }}>
-          <em>The pink shaded area shows the bounds of ±{k}σ. Even for this weird, two-humped distribution, the mathematical guarantee holds true!</em>
-      </p>
 
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+      <ChartControls>
+        <ChartControl label="Standard deviations (k)" value={k.toFixed(1)} hint="Chebyshev: ≥ 1 - 1/k²">
+          <input
+            type="range"
+            className="modern-slider"
+            min={1.1}
+            max={5}
+            step={0.1}
+            value={k}
+            onChange={(e) => setK(parseFloat(e.target.value))}
+            style={{ ['--slider-accent' as any]: 'var(--chart-secondary)' } as React.CSSProperties}
+          />
+        </ChartControl>
+      </ChartControls>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="x" />
-            <YAxis />
-            <Tooltip />
-            <ReferenceArea x1={(-k).toFixed(1)} x2={(k).toFixed(1)} fill="var(--chart-primary)" fillOpacity={0.6} />
-            <Bar dataKey="Density" fill="var(--chart-primary)" />
+          <BarChart data={data} margin={{ top: 12, right: 16, left: 8, bottom: 8 }}>
+            <defs>
+              <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-primary)" stopOpacity={0.9} />
+                <stop offset="100%" stopColor="var(--chart-primary)" stopOpacity={0.45} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid {...chartGridProps} />
+            <XAxis {...chartAxisProps} dataKey="x" />
+            <YAxis {...chartAxisProps} />
+            <Tooltip {...chartTooltipProps} />
+
+            <ReferenceArea x1={(-k).toFixed(1)} x2={k.toFixed(1)} fill="var(--chart-secondary)" fillOpacity={0.14} />
+            <Bar dataKey="Density" fill={`url(#${gradId})`} radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

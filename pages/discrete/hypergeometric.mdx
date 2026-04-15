@@ -2,32 +2,79 @@ import { MathExample, MathQuestion, MathSolution } from '../../components/MathEx
 
 # Hypergeometric Distribution
 
-The probability of $k$ successes in $n$ draws, **without replacement**, from a finite population of size $N$ that contains exactly $K$ successes.
+The **Hypergeometric distribution** models the number of successes when you sample **without replacement** from a finite population.
 
+## Setup
+
+- Population size: **$N$**
+- Number of successes in population: **$K$**
+- Draws (sample size): **$n$**
+- Random variable: **$X$ = number of successes in the sample**
+
+Then:
+
+$$
+X \sim \mathrm{Hypergeometric}(N, K, n)
+$$
+
+## PMF
+
+$$
+P(X=k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}
+$$
+
+## Intuition
+
+You’re counting: “choose $k$ successes” and “choose $n-k$ failures”, divided by “choose $n$ total”.
+
+## Hypergeometric vs Binomial
+
+- **Hypergeometric:** without replacement → probabilities change after each draw.
+- **Binomial:** with replacement / independent trials → probability stays constant.
+
+If the population is huge relative to the sample (e.g., $n \ll N$), Hypergeometric is often well-approximated by a Binomial with $p=K/N$.
+
+## Key facts
+
+- **Mean:** $E[X] = n\frac{K}{N}$
+- **Variance:**
+
+$$
+\mathrm{Var}(X)=n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1}
+$$
+
+The factor $\frac{N-n}{N-1}$ is the **finite population correction** (variance is smaller than Binomial because you’re not sampling independently).
+
+## When to use
+
+- Cards without replacement
+- Auditing / QA sampling from a finite batch
+- Any “draw $n$ items from $N$ without putting them back” scenario
 
 ## Test Your Knowledge
 
-<MathExample title="Example: Hypergeometric (Without Replacement)">
+<MathExample title="Example: Hypergeometric (without replacement)">
   <MathQuestion>
     A deck of 52 cards contains 4 Aces. You draw 5 cards from the deck *without replacement*. What is the probability you draw exactly 2 Aces?
   </MathQuestion>
   <MathSolution>
     Because we are drawing *without replacement* from a finite population, this is Hypergeometric.
-    
+
     Formula: $\frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}$
-    - Total Population $N = 52$
-    - Total Successes $K = 4$ (Aces)
-    - Sample Size $n = 5$
-    - Desired Successes $k = 2$
-    
+
+    - Total population $N = 52$
+    - Total successes $K = 4$ (Aces)
+    - Sample size $n = 5$
+    - Desired successes $k = 2$
+
     $\frac{\binom{4}{2} \binom{48}{3}}{\binom{52}{5}}$
-    
+
     - $\binom{4}{2} = 6$
     - $\binom{48}{3} = 17,296$
     - $\binom{52}{5} = 2,598,960$
-    
-    $P(X=2) = \frac{6 \times 17,296}{2,598,960} = \frac{103,776}{2,598,960} \approx 0.0399$
-    
+
+    $P(X=2) = \frac{6 \times 17,296}{2,598,960} \approx 0.0399$
+
     There is a **3.99%** chance of drawing exactly 2 Aces in a 5-card hand.
   </MathSolution>
 </MathExample>

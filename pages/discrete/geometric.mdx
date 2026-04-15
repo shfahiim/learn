@@ -2,25 +2,69 @@ import { MathExample, MathQuestion, MathSolution } from '../../components/MathEx
 
 # Geometric Distribution
 
-The Geometric distribution models the number of trials needed to get the **first success** in a series of Bernoulli trials.
+The **Geometric distribution** models *waiting time until the first success* in repeated independent Bernoulli trials.
 
-$P(X = k) = (1-p)^{k-1}p$
+- Each trial succeeds with probability **$p$** (same $p$ every time)
+- Trials are independent
+- The random variable **$X$** is the **trial index** of the first success ($X = 1,2,3,\dots$)
 
+## PMF
+
+$$
+P(X = k) = (1-p)^{k-1}p,\qquad k = 1,2,3,\dots
+$$
+
+## Intuition
+
+Think of “keep trying until it works”. The probability shrinks geometrically as $k$ grows, because you must fail $k-1$ times in a row, then succeed.
+
+## When to use
+
+Use Geometric when:
+
+- You are counting **how many attempts until the first success**
+- The success probability is **constant** each attempt
+- Attempts are independent
+
+Common examples: first sale, first defect, first conversion, first time an event occurs.
+
+## Key facts
+
+- **Mean:** $E[X] = \frac{1}{p}$
+- **Variance:** $\mathrm{Var}(X) = \frac{1-p}{p^2}$
+- **Memoryless property:**
+
+$$
+P(X > s+t \mid X > s) = P(X > t)
+$$
+
+Meaning: once you’ve already waited $s$ trials with no success, your *future waiting time* distribution resets.
+
+## Common pitfall
+
+Some books define $X$ as the **number of failures before the first success** (support $0,1,2,\dots$). In that parameterization:
+
+$$
+P(X = k) = (1-p)^k p,\qquad k = 0,1,2,\dots
+$$
+
+This guide uses **trial count** (support starts at 1).
 
 ## Test Your Knowledge
 
-<MathExample title="Example: Geometric Waiting Time">
+<MathExample title="Example: Geometric waiting time">
   <MathQuestion>
     A basketball player makes 80% of his free throws ($p=0.8$). What is the probability that he misses his first two shots, but makes his *first* successful shot on the 3rd attempt?
   </MathQuestion>
   <MathSolution>
     This is a Geometric distribution where we want the first success on trial $k=3$.
-    
+
     Formula: $P(X = k) = (1-p)^{k-1}p$
-    
+
     $P(X = 3) = (1 - 0.8)^{3-1}(0.8) = (0.2)^2 (0.8)$
+
     $P(X = 3) = 0.04 \times 0.8 = 0.032$
-    
+
     There is a **3.2%** chance his first success happens exactly on the 3rd shot.
   </MathSolution>
 </MathExample>

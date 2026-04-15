@@ -1,14 +1,17 @@
 export default {
   logo: (
     <div className="nx-flex nx-items-center nx-gap-4">
-      <span className="nx-font-bold">Probability Distributions Guide</span>
+      <span className="nx-font-bold">Probability</span>
     </div>
   ),
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="Probability Distributions Guide" />
-      <meta property="og:description" content="Master Guide to Probability Distributions: From Beginner to Advanced" />
+      <meta property="og:title" content="Probability" />
+      <meta
+        property="og:description"
+        content="An intuition-first, interactive guide to probability: foundations, distributions, inequalities, and limit theorems."
+      />
     </>
   ),
   useNextSeoProps() {
@@ -24,5 +27,6 @@ export default {
   },
   feedback: {
     content: null
-  }
+  },
+  gitTimestamp: null
 }

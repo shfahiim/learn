@@ -1,9 +1,20 @@
-import React, { useState, useMemo } from 'react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import React, { useId, useMemo, useState } from 'react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { jStat } from 'jstat';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartAxisProps, chartGridProps, chartTooltipProps } from './charts/rechartsDefaults';
 
 export function TDistribution() {
   const [df, setDf] = useState(1);
+  const gradientId = useId();
 
   const data = useMemo(() => {
     const points = [];
@@ -11,38 +22,67 @@ export function TDistribution() {
       points.push({
         x: Number(x.toFixed(1)),
         't-Distribution': jStat.studentt.pdf(x, df),
-        'Normal (Reference)': jStat.normal.pdf(x, 0, 1)
+        'Normal (Reference)': jStat.normal.pdf(x, 0, 1),
       });
     }
     return points;
   }, [df]);
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.5rem', margin: '1rem 0' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>Interactive Student's t-Distribution</h3>
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Degrees of Freedom (df): {df}</label>
-          <input 
-            type="range" className="modern-slider" 
-            min="1" max="30" step="1" 
-            value={df} 
+    <ChartCard
+      title="Student’s t-Distribution"
+      subtitle="As df increases, it approaches the normal distribution."
+    >
+      <ChartControls>
+        <ChartControl label="Degrees of Freedom (df)" value={df}>
+          <input
+            type="range"
+            className="modern-slider"
+            min="1"
+            max="30"
+            step="1"
+            value={df}
             onChange={(e) => setDf(parseInt(e.target.value))}
-            style={{ width: '100%' }}
           />
-        </div>
-      </div>
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+        </ChartControl>
+      </ChartControls>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <XAxis dataKey="x" type="number" domain={[-5, 5]} />
-            <YAxis domain={[0, 0.45]} />
-            <Tooltip />
-            <Area type="monotone" dataKey="t-Distribution" stroke="var(--chart-primary)" fill="var(--chart-primary)" fillOpacity={0.2} />
-            <Area type="monotone" dataKey="Normal (Reference)" stroke="var(--chart-muted)" fill="none" strokeDasharray="3 3" />
+          <AreaChart data={data} margin={{ top: 12, right: 12, left: 8, bottom: 6 }}>
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-primary)" stopOpacity={0.32} />
+                <stop offset="100%" stopColor="var(--chart-primary)" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid {...chartGridProps} />
+            <XAxis dataKey="x" type="number" domain={[-5, 5]} tickCount={9} {...chartAxisProps} />
+            <YAxis domain={[0, 0.45]} {...chartAxisProps} />
+            <Tooltip {...chartTooltipProps} />
+
+            <Area
+              type="monotone"
+              dataKey="t-Distribution"
+              stroke="var(--chart-primary)"
+              strokeWidth={2.5}
+              fill={`url(#${gradientId})`}
+              fillOpacity={1}
+              dot={false}
+            />
+            <Area
+              type="monotone"
+              dataKey="Normal (Reference)"
+              stroke="var(--chart-muted)"
+              fill="none"
+              strokeDasharray="5 4"
+              strokeWidth={2}
+              dot={false}
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }

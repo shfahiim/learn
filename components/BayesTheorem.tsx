@@ -1,95 +1,111 @@
-import React, { useState, useMemo } from 'react';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import React, { useMemo, useState } from 'react';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { ChartCard, ChartControl, ChartControls } from './charts/ChartCard';
+import { chartTooltipProps } from './charts/rechartsDefaults';
 
 export function BayesTheorem() {
-  const [priorPos, setPriorPos] = useState(1); // True Positive base rate (1%)
-  const [tpr, setTpr] = useState(90); // True Positive Rate (Sensitivity)
-  const [fpr, setFpr] = useState(9);  // False Positive Rate
+  const [priorPos, setPriorPos] = useState(1);
+  const [tpr, setTpr] = useState(90);
+  const [fpr, setFpr] = useState(9);
 
-  const data = useMemo(() => {
-    // Math for Bayes Rule:
-    const P_A = priorPos / 100; // Probability of having disease
-    const P_notA = 1 - P_A; // Probability of not having disease
-    
-    const P_B_given_A = tpr / 100; // Probability of testing positive given disease
-    const P_B_given_notA = fpr / 100; // Probability of testing positive given NO disease
-    
-    const P_B = (P_B_given_A * P_A) + (P_B_given_notA * P_notA); // Total probability of a positive test
-    
-    const posterior = (P_B_given_A * P_A) / P_B; // P(A|B)
-    
+  const model = useMemo(() => {
+    const P_A = priorPos / 100;
+    const P_notA = 1 - P_A;
+
+    const P_B_given_A = tpr / 100;
+    const P_B_given_notA = fpr / 100;
+
+    const P_B = P_B_given_A * P_A + P_B_given_notA * P_notA;
+    const posterior = (P_B_given_A * P_A) / P_B;
+
     return {
-      posterior: posterior * 100,
-      falsePositives: (1 - posterior) * 100,
+      posteriorPct: posterior * 100,
+      positiveTestRatePct: P_B * 100,
       chartData: [
-        { name: 'Actually Has Disease (True Positives)', value: P_B_given_A * P_A },
-        { name: 'Healthy but Tested Positive (False Positives)', value: P_B_given_notA * P_notA }
-      ]
+        { name: 'True positives', value: P_B_given_A * P_A },
+        { name: 'False positives', value: P_B_given_notA * P_notA },
+      ],
     };
   }, [priorPos, tpr, fpr]);
 
-  const COLORS = ['#10b981', '#ef4444'];
+  const COLORS = ['var(--chart-success)', 'var(--chart-danger)'];
 
   return (
-    <div className="chart-wrapper" style={{ border: '1px solid var(--chart-border)', borderRadius: '0.75rem', margin: '2rem 0', backgroundColor: 'var(--chart-bg)' }}>
-      <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'inherit' }}>Interactive Bayes' Theorem: Medical Testing</h3>
-      <p style={{ textAlign: 'center', fontSize: '0.95rem', marginBottom: '1.5rem', color: 'inherit' }}>
-        If you test positive, what is the <strong>actual</strong> probability you have the disease?
-        <br/>
-        <strong style={{ fontSize: '1.2rem', color: '#10b981' }}>{data.posterior.toFixed(1)}%</strong>
-      </p>
-      
-      <div className="chart-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Disease Rarity (Base Rate): {priorPos}%</label>
-          <input 
-            type="range" className="modern-slider" min="0.1" max="10" step="0.1" 
-            value={priorPos} onChange={(e) => setPriorPos(parseFloat(e.target.value))}
-            style={{ width: '100%' }}
-          />
-          <small style={{ color: 'inherit' }}>How common is the disease in the population?</small>
+    <ChartCard
+      title="Bayes’ theorem (medical testing)"
+      subtitle="If you test positive, what’s the chance you actually have the disease?"
+    >
+      <div className="chart-kpi">
+        <div className="chart-kpi-muted">Positive predictive value</div>
+        <div className="chart-kpi-value" style={{ color: 'var(--chart-success)' }}>
+          {model.posteriorPct.toFixed(1)}%
         </div>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>Test Accuracy (Sensitivity): {tpr}%</label>
-          <input 
-            type="range" className="modern-slider" min="50" max="100" step="1" 
-            value={tpr} onChange={(e) => setTpr(parseInt(e.target.value))}
-            style={{ width: '100%' }}
-          />
-          <small style={{ color: 'inherit' }}>If sick, chance of testing positive.</small>
-        </div>
-        <div className="chart-wrapper" style={{ flex: '1 1 200px' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'inherit' }}>False Positive Rate: {fpr}%</label>
-          <input 
-            type="range" className="modern-slider" min="0" max="20" step="1" 
-            value={fpr} onChange={(e) => setFpr(parseInt(e.target.value))}
-            style={{ width: '100%' }}
-          />
-          <small style={{ color: 'inherit' }}>If healthy, chance of incorrectly testing positive.</small>
-        </div>
+        <div className="chart-kpi-muted">Positive test rate: {model.positiveTestRatePct.toFixed(2)}% of the population</div>
       </div>
-      
-      <div className="chart-wrapper" style={{ height: '300px', width: '100%' }}>
+
+      <ChartControls>
+        <ChartControl label="Disease prevalence" value={`${priorPos.toFixed(1)}%`} hint="Base rate in the population.">
+          <input
+            type="range"
+            className="modern-slider"
+            min={0.1}
+            max={10}
+            step={0.1}
+            value={priorPos}
+            onChange={(e) => setPriorPos(parseFloat(e.target.value))}
+          />
+        </ChartControl>
+
+        <ChartControl label="Sensitivity" value={`${tpr}%`} hint="If sick, chance of a positive test.">
+          <input
+            type="range"
+            className="modern-slider"
+            min={50}
+            max={100}
+            step={1}
+            value={tpr}
+            onChange={(e) => setTpr(parseInt(e.target.value, 10))}
+            style={{ ['--slider-accent' as any]: 'var(--chart-success)' } as React.CSSProperties}
+          />
+        </ChartControl>
+
+        <ChartControl label="False positive rate" value={`${fpr}%`} hint="If healthy, chance of an incorrect positive.">
+          <input
+            type="range"
+            className="modern-slider"
+            min={0}
+            max={20}
+            step={1}
+            value={fpr}
+            onChange={(e) => setFpr(parseInt(e.target.value, 10))}
+            style={{ ['--slider-accent' as any]: 'var(--chart-danger)' } as React.CSSProperties}
+          />
+        </ChartControl>
+      </ChartControls>
+
+      <div className="chart-canvas">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              data={data.chartData}
+              data={model.chartData}
               cx="50%"
               cy="50%"
-              innerRadius={60}
-              outerRadius={100}
-              paddingAngle={5}
+              innerRadius={62}
+              outerRadius={110}
+              paddingAngle={3}
               dataKey="value"
+              stroke="var(--chart-border)"
+              strokeWidth={1}
             >
-              {data.chartData.map((entry, index) => (
+              {model.chartData.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip formatter={(val: any) => `${(Number(val) * 100).toFixed(4)}% of population`} />
-            <Legend verticalAlign="bottom" height={36}/>
+            <Tooltip {...chartTooltipProps} formatter={(val: any) => `${(Number(val) * 100).toFixed(4)}% of population`} />
+            <Legend verticalAlign="bottom" height={36} />
           </PieChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </ChartCard>
   );
 }
