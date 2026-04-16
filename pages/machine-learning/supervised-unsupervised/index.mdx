@@ -1,17 +1,28 @@
 import { Callout } from 'nextra/components';
 import SupervisedVsUnsupervised from '@/components/SupervisedVsUnsupervised';
+import LearningLifecycleViz from '@/components/LearningLifecycleViz';
 
 # Supervised and Unsupervised Learning
 
 Machine learning algorithms are broadly categorized based on how they utilize data. The two most prominent paradigms are **Supervised Learning** and **Unsupervised Learning**.
 
+## The Learning Lifecycle
+
+Before focusing on specific paradigms, it's essential to understand the general lifecycle of a learning agent. This cycle involves building knowledge from data to enable informed actions.
+
+<LearningLifecycleViz />
+
 ---
 
 ## Supervised Learning
 
-In Supervised Learning, models are trained on **labeled data**. This means for every input example $\mathbf{x}_i$, the algorithm is also given a "ground truth" target label $y_i$.
+In Supervised Learning, models are trained on **labeled data**. This means for every input example $\mathbf{x}^{(i)}$, the algorithm is also given a "ground truth" target label $y^{(i)}$.
 
 The goal is to learn a mapping $f: \mathbf{x} \to y$ that generalizes well to unseen data.
+
+<Callout type="info" emoji="🎓">
+**PAC Learning (Probably Approximately Correct)**: This is a framework for analyzing the learnability of tasks. A learning algorithm is PAC if, with high probability (Probably), the learned model will have a low error rate (Approximately Correct) on new data.
+</Callout>
 
 ### Key Tasks:
 1.  **Regression**: Predicting a continuous value (e.g., predicting house prices based on square footage).

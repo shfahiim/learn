@@ -1,0 +1,54 @@
+import { Callout } from 'nextra/components';
+import PolynomialRegressionViz from '@/components/PolynomialRegressionViz';
+
+# Polynomial Regression
+
+Linear models assume that the target variable is a weighted sum of input features. However, real-world data often exhibits non-linear relationships that a straight line cannot capture.
+
+---
+
+## 1. Motivation: Non-Linear Trends
+
+Consider predicting the price of a house based on its area. While price generally increases with area, the rate of increase might accelerate or decelerate. A simple linear hypothesis $h(x) = \theta_0 + \theta_1 x$ would result in high error.
+
+By adding **polynomial terms**, we can create a model that captures these curves.
+
+---
+
+## 2. Feature Expansion
+
+The key insight of Polynomial Regression is that we can transform our input feature $x$ into a set of higher-degree features. For a polynomial of degree $d$, the hypothesis becomes:
+
+$$h_{\boldsymbol{\theta}}(x) = \theta_0 + \theta_1 x + \theta_2 x^2 + \dots + \theta_d x^d$$
+
+### Linear in Parameters
+Even though the hypothesis is non-linear with respect to the input feature $x$, it remains **linear with respect to the parameters** $\boldsymbol{\theta}$. This means we can still use all the optimization tools from linear regression (MLE, Gradient Descent, Normal Equation).
+
+We simply define a new feature vector:
+$$\mathbf{x}' = [1, x, x^2, \dots, x^d]^T$$
+
+---
+
+## 3. Expressive Power and Model Capacity
+
+As we increase the degree $d$, the model's **Expressive Power** increases. It becomes more flexible and can fit more complex shapes. However, there is a fundamental trade-off:
+
+*   **Low Degree ($d=1$)**: High bias, leads to **Underfitting**.
+*   **Optimal Degree**: Captures the true underlying pattern.
+*   **High Degree ($d \gg 1$)**: High variance, leads to **Overfitting** (the model follows the noise).
+
+<PolynomialRegressionViz />
+
+---
+
+## 4. Interaction Terms
+
+In addition to powers of a single feature, we can also include **interaction terms** between different features $x_1$ and $x_2$:
+
+$$h_{\boldsymbol{\theta}}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_1 x_2$$
+
+Interaction terms allow the model to capture dependencies where the effect of $x_1$ on the target depends on the value of $x_2$.
+
+<Callout type="info" emoji="🧠">
+**Domain Knowledge**: The choice of polynomial features and interaction terms should ideally be guided by your understanding of the problem domain. Adding features indiscriminately can lead to the "Curse of Dimensionality."
+</Callout>

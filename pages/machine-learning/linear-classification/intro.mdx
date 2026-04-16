@@ -1,0 +1,60 @@
+# Introduction to Linear Classification
+
+Classification represents a paradigm shift away from continuous regression. It explicitly deals with predicting discrete **Categorical** targets.
+
+## Regression vs. Classification
+Consider the objective mapping of Academic Student Data:
+- **Regression Problem:** Predicting a continuous numeric sequence such as *CGPA* (e.g. 3.2, 3.4).
+- **Classification Problem:** Predicting a discrete set of bins, such as Letter *Grades* (A, B, C) or Boolean statuses. 
+
+Classification is structurally carved into specific schemas:
+1. **Binary Classification:** Outcomes hold exclusively two possible classes (e.g., $1$: Pass, $0$: Fail).
+2. **Multiclass Classification:** Outcomes expand across multiple distinct groups.
+
+### Encoding Binary Labels
+During algorithmic processing, we represent labels mathematically. Commonly, the target variable $y$ is encoded as either:
+* $\{0, 1\}$ probabilities.
+* $\{-1, +1\}$ spatial vectors.
+
+### Visualizing Linear Classification (Tumor Size Example)
+In the hand-drawn notes, this is beautifully illustrated with a 1-Dimensional dataset classifying **Tumors** (Malignant vs Benign) based strictly on their **Size**:
+
+*   **X-axis:** Tumor Size
+*   **Datapoints:** Cluster of smaller sizes at $y=0$ (Class 0), cluster of larger sizes at $y=1$ (Class 1).
+*   **The Problem with Regression:** If you try to fit a zigzag or standard linear regression line through these points, it fails to separate them cleanly. As the notes emphasize: *"We won't learn such a line."*
+*   **The Classification Solution:** Instead, we establish a **Decision Boundary**—a strict vertical threshold at $x = 3$. *"We must learn such a line."*
+    *   If $x \ge 3 \implies 1$ (Pass / Malignant)
+    *   If $x < 3 \implies 0$ (Fail / Benign)
+
+---
+
+## Defining the Decision Boundary
+
+Linear classification generates a dividing threshold space — mathematically defined as the **Decision Boundary**.
+
+Suppose we have two features $x_1$ and $x_2$. A linear decision bound establishes a geometric line defined strictly by:
+$$ax + by + c = 0$$
+
+Assuming an expanded parameter weight $\theta^T x$, the classes divide based on coordinate inequalities:
+* $\theta_0 + \theta_1 x_1 + \theta_2 x_2 \ge 0 \implies \text{Predict Class 1}$
+* $\theta_0 + \theta_1 x_1 + \theta_2 x_2 < 0 \implies \text{Predict Class 0}$
+
+### Point-Normal Line Equation (Vector Graph Geometry)
+The hand-drawn notes illustrate a 2-Dimensional Cartesian graph ($x_1$ vs $x_2$) featuring a scatter plot of two distinct shapes (circles and crosses) divided by a straight line. 
+
+A geometric decision boundary directly evaluates the linear dot product. We can deduce $ax+by+c=0$ directly from the vector form of a line:
+
+Given:
+1.  A **Decision Boundary** line.
+2.  An **established point origin** on the line: $(x_0, y_0)$.
+3.  A **Normal Vector** $\vec{n} = (a, b)$ protruding perpendicularly from the boundary.
+4.  Any arbitrary **Test point** $(x, y)$ mapped on the plane.
+
+Traversing to the test point must obey the dot product equation since it's perpendicular to the normal:
+$$ \vec{n} \cdot (x - x_0, y - y_0) = 0 $$
+$$ a(x - x_0) + b(y - y_0) = 0 $$
+$$ ax + by - (ax_0 + by_0) = 0 $$
+
+*(Here, $c = -(ax_0 + by_0)$)*. 
+
+The algorithm "learns" this specific line to separate classes effectively, rather than arbitrarily drawing zigzag regression paths overlapping the datapoints.

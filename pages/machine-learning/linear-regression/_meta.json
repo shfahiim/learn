@@ -1,5 +1,6 @@
 {
   "mle-least-squares": "MLE & Least Squares",
+  "polynomial-regression": "Polynomial Regression",
   "regularized-least-squares": "Regularization (Ridge/Lasso)",
   "bias-variance": "Bias-Variance Tradeoff",
   "bayesian-regression": "Bayesian Regression"

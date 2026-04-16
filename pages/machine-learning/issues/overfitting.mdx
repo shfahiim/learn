@@ -34,7 +34,6 @@ We want a model that is "just right"—complex enough to capture the trend, but 
 <OverfittingViz />
 
 ---
-
 ## Signals of Overfitting
 
 | Training Error | Test Error | Status |
@@ -43,9 +42,39 @@ We want a model that is "just right"—complex enough to capture the trend, but 
 | Low | High | **Overfitting** (Model is memorizing noise) |
 | Low | Low | **Good Fit** (Model generalizes well) |
 
+---
+
+## Example: Polynomial Degree vs. Validation Error
+
+Suppose we are fitting a model with different polynomial degrees. We measure the average validation error across several runs:
+
+| Degree ($d$) | Validation Error | Status |
+| :---: | :---: | :--- |
+| 1 | 10.5 | Underfitting (too simple) |
+| 2 | 8.7 | Improving fit |
+| 3 | **5.6** | **Optimal** (Captures the true trend) |
+| 4 | 8.6 | Beginning to overfit |
+| 5 | 9.7 | Severe Overfitting (memorizing noise) |
+
+As we increase the degree, the model's flexibility grows. However, after degree 3, the validation error starts to rise because the model begins to capture noise rather than signal.
+
 <Callout type="info">
 **The Bias-Variance Tradeoff**: 
-- **Bias** is the error from erroneous assumptions in the learning algorithm. 
-- **Variance** is the error from sensitivity to small fluctuations in the training set.
-We strive to minimize the sum of both.
+The generalization error of a model can be mathematically decomposed as:
+$$Err(x) = \text{Bias}^2(x) + \text{Var}(x) + \sigma^2$$
+*(where $\sigma^2$ is irreducible error)*
+
+- **Bias** is the error from erroneous assumptions in the learning algorithm. High bias leads to underfitting.
+- **Variance** is the error from sensitivity to small fluctuations in the training set. High variance leads to overfitting.
+
+We strive to minimize the sum of both. As we increase model complexity, Bias decreases but Variance increases. This intrinsic inverse relationship requires us to locate the optimal minimum on the generalization error curve.
+
+```mermaid
+graph TD
+    A[Low Model Complexity] -->|High Bias, Low Variance| B(Underfitting)
+    C[High Model Complexity] -->|Low Bias, High Variance| D(Overfitting)
+    B -.-> E{Optimal Complexity}
+    D -.-> E
+    E -->|Balanced Bias & Variance| F[Minimum Generalization Error]
+```
 </Callout>

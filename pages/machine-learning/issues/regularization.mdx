@@ -1,0 +1,43 @@
+# Regularization
+
+Regularization is an important algorithm-dependent technique to reduce model **Variance** (preventing overfitting) while introducing a slight amount of Bias. It achieves this by adding a penalty term directly into the cost function to restrict the flexibility of the parameters.
+
+## Visualizing the Need
+
+Consider a highly-flexible polynomial hypothesis:
+$$h(x) = \theta_0 + \theta_1x + \theta_2x^2 + \theta_3x^3 + \theta_4x^4 + \theta_5x^5$$
+
+If left unchecked, this model represents high variance and will perfectly mold to training noise. To prevent extremely large weights that exaggerate curves, we formulate a **Regularized Cost Function**:
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^m \left( h(x^{(i)}) - y^{(i)} \right)^2 + \lambda \sum_{j=1}^n |\theta_j|$$
+
+- The first term establishes the standard MSE cost.
+- The second component acts as the regularization penalty term.
+- $\lambda$ (lambda) defines the **regularizing hyperparameter**. It controls the "power" or severity of the penalty.
+
+> **Crucial Rule:** The validation error must always be calculated using the **original cost function** (without the regularization penalty), not the regularized one. Regularization is merely a tool for optimization during Gradient Descent model training.
+
+---
+
+## Types of Regularization: $L_1$ and $L_2$
+
+### $L_1$-Norm (Lasso Regularization)
+The penalty term consists of the absolute values of the weights.
+
+**Cost expression:**
+$$J(\theta) = \frac{1}{2m} \left[ \sum(h(x) - y)^2 + \lambda \sum_{j=1}^n |\theta_j| \right]$$
+
+- **Characteristic Property:** It uniquely leads to **high sparsity**. Many parameter coefficients ($\theta_j$) are forced to become *exactly* zero. Consequently, Lasso inadvertently performs automated feature selection by eliminating unimportant features.
+
+### $L_2$-Norm (Ridge Regularization)
+The penalty term consists of the squared magnitude of the weights.
+
+**Cost expression:**
+$$J(\theta) = \frac{1}{2m} \left[ \sum(h(x) - y)^2 \right] + \lambda \sum_{j=1}^n \|\theta_j\|^2$$
+
+- **Characteristic Property:** Makes the model parameters **stable and smooth** by heavily penalizing aggressively large individual weights. Features rarely become absolutely zero, but they are distributed smoothly.
+
+---
+
+### Gradient Descent Update
+Regardless of the type of regularization used, the process of minimizing the error remains conceptually identical—we take the partial derivative of the overall cost function iteratively:
+$$\theta_j \leftarrow \theta_j - \alpha \frac{\partial J(\theta)}{\partial \theta_j}$$

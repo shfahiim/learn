@@ -19,13 +19,36 @@ $$\sigma(a) = \frac{1}{1 + \exp(-a)} = h(x)$$
 The probability for a single sample is:
 $$P(y \mid x; \theta) = h(x)^y (1 - h(x))^{1 - y}$$
 
+### The Sigmoid Graph
+The Sigmoid function creates a characteristic **"S-curve"**. As drawn in the notes:
+*   The x-axis represents the linear combination $z = \theta^T x$.
+*   The y-axis represents the probability output $(0 \text{ to } 1)$.
+*   The curve asymptotically approaches $0$ as $z \to -\infty$ and $1$ as $z \to +\infty$.
+*   It flawlessly crosses exactly at **$y = 0.5$** when $z = 0$, establishing the decision threshold.
+
 <LogisticRegressionViz />
 
 ---
 
-## 2. Training: Maximum Likelihood
+## 2. Parameter Estimation & Maximum Likelihood
 
-Given a dataset $D = \{(x^{(i)}, y^{(i)})\}_{i=1}^m$, the Likelihood is the product of individual probabilities (assuming i.i.d.):
+In Machine Learning, finding the optimal weights is formally known as **Parameter Estimation**, and the core technique used is **Maximum Likelihood Estimation (MLE)**.
+
+### Intuition: The Coin Trial
+Consider a coin flip with an unknown probability of landing Heads, parameter $\phi$. Given data from three independent flips: $x_1 = H, x_2 = T, x_3 = T$, we want to find the value of $\phi$ that maximizes the probability (Likelihood) of seeing this exact sequence.
+
+*   $P(x_i = H) = \phi$
+*   $P(x_i = T) = 1 - \phi$
+
+Since the flips are **Independent and Identically Distributed (I.I.D)**, the overall probability (Likelihood) is the product:
+$$L(\phi) = P(x_1)P(x_2)P(x_3) = \phi(1-\phi)(1-\phi) = \phi(1-\phi)^2$$
+
+To optimize, we take the log-likelihood and set the derivative to zero. This mathematical mechanism strictly evaluates which parameter $\phi$ makes our observed dataset the most probable outcome.
+
+### MLE in Logistic Regression
+We apply this exact process directly to model learning. 
+
+Given a dataset $D = \{(x^{(i)}, y^{(i)})\}_{i=1}^m$, the Likelihood is the product of individual Bernoulli probabilities (assuming i.i.d.):
 
 $$L(\theta; D) = \prod_{i=1}^m P(y^{(i)} \mid x^{(i)}; \theta) = \prod_{i=1}^m h(x^{(i)})^{y^{(i)}} (1 - h(x^{(i)}))^{1 - y^{(i)}}$$
 

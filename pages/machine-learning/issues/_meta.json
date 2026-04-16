@@ -2,5 +2,6 @@
   "parametric-nonparametric": "Parametric vs Non-Parametric",
   "curse-of-dimensionality": "Curse of Dimensionality",
   "overfitting": "Overfitting",
-  "model-selection": "Model Selection"
+  "model-selection": "Model Selection",
+  "regularization": "Regularization"
 }
