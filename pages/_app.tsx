@@ -9,33 +9,48 @@ import { useRouter } from 'next/router';
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  // Track and save the last visited page URL whenever the route changes
+  // Track and save the last visited page URL and scroll position
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       localStorage.setItem('lastVisitedPage', url);
     };
 
+    const handleScrollPersistence = () => {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(`scroll-pos-${router.asPath}`, window.scrollY.toString());
+      }
+    };
+
     router.events.on('routeChangeComplete', handleRouteChange);
+    window.addEventListener('scroll', handleScrollPersistence);
+
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
+      window.removeEventListener('scroll', handleScrollPersistence);
     };
-  }, [router]);
+  }, [router, router.asPath]);
 
-  // Restore the user's state only on initial load if they arrive at the start page (/)
+  // Restore the user's state only on initial load
   useEffect(() => {
-    if (router.pathname !== '/' || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     
     const lastPage = localStorage.getItem('lastVisitedPage');
     const hasRedirected = sessionStorage.getItem('hasRedirected');
     
-    if (lastPage && lastPage !== '/' && !hasRedirected) {
+    if (router.pathname === '/' && lastPage && lastPage !== '/' && !hasRedirected) {
       sessionStorage.setItem('hasRedirected', 'true');
       router.push(lastPage);
-    } else if (router.pathname === '/') {
-      // Ensure if they actively click "Home" later, they aren't forcibly redirected away
-      sessionStorage.setItem('hasRedirected', 'true');
+    } else {
+      // Restore scroll position for the current page
+      const savedScrollPos = localStorage.getItem(`scroll-pos-${router.asPath}`);
+      if (savedScrollPos) {
+        window.scrollTo(0, parseInt(savedScrollPos, 10));
+      }
+      if (router.pathname === '/') {
+        sessionStorage.setItem('hasRedirected', 'true');
+      }
     }
-  }, [router, router.pathname]);
+  }, [router, router.pathname, router.asPath]);
 
   return (
     <>

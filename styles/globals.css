@@ -701,6 +701,22 @@
   min-width: 560px;
 }
 
+.ml-min-w-kfold {
+  min-width: 560px;
+}
+
+.ml-max-w-lifecycle {
+  max-width: 900px;
+}
+
+.ml-max-w-lifecycle-node {
+  max-width: 320px;
+}
+
+.ml-max-w-lifecycle-feedback {
+  max-width: 360px;
+}
+
 @media (max-width: 640px) {
   .space-x-24 > * + * {
     margin-left: 3rem;
@@ -720,6 +736,15 @@
 
   .ml-min-w-hmm {
     min-width: 500px;
+  }
+
+  .ml-min-w-kfold {
+    min-width: 520px;
+  }
+
+  .ml-max-w-lifecycle-node,
+  .ml-max-w-lifecycle-feedback {
+    max-width: 100%;
   }
 }
 

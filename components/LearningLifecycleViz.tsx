@@ -1,77 +1,127 @@
 import React from 'react';
+import { RefreshCw, ArrowDown, Database, Cpu, Target } from 'lucide-react';
 
 const LearningLifecycleViz = () => {
   return (
-    <div className="my-10 flex flex-col items-center gap-12">
-      {/* Human/Agent Learning Loop */}
-      <div className="w-full max-w-2xl p-6 rounded-2xl shadow-sm" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-1)' }}>
-        <h4 className="text-center font-bold mb-8 uppercase tracking-wider text-sm" style={{ color: 'var(--chart-muted)' }}>1. The Learning Loop</h4>
-        <div className="flex justify-center items-center gap-8 relative">
-          <div className="flex flex-col items-center gap-2 z-10">
-            <div className="w-24 h-24 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-blue-700 font-bold shadow-md">
-              Knowledge
+    <div className="my-10 flex flex-col items-center gap-4">
+      <div
+        className="w-full ml-max-w-lifecycle p-4 rounded-lg border"
+        style={{ borderColor: 'var(--border-1)', background: 'var(--surface-2)', boxShadow: 'var(--shadow-1)' }}
+      >
+        <h4 className="text-center font-bold mb-4 uppercase tracking-wider text-xs opacity-60 flex items-center justify-center gap-2">
+          <RefreshCw size={16} /> 1. The Learning Loop
+        </h4>
+
+        <div className="flex flex-col items-center gap-2">
+          <div
+            className="w-full ml-max-w-lifecycle-node p-3 rounded-lg border text-center"
+            style={{ borderColor: 'rgba(59, 130, 246, 0.35)', background: 'rgba(59, 130, 246, 0.10)' }}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Database size={18} color="#2563eb" />
+              <span className="text-sm font-bold" style={{ color: '#2563eb' }}>Knowledge</span>
             </div>
-          </div>
-          
-          <div className="flex flex-col items-center gap-4">
-             <div className="text-3xl text-slate-400">⇆</div>
-             <div className="text-xs font-mono px-2 py-1 rounded" style={{ color: 'var(--chart-muted)', background: 'var(--surface-1)', border: '1px solid var(--border-1)' }}>Refining</div>
+            <div className="text-xs opacity-60 mt-2">What the model currently knows</div>
           </div>
 
-          <div className="flex flex-col items-center gap-2 z-10">
-            <div className="w-24 h-24 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-emerald-700 font-bold shadow-md">
-              Learning
-            </div>
+          <div className="flex flex-col items-center gap-1 text-xs opacity-60">
+            <ArrowDown size={16} />
+            <span>Refining</span>
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-             <div className="text-3xl text-slate-400">→</div>
+          <div
+            className="w-full ml-max-w-lifecycle-node p-3 rounded-lg border text-center"
+            style={{ borderColor: 'rgba(16, 185, 129, 0.35)', background: 'rgba(16, 185, 129, 0.10)' }}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Cpu size={18} color="#059669" />
+              <span className="text-sm font-bold" style={{ color: '#059669' }}>Learning</span>
+            </div>
+            <div className="text-xs opacity-60 mt-2">Updates parameters from data</div>
           </div>
 
-          <div className="flex flex-col items-center gap-2 z-10">
-            <div className="w-24 h-24 rounded-full bg-orange-100 border-2 border-orange-500 flex items-center justify-center text-orange-700 font-bold shadow-md">
-              Action
-            </div>
+          <div className="flex flex-col items-center gap-1 text-xs opacity-60">
+            <ArrowDown size={16} />
+            <span>Acting</span>
           </div>
-          
-          {/* Subtle connecting curve for feedback */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-12 border-b-2 border-dashed border-slate-300 rounded-full pointer-events-none mt-12"></div>
+
+          <div
+            className="w-full ml-max-w-lifecycle-node p-3 rounded-lg border text-center"
+            style={{ borderColor: 'rgba(249, 115, 22, 0.35)', background: 'rgba(249, 115, 22, 0.10)' }}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Target size={18} color="#ea580c" />
+              <span className="text-sm font-bold" style={{ color: '#ea580c' }}>Action</span>
+            </div>
+            <div className="text-xs opacity-60 mt-2">Makes predictions and decisions</div>
+          </div>
+
+          <div
+            className="mt-2 ml-max-w-lifecycle-feedback p-2 rounded border text-xs text-center"
+            style={{ borderColor: 'var(--border-1)', background: 'var(--surface-1)' }}
+          >
+            <span className="font-bold">Feedback Loop:</span> Outcomes from actions refine future knowledge.
+          </div>
         </div>
-        <p className="mt-10 text-center text-sm text-[var(--chart-text)] italic">
-          Learning builds knowledge, and knowledge enables action. The results of actions refine future learning.
+
+        <p className="mt-4 text-center text-sm italic" style={{ color: 'var(--chart-text)', lineHeight: 1.6 }}>
+          "Learning builds knowledge, and knowledge enables action. The results of actions refine future learning."
         </p>
       </div>
 
-      {/* Training vs Testing Lifecycle */}
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Training Phase */}
-        <div className="p-6 rounded-xl border-2 border-dashed border-blue-200 flex flex-col items-center text-center" style={{ background: 'var(--surface-1)' }}>
-          <span className="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full mb-4 uppercase">Phase A: Training</span>
-          <div className="space-y-4 w-full">
-            <div className="p-3 rounded border text-sm font-medium" style={{ background: 'var(--surface-2)' }}>Input Dataset (Labeled)</div>
-            <div className="text-blue-400 text-xl">↓</div>
-            <div className="p-3 bg-blue-50 rounded border-2 border-blue-200 text-sm font-bold text-blue-800">Learning Algorithm</div>
-            <div className="text-blue-400 text-xl">↓</div>
-            <div className="p-4 bg-blue-600 text-white rounded-lg shadow-lg font-bold">
+      <div className="w-full ml-max-w-lifecycle grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div
+          className="p-4 rounded-lg border flex flex-col items-center text-center"
+          style={{ borderColor: 'rgba(59, 130, 246, 0.25)', background: 'var(--surface-1)' }}
+        >
+          <span
+            className="px-2 py-1 rounded-full mb-4 text-xs font-bold uppercase"
+            style={{ background: '#3b82f6', color: '#ffffff' }}
+          >
+              Phase A: Training
+          </span>
+          <div className="flex flex-col items-center gap-2 w-full">
+            <div className="w-full p-3 rounded border" style={{ borderColor: 'var(--border-1)', background: 'var(--surface-2)' }}>
+              Input Dataset (Labeled)
+            </div>
+            <ArrowDown size={16} color="#60a5fa" />
+            <div className="w-full p-3 rounded border font-bold" style={{ borderColor: 'rgba(59, 130, 246, 0.35)', background: 'rgba(59, 130, 246, 0.08)', color: '#2563eb' }}>
+              Learning Algorithm
+            </div>
+            <ArrowDown size={16} color="#60a5fa" />
+            <div className="w-full p-4 rounded-lg font-bold" style={{ background: '#2563eb', color: '#ffffff' }}>
               LEARNED MODEL
-              <div className="text-[10px] font-normal mt-1 opacity-80">(Weights, Parameters, Rules)</div>
+              <div className="text-xs mt-2" style={{ opacity: 0.85 }}>
+                Weights, Parameters, Rules
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Testing Phase */}
-        <div className="p-6 rounded-xl border-2 border-dashed border-emerald-200 flex flex-col items-center text-center" style={{ background: 'var(--surface-1)' }}>
-          <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full mb-4 uppercase">Phase B: Testing</span>
-          <div className="space-y-4 w-full">
-            <div className="p-3 rounded border text-sm font-medium" style={{ background: 'var(--surface-2)' }}>New / Unseen Data</div>
-            <div className="text-emerald-400 text-xl">↓</div>
-            <div className="p-4 bg-blue-600 text-white rounded-lg shadow-md font-bold opacity-60">
+        <div
+          className="p-4 rounded-lg border flex flex-col items-center text-center"
+          style={{ borderColor: 'rgba(16, 185, 129, 0.25)', background: 'var(--surface-1)' }}
+        >
+          <span
+            className="px-2 py-1 rounded-full mb-4 text-xs font-bold uppercase"
+            style={{ background: '#10b981', color: '#ffffff' }}
+          >
+              Phase B: Testing
+          </span>
+          <div className="flex flex-col items-center gap-2 w-full">
+            <div className="w-full p-3 rounded border" style={{ borderColor: 'var(--border-1)', background: 'var(--surface-2)' }}>
+              New / Unseen Data
+            </div>
+            <ArrowDown size={16} color="#34d399" />
+            <div className="w-full p-3 rounded border font-bold" style={{ borderColor: 'var(--border-1)', background: 'var(--surface-2)', color: 'var(--chart-muted)' }}>
               LEARNED MODEL
             </div>
-            <div className="text-emerald-400 text-xl">↓</div>
-            <div className="p-4 bg-emerald-600 text-white rounded-lg shadow-lg font-bold">
+            <ArrowDown size={16} color="#34d399" />
+            <div className="w-full p-4 rounded-lg font-bold" style={{ background: '#059669', color: '#ffffff' }}>
               PREDICTIONS
-              <div className="text-[10px] font-normal mt-1 opacity-80">(Labels, Values, Decisions)</div>
+              <div className="text-xs mt-2" style={{ opacity: 0.85 }}>
+                Labels, Values, Decisions
+              </div>
             </div>
           </div>
         </div>

@@ -1,51 +1,104 @@
 import React from 'react';
+import { Layers, CheckCircle2, PlayCircle } from 'lucide-react';
 
 const CrossValidationViz = () => {
   const k = 5;
   const folds = Array.from({ length: k }, (_, i) => i + 1);
 
   return (
-    <div className="my-10 p-6 rounded-2xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-1)' }}>
-      <h4 className="text-center font-bold mb-8 uppercase tracking-wider text-sm" style={{ color: 'var(--chart-muted)' }}>
-        k-Fold Cross Validation (k=5)
-      </h4>
-      
-      <div className="space-y-4">
-        {folds.map((iteration) => (
-          <div key={iteration} className="flex items-center gap-4">
-            <div className="w-24 text-xs font-mono" style={{ color: 'var(--chart-muted)' }}>Iter {iteration}:</div>
-            <div className="flex-1 flex gap-1 h-8">
-              {folds.map((fold) => (
-                <div 
-                  key={fold}
-                  className={`flex-1 rounded-sm border transition-all duration-300 flex items-center justify-center text-[10px] font-bold ${
-                    fold === iteration 
-                      ? 'bg-emerald-500 border-emerald-600 text-white shadow-md transform scale-y-110' 
-                      : 'bg-blue-100 border-blue-200 text-blue-700 opacity-60'
-                  }`}
-                >
-                  {fold === iteration ? 'VALID' : 'TRAIN'}
-                </div>
-              ))}
-            </div>
+    <div
+      className="my-10 p-4 rounded-lg border"
+      style={{
+        borderColor: 'var(--border-1)',
+        background: 'var(--surface-2)',
+        boxShadow: 'var(--shadow-1)',
+      }}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <h4 className="font-bold uppercase tracking-wider text-xs opacity-60 flex items-center gap-2">
+          <Layers size={16} color="#3b82f6" /> k-Fold Cross Validation (k=5)
+        </h4>
+        <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase">
+          <div
+            className="flex items-center gap-2 px-2 py-1 rounded-full border"
+            style={{ background: 'rgba(59, 130, 246, 0.10)', color: '#2563eb', borderColor: 'rgba(59, 130, 246, 0.28)' }}
+          >
+            <div className="w-2 h-2 rounded-full" style={{ background: '#3b82f6' }} />
+            Training
           </div>
-        ))}
-      </div>
-
-      <div className="mt-8 flex justify-center items-center gap-6 text-xs">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-blue-100 border border-blue-200 rounded-sm"></div>
-          <span className="text-[var(--chart-text)]">Training Folds</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-emerald-500 border border-emerald-600 rounded-sm"></div>
-          <span style={{ color: 'var(--chart-text)' }}>Validation Fold</span>
+          <div
+            className="flex items-center gap-2 px-2 py-1 rounded-full border"
+            style={{ background: 'rgba(16, 185, 129, 0.10)', color: '#047857', borderColor: 'rgba(16, 185, 129, 0.28)' }}
+          >
+            <div className="w-2 h-2 rounded-full" style={{ background: '#10b981' }} />
+            Validation
+          </div>
         </div>
       </div>
 
-      <p className="mt-6 text-center text-sm italic px-4" style={{ color: 'var(--chart-muted)' }}>
-        The dataset is split into 5 equal folds. In each iteration, a different fold acts as the validation set, while the remaining 4 are used for training. The final performance is the average of all 5 iterations.
-      </p>
+      <div className="ml-scroll-x">
+        <div className="ml-min-w-kfold">
+          <div className="flex items-center gap-2 mb-1" aria-hidden="true">
+            <div style={{ width: 72 }} />
+            {folds.map((fold) => (
+              <div
+                key={`fold-head-${fold}`}
+                className="text-center text-xs font-bold opacity-60"
+                style={{ flex: '1 1 0' }}
+              >
+                Fold {fold}
+              </div>
+            ))}
+          </div>
+
+          {folds.map((iteration) => (
+            <div key={iteration} className="flex items-center gap-2 mb-1">
+              <div className="text-xs font-bold opacity-60" style={{ width: 72 }}>
+                Iter {iteration}
+              </div>
+              {folds.map((fold) => {
+                const isValid = fold === iteration;
+                return (
+                  <div
+                    key={fold}
+                    className="rounded border flex flex-col items-center justify-center text-center"
+                    style={{
+                      flex: '1 1 0',
+                      height: 46,
+                      borderColor: isValid ? 'rgba(16, 185, 129, 0.7)' : 'var(--border-1)',
+                      background: isValid ? '#10b981' : 'var(--surface-1)',
+                      color: isValid ? '#ffffff' : 'var(--chart-muted)',
+                    }}
+                  >
+                    {isValid ? (
+                      <>
+                        <CheckCircle2 size={14} />
+                        <span className="text-[10px] font-bold uppercase">Valid</span>
+                      </>
+                    ) : (
+                      <span className="text-[10px] font-bold uppercase">Train</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div
+        className="mt-4 p-3 rounded-lg border relative overflow-hidden"
+        style={{ background: 'var(--surface-1)', borderColor: 'var(--border-1)' }}
+      >
+        <div className="absolute top-0 right-0 p-2 opacity-60" style={{ opacity: 0.07 }}>
+          <PlayCircle size={44} />
+        </div>
+        <p className="text-sm italic" style={{ lineHeight: 1.6, color: 'var(--chart-text)', position: 'relative', zIndex: 1 }}>
+          The dataset is split into <span className="font-bold" style={{ color: '#3b82f6' }}>5 equal folds</span>. In each
+          iteration, one fold is used for validation and the other 4 folds are used for training. The final score is the
+          average across all 5 iterations.
+        </p>
+      </div>
     </div>
   );
 };

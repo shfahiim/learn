@@ -5,6 +5,14 @@ import NaiveBayesViz from '@/components/NaiveBayesViz';
 
 **Naive Bayes** is a probabilistic **Generative Model** for multi-class classification. It treats both inputs $x$ and outputs $y$ as **random variables**.
 
+<Callout type="info" emoji="⚖️">
+**Foundations: Probability Rules**
+Understanding Naive Bayes requires mastering three fundamental rules:
+1.  **Product Rule**: $P(X, Y) = P(Y \mid X) P(X)$.
+2.  **Sum Rule**: $P(X) = \sum_Y P(X, Y)$.
+3.  **Bayes' Rule**: $P(Y \mid X) = \frac{P(X \mid Y) P(Y)}{P(X)}$.
+</Callout>
+
 ---
 
 ## 1. Bayes' Rule and Generative ML
@@ -19,7 +27,27 @@ $$\hat{y} = \arg\max_y P(y) \prod_{j=1}^n P(x_j \mid y)$$
 
 ---
 
-## 2. The Naive Assumption: Feature Independence
+## 2. Naive Bayes for Text Classification
+
+Naive Bayes is particularly powerful for Natural Language Processing (NLP). We represent each document as a "Bag of Words" mapped against a fixed **Dictionary** of vocabulary.
+
+### The Dictionary Model
+If our dictionary contains $n$ words, each document becomes an $n$-dimensional vector $\mathbf{x}$, where each dimension represents the frequency of a word:
+
+| Document | $word_1$ | $word_2$ | $\dots$ | $word_n$ | Class ($y$) |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| $d_1$ | 2 | 0 | $\dots$ | 1 | Spam |
+| $d_2$ | 0 | 1 | $\dots$ | 0 | Not Spam |
+
+### The Frequency Logic
+For a document $d$, we calculate the probability of it belonging to class $c$:
+$$\hat{c} = \arg\max_{c \in C} P(c) \prod_{i=1}^{\text{len}(d)} P(w_i \mid c)$$
+
+Where $P(w_i \mid c)$ is the probability of word $w_i$ appearing in a document given the class is $c$. This allows us to handle high-dimensional text data efficiently.
+
+---
+
+## 3. The Naive Assumption: Feature Independence
 
 The "Naive" part comes from the assumption that given the class $y$, all features $x_1, x_2, \dots, x_n$ are **independent**:
 

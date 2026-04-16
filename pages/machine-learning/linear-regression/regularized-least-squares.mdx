@@ -7,7 +7,37 @@ When we have many features or limited data, the Ordinary Least Squares (OLS) est
 
 ---
 
-## 1. The Regularized Objective
+## 1. Probabilistic Interpretation: MAP Estimation
+
+While Ordinary Least Squares (OLS) is derived from Maximum Likelihood Estimation (MLE), regularized regression has a beautiful probabilistic foundation in **Maximum A Posteriori (MAP)** estimation.
+
+In MAP, we treat the parameters $\boldsymbol{\theta}$ as **random variables** with their own underlying **Prior Distribution** $P(\boldsymbol{\theta})$.
+
+### The MAP Objective
+Using Bayes' Rule, the posterior probability of the parameters given the data is:
+$$P(\boldsymbol{\theta} \mid D) \propto P(D \mid \boldsymbol{\theta}) P(\boldsymbol{\theta})$$
+
+To find the optimal parameters, we maximize the log-posterior:
+$$\hat{\theta}_{MAP} = \arg\max_{\boldsymbol{\theta}} \left[ \underbrace{\log P(D \mid \boldsymbol{\theta})}_{\text{Log-Likelihood}} + \underbrace{\log P(\boldsymbol{\theta})}_{\text{Log-Prior}} \right]$$
+
+### Ridge ($L_2$) and the Gaussian Prior
+If we assume our weights $\theta_j$ follow a **Gaussian Distribution** $\mathcal{N}(0, \sigma^2)$, then:
+$$\log P(\boldsymbol{\theta}) \propto - \sum \theta_j^2$$
+Maximizing this is equivalent to minimizing the squared weights, which is exactly **Ridge Regression**.
+
+### Lasso ($L_1$) and the Laplacian Prior
+If we assume our weights follow a **Laplacian Distribution**, then:
+$$\log P(\boldsymbol{\theta}) \propto - \sum |\theta_j|$$
+This corresponds to **Lasso Regression**, which tends to produce sparse solutions (weights set exactly to zero).
+
+| Estimation | $\theta$ treatment | Corresponds to... |
+| :--- | :--- | :--- |
+| **MLE** | Fixed Parameter | Ordinary Least Squares |
+| **MAP** | Random Variable | Regularized Regression |
+
+---
+
+## 2. The Regularized Objective
 
 The general form of a regularized error function is:
 
@@ -49,7 +79,7 @@ $$
 
 ---
 
-## 4. Elastic Net
+## 5. Elastic Net
 
 Elastic Net combines both $L_1$ and $L_2$ penalties:
 $$

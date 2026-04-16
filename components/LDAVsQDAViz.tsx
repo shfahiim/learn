@@ -1,71 +1,142 @@
 import React, { useMemo } from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Line, ComposedChart } from 'recharts';
 import { chartGridProps, chartAxisProps, chartTooltipProps } from './charts/rechartsDefaults';
 import { ChartCard } from './charts/ChartCard';
+import { Zap, Activity } from 'lucide-react';
 
 const LDAVsQDAViz = () => {
   const data = useMemo(() => {
     const points = [];
-    // Class 1: Circular
+    // Class 1: Circular (Lower Left)
     for (let i = 0; i < 40; i++) {
       const r = Math.random() * 2;
       const theta = Math.random() * 2 * Math.PI;
       points.push({ x: 3 + r * Math.cos(theta), y: 3 + r * Math.sin(theta), class: 1 });
     }
-    // Class 2: Elliptical (Different Covariance)
+    // Class 2: Elliptical (Upper Right, Different Covariance)
     for (let i = 0; i < 40; i++) {
       const x = 7 + (Math.random() - 0.5) * 6;
-      const y = 7 + (Math.random() - 0.5) * 1;
-      points.push({ x, y, class: 2 });
+      const y = 7 + (Math.random() - 0.5) * 1.5;
+      points.push({ x, y: y + (x - 7) * 0.2, class: 2 });
+    }
+    return points;
+  }, []);
+
+  // Generate boundary points
+  const ldaBoundary = useMemo(() => {
+    return [
+      { bx: 1, by: 1 },
+      { bx: 9, by: 9 }
+    ];
+  }, []);
+
+  const qdaBoundary = useMemo(() => {
+    const points = [];
+    for (let x = 0; x <= 10; x += 0.5) {
+      // Quadratic curve: y = a(x-h)^2 + k
+      const y = 0.1 * Math.pow(x - 5, 2) + 2;
+      points.push({ bx: x, by: y });
     }
     return points;
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
-      <ChartCard title="Linear (LDA)" subtitle="Assumes both classes share the same covariance. The resulting boundary is a straight line.">
-        <div className="h-[300px] w-full relative">
-          <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
-              <CartesianGrid {...chartGridProps} />
-              <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} />
-              <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} />
-              <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data}>
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.class === 1 ? '#8884d8' : '#82ca9d'} />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
-          {/* SVG Overlay for Decision Boundary */}
-          <svg className="absolute inset-0 pointer-events-none" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-             <line x1="20" y1="80" x2="80" y2="20" stroke="#ef4444" strokeWidth="2" strokeDasharray="4" />
-          </svg>
-        </div>
-      </ChartCard>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-10">
+      <div className="relative group">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-500"></div>
+        <ChartCard 
+          title={
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-blue-500" />
+              <span>Linear (LDA)</span>
+            </div>
+          } 
+          subtitle="Assumes shared covariance. Resulting boundary is a straight line."
+        >
+          <div className="h-[320px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                <CartesianGrid {...chartGridProps} vertical={false} />
+                <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} name="Feature 1" />
+                <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} name="Feature 2" />
+                <Tooltip {...chartTooltipProps} cursor={{ strokeDasharray: '3 3' }} />
+                
+                {/* Decision Boundary */}
+                <Line 
+                  data={ldaBoundary} 
+                  type="monotone" 
+                  dataKey="by" 
+                  stroke="#ef4444" 
+                  strokeWidth={3} 
+                  strokeDasharray="8 8" 
+                  dot={false} 
+                  activeDot={false}
+                  isAnimationActive={false}
+                />
+                
+                <Scatter name="Class 1" data={data.filter(d => d.class === 1)}>
+                  {data.filter(d => d.class === 1).map((entry, index) => (
+                    <Cell key={`c1-${index}`} fill="#6366f1" stroke="#4338ca" strokeWidth={1} />
+                  ))}
+                </Scatter>
+                <Scatter name="Class 2" data={data.filter(d => d.class === 2)}>
+                  {data.filter(d => d.class === 2).map((entry, index) => (
+                    <Cell key={`c2-${index}`} fill="#10b981" stroke="#047857" strokeWidth={1} />
+                  ))}
+                </Scatter>
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </ChartCard>
+      </div>
 
-      <ChartCard title="Quadratic (QDA)" subtitle="Allows each class to have its own covariance. The resulting boundary is a curve.">
-        <div className="h-[300px] w-full relative">
-          <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
-              <CartesianGrid {...chartGridProps} />
-              <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} />
-              <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} />
-              <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data}>
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.class === 1 ? '#8884d8' : '#82ca9d'} />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
-          {/* SVG Overlay for Decision Boundary */}
-          <svg className="absolute inset-0 pointer-events-none" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-             <path d="M 10 90 Q 50 50 90 85" fill="none" stroke="#ef4444" strokeWidth="2" strokeDasharray="4" />
-          </svg>
-        </div>
-      </ChartCard>
+      <div className="relative group">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-500"></div>
+        <ChartCard 
+          title={
+            <div className="flex items-center gap-2">
+              <Activity className="w-4 h-4 text-emerald-500" />
+              <span>Quadratic (QDA)</span>
+            </div>
+          } 
+          subtitle="Allows unique covariance per class. Resulting boundary is a curve."
+        >
+          <div className="h-[320px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                <CartesianGrid {...chartGridProps} vertical={false} />
+                <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} name="Feature 1" />
+                <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} name="Feature 2" />
+                <Tooltip {...chartTooltipProps} cursor={{ strokeDasharray: '3 3' }} />
+                
+                {/* Decision Boundary */}
+                <Line 
+                  data={qdaBoundary} 
+                  type="monotone" 
+                  dataKey="by" 
+                  stroke="#ef4444" 
+                  strokeWidth={3} 
+                  strokeDasharray="8 8" 
+                  dot={false} 
+                  activeDot={false}
+                  isAnimationActive={false}
+                />
+                
+                <Scatter name="Class 1" data={data.filter(d => d.class === 1)}>
+                  {data.filter(d => d.class === 1).map((entry, index) => (
+                    <Cell key={`c1-${index}`} fill="#6366f1" stroke="#4338ca" strokeWidth={1} />
+                  ))}
+                </Scatter>
+                <Scatter name="Class 2" data={data.filter(d => d.class === 2)}>
+                  {data.filter(d => d.class === 2).map((entry, index) => (
+                    <Cell key={`c2-${index}`} fill="#10b981" stroke="#047857" strokeWidth={1} />
+                  ))}
+                </Scatter>
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </ChartCard>
+      </div>
     </div>
   );
 };

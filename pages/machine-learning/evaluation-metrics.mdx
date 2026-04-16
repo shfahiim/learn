@@ -1,6 +1,7 @@
 import { Callout } from 'nextra/components';
 import ConfusionMatrixViz from '@/components/ConfusionMatrixViz';
 import ROCCurveViz from '@/components/ROCCurveViz';
+import NDCGViz from '@/components/NDCGViz';
 
 # Evaluation Metrics
 
@@ -76,3 +77,34 @@ For multi-class classification, we can calculate metrics for each class individu
 <Callout type="info">
 **The Accuracy Trap**: If $99\%$ of your data is "Non-Spam," a model that classifies EVERYTHING as "Non-Spam" will have $99\%$ accuracy, but it is completely useless for spam detection. Always check your **Confusion Matrix**.
 </Callout>
+
+---
+
+## 5. Ranking Metrics (Rank Learning)
+
+In many systems (like search engines or recommendation engines), we don't just care if a document is "relevant" or not; we care about the **order** in which results are presented.
+
+### NDCG (Normalized Discounted Cumulative Gain)
+NDCG is the industry standard for evaluating ranked results. It builds on two ideas:
+1.  **Cumulative Gain**: Highly relevant documents are more valuable.
+2.  **Discounting**: Relevant documents are much more valuable at the **top** of the list (Rank 1) than at the bottom.
+
+<NDCGViz />
+
+---
+
+## 6. Strategic Metric Selection
+
+When building production systems, you often have multiple metrics (e.g., Accuracy, Latency, Memory). How do you choose?
+
+### Satisfying vs. Optimizing Metrics
+- **Optimizing Metric**: The one metric you want to be as "best" as possible (e.g., Accuracy). You pick only **one**.
+- **Satisfying Metrics**: Metrics that just need to be "good enough" or below a threshold (e.g., Latency must be $< 100ms$).
+
+### Data Consistency
+A fundamental principle of evaluation is that your **Training, Validation, and Test sets** must come from the **same distribution**. If you train on high-res professional photos but test on blurry mobile uploads, your metrics will be meaningless.
+
+<Callout type="warning">
+**User Feedback**: Ultimately, even if your metrics are perfect, negative user feedback might indicate that you are measuring the wrong thing. Always consider if your metric truly represents the user's "Ultimate Goal."
+</Callout>
+
