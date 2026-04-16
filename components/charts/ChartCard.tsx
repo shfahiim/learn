@@ -5,8 +5,8 @@ export function ChartCard({
   subtitle,
   children,
 }: {
-  title: string;
-  subtitle?: string;
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
