@@ -12,7 +12,7 @@ const HMMViz = () => {
               <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -z-10 translate-y-[-50%]"></div>
               {[1, 2, 3].map((t) => (
                 <div key={`z-${t}`} className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-lg border-4 border-[#8884d8] var(--surface-1) flex items-center justify-center font-bold text-xl text-[#8884d8] shadow-sm">
+                  <div className="w-16 h-16 rounded-lg border-4 flex items-center justify-center font-bold text-xl shadow-sm" style={{ borderColor: 'var(--chart-primary)', background: 'var(--surface-1)', color: 'var(--chart-primary)' }}>
                     z<sub>{t}</sub>
                   </div>
                   <div className="mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Hidden State</div>
@@ -41,7 +41,7 @@ const HMMViz = () => {
             <div className="flex items-center space-x-12">
               {[1, 2, 3].map((t) => (
                 <div key={`x-${t}`} className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full border-4 border-[#82ca9d] var(--surface-1) flex items-center justify-center font-bold text-xl text-[#82ca9d] shadow-sm">
+                  <div className="w-16 h-16 rounded-full border-4 flex items-center justify-center font-bold text-xl shadow-sm" style={{ borderColor: 'var(--chart-success)', background: 'var(--surface-1)', color: 'var(--chart-success)' }}>
                     x<sub>{t}</sub>
                   </div>
                   <div className="mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Observation</div>

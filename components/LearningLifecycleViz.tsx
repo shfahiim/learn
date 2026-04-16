@@ -4,8 +4,8 @@ const LearningLifecycleViz = () => {
   return (
     <div className="my-10 flex flex-col items-center gap-12">
       {/* Human/Agent Learning Loop */}
-      <div className="w-full max-w-2xl p-6 var(--surface-2) rounded-2xl border border-slate-200 shadow-sm">
-        <h4 className="text-center font-bold text-slate-800 mb-8 uppercase tracking-wider text-sm">1. The Learning Loop</h4>
+      <div className="w-full max-w-2xl p-6 rounded-2xl shadow-sm" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-1)' }}>
+        <h4 className="text-center font-bold mb-8 uppercase tracking-wider text-sm" style={{ color: 'var(--chart-muted)' }}>1. The Learning Loop</h4>
         <div className="flex justify-center items-center gap-8 relative">
           <div className="flex flex-col items-center gap-2 z-10">
             <div className="w-24 h-24 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-blue-700 font-bold shadow-md">
@@ -15,7 +15,7 @@ const LearningLifecycleViz = () => {
           
           <div className="flex flex-col items-center gap-4">
              <div className="text-3xl text-slate-400">⇆</div>
-             <div className="text-xs font-mono text-slate-500 var(--surface-1) px-2 py-1 rounded border">Refining</div>
+             <div className="text-xs font-mono px-2 py-1 rounded" style={{ color: 'var(--chart-muted)', background: 'var(--surface-1)', border: '1px solid var(--border-1)' }}>Refining</div>
           </div>
 
           <div className="flex flex-col items-center gap-2 z-10">
@@ -45,10 +45,10 @@ const LearningLifecycleViz = () => {
       {/* Training vs Testing Lifecycle */}
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Training Phase */}
-        <div className="p-6 var(--surface-1) rounded-xl border-2 border-dashed border-blue-200 flex flex-col items-center text-center">
+        <div className="p-6 rounded-xl border-2 border-dashed border-blue-200 flex flex-col items-center text-center" style={{ background: 'var(--surface-1)' }}>
           <span className="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full mb-4 uppercase">Phase A: Training</span>
           <div className="space-y-4 w-full">
-            <div className="p-3 var(--surface-2) rounded border text-sm font-medium">Input Dataset (Labeled)</div>
+            <div className="p-3 rounded border text-sm font-medium" style={{ background: 'var(--surface-2)' }}>Input Dataset (Labeled)</div>
             <div className="text-blue-400 text-xl">↓</div>
             <div className="p-3 bg-blue-50 rounded border-2 border-blue-200 text-sm font-bold text-blue-800">Learning Algorithm</div>
             <div className="text-blue-400 text-xl">↓</div>
@@ -60,10 +60,10 @@ const LearningLifecycleViz = () => {
         </div>
 
         {/* Testing Phase */}
-        <div className="p-6 var(--surface-1) rounded-xl border-2 border-dashed border-emerald-200 flex flex-col items-center text-center">
+        <div className="p-6 rounded-xl border-2 border-dashed border-emerald-200 flex flex-col items-center text-center" style={{ background: 'var(--surface-1)' }}>
           <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full mb-4 uppercase">Phase B: Testing</span>
           <div className="space-y-4 w-full">
-            <div className="p-3 var(--surface-2) rounded border text-sm font-medium">New / Unseen Data</div>
+            <div className="p-3 rounded border text-sm font-medium" style={{ background: 'var(--surface-2)' }}>New / Unseen Data</div>
             <div className="text-emerald-400 text-xl">↓</div>
             <div className="p-4 bg-blue-600 text-white rounded-lg shadow-md font-bold opacity-60">
               LEARNED MODEL

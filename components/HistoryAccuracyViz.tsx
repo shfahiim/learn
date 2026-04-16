@@ -28,7 +28,7 @@ const HistoryAccuracyViz = () => {
         title="Performance vs. Data Size" 
         subtitle="Illustrating why Deep Learning (Neural Networks) became dominant as data volume exploded."
       >
-        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2 mt-4">
+        <div className="h-[350px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
@@ -50,7 +50,7 @@ const HistoryAccuracyViz = () => {
                 name="Traditional Algorithms (SVM, DT, etc.)" 
                 type="monotone" 
                 dataKey="traditional" 
-                stroke="#64748b" 
+                stroke="var(--chart-muted)" 
                 strokeWidth={3} 
                 dot={false}
                 strokeDasharray="5 5"
@@ -59,7 +59,7 @@ const HistoryAccuracyViz = () => {
                 name="Deep Learning (Neural Networks)" 
                 type="monotone" 
                 dataKey="neural" 
-                stroke="#3b82f6" 
+                stroke="var(--chart-primary)" 
                 strokeWidth={4} 
                 dot={false}
               />
@@ -67,7 +67,7 @@ const HistoryAccuracyViz = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="mt-4 p-4 rounded-md border bg-blue-50 border-blue-100 text-blue-800 text-sm">
+        <div className="mt-4 p-4 rounded-md text-sm" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-1)', color: 'inherit' }}>
           <p>
             <strong>Key Insight:</strong> Traditional algorithms tend to plateau in performance once they reach their capacity to represent complexity. In contrast, <strong>Neural Networks</strong> (especially deep ones) continue to improve as they are fed more data, leveraging modern computing power.
           </p>

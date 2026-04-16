@@ -37,19 +37,23 @@ const LearningCurvesViz = () => {
         <div className="flex flex-wrap gap-2 mb-6">
           <button 
             onClick={() => setScenario('bias')}
-            className={`px-4 py-2 rounded ${scenario === 'bias' ? 'bg-[var(--chart-danger)] text-white shadow-lg' : 'var(--surface-3) text-[var(--chart-text)] hover:bg-gray-200'}`}
+            className="chart-button"
+            data-active={scenario === 'bias'}
+            style={scenario === 'bias' ? { background: 'var(--chart-danger)', color: '#fff', borderColor: 'transparent' } : {}}
           >
             Scenario A: High Bias
           </button>
           <button 
             onClick={() => setScenario('variance')}
-            className={`px-4 py-2 rounded ${scenario === 'variance' ? 'bg-orange-500 text-white shadow-lg' : 'var(--surface-3) text-[var(--chart-text)] hover:bg-gray-200'}`}
+            className="chart-button"
+            data-active={scenario === 'variance'}
+            style={scenario === 'variance' ? { background: 'var(--chart-secondary)', color: '#fff', borderColor: 'transparent' } : {}}
           >
             Scenario B: High Variance
           </button>
         </div>
 
-        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2">
+        <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />

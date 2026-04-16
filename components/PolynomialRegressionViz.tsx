@@ -45,18 +45,16 @@ const PolynomialRegressionViz = () => {
             <button 
               key={d}
               onClick={() => setDegree(d)}
-              className={`px-4 py-2 rounded text-sm font-bold transition-all ${
-                degree === d 
-                  ? 'bg-blue-600 text-white shadow-lg' 
-                  : 'var(--surface-3) text-[var(--chart-text)] hover:bg-slate-200'
-              }`}
+              className="chart-button"
+              data-active={degree === d}
+              style={degree === d ? { background: 'var(--chart-primary)', color: '#fff', borderColor: 'transparent' } : {}}
             >
               {d === 1 ? 'Linear (d=1)' : d === 2 ? 'Quadratic (d=2)' : 'Complex (d=9)'}
             </button>
           ))}
         </div>
 
-        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2">
+        <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />

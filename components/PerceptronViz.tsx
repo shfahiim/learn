@@ -52,17 +52,18 @@ const PerceptronViz = () => {
           <button 
             onClick={trainStep}
             disabled={!misclassified}
-            className={`px-4 py-2 rounded font-bold transition-all ${!misclassified ? 'bg-gray-200 cursor-not-allowed text-gray-400' : 'bg-[var(--chart-primary)] text-white hover:opacity-90'}`}
+            className={`chart-button ${!misclassified ? 'opacity-40 cursor-not-allowed' : ''}`}
+            style={misclassified ? { background: 'var(--chart-primary)', color: '#fff', border: 'none' } : {}}
           >
             {misclassified ? `Next Train Step (${step})` : 'Convergence Reached! 🎉'}
           </button>
           <div className="text-sm">
-            Current weights: <code className="var(--surface-3) p-1 rounded">w:[{w[0].toFixed(2)}, {w[1].toFixed(2)}]</code> 
-            bias: <code className="var(--surface-3) p-1 rounded">{b.toFixed(2)}</code>
+            Current weights: <code style={{ background: 'var(--surface-3)', padding: '2px 6px', borderRadius: '4px' }}>w:[{w[0].toFixed(2)}, {w[1].toFixed(2)}]</code>{' '}
+            bias: <code style={{ background: 'var(--surface-3)', padding: '2px 6px', borderRadius: '4px' }}>{b.toFixed(2)}</code>
           </div>
         </div>
 
-        <div className="h-[400px] w-full border border-var(--chart-border) rounded-lg p-4 var(--surface-1)">
+        <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
@@ -74,8 +75,8 @@ const PerceptronViz = () => {
                 {points.map((p, i) => (
                   <Cell 
                     key={`cell-${i}`} 
-                    fill={p.label === 1 ? '#ef4444' : '#3b82f6'} 
-                    stroke={misclassified === p ? '#000' : 'none'}
+                    fill={p.label === 1 ? 'var(--chart-danger)' : 'var(--chart-primary)'}
+                    stroke={misclassified === p ? 'var(--chart-axis)' : 'none'}
                     strokeWidth={3}
                   />
                 ))}
@@ -85,7 +86,7 @@ const PerceptronViz = () => {
                 data={lineData} 
                 type="linear" 
                 dataKey="y" 
-                stroke="#10b981" 
+                stroke="var(--chart-success)" 
                 strokeWidth={4} 
                 dot={false}
                 animationDuration={300}
@@ -95,7 +96,7 @@ const PerceptronViz = () => {
         </div>
         
         {misclassified && (
-          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-800">
+          <div className="mt-4 p-3 rounded text-sm" style={{ background: 'var(--surface-3)', border: '1px solid var(--chart-border)', color: 'var(--chart-secondary)' }}>
             <strong>Misclassification detected!</strong> The model sees the {misclassified.label === 1 ? 'Red' : 'Blue'} point at ({misclassified.x}, {misclassified.y}) and will update the boundary.
           </div>
         )}
