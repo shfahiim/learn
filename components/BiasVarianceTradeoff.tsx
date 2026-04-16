@@ -19,15 +19,15 @@ const BiasVarianceTradeoff = () => {
       <ChartCard title="The Bias-Variance Tradeoff" subtitle="Total expected test error = (Bias)^2 + Variance + Irreducible Noise. As complexity increases, bias decreases but variance increases. The goal is to find the 'Sweet Spot' at the minimum of the Total Error curve.">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis dataKey="complexity" label={{ value: 'Model Complexity', position: 'insideBottom', offset: -5 }} {...chartAxisProps} />
               <YAxis label={{ value: 'Error', angle: -90, position: 'insideLeft' }} {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
               <Legend />
-              <Line name="Total Error" type="monotone" dataKey="total" stroke="#ff4d4f" strokeWidth={4} dot={{ r: 6 }} />
-              <Line name="Bias^2 (Underfitting)" type="monotone" dataKey="biasSq" stroke="#8884d8" strokeWidth={3} strokeDasharray="5 5" dot={false} />
-              <Line name="Variance (Overfitting)" type="monotone" dataKey="variance" stroke="#82ca9d" strokeWidth={3} strokeDasharray="5 5" dot={false} />
+              <Line name="Total Error" type="monotone" dataKey="total" stroke="var(--chart-danger)" strokeWidth={4} dot={{ r: 6 }} />
+              <Line name="Bias^2 (Underfitting)" type="monotone" dataKey="biasSq" stroke="var(--chart-primary)" strokeWidth={3} strokeDasharray="5 5" dot={false} />
+              <Line name="Variance (Overfitting)" type="monotone" dataKey="variance" stroke="var(--chart-success)" strokeWidth={3} strokeDasharray="5 5" dot={false} />
               <Line name="Irreducible Noise" type="monotone" dataKey="noise" stroke="#666" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>

@@ -26,7 +26,7 @@ const LDAVsQDAViz = () => {
       <ChartCard title="Linear (LDA)" subtitle="Assumes both classes share the same covariance. The resulting boundary is a straight line.">
         <div className="h-[300px] w-full relative">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} />
               <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} />
@@ -48,7 +48,7 @@ const LDAVsQDAViz = () => {
       <ChartCard title="Quadratic (QDA)" subtitle="Allows each class to have its own covariance. The resulting boundary is a curve.">
         <div className="h-[300px] w-full relative">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" domain={[0, 10]} {...chartAxisProps} />
               <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} />

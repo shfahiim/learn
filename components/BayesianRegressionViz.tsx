@@ -36,13 +36,13 @@ const BayesianRegressionViz = () => {
       <ChartCard title="Bayesian Predictive Uncertainty" subtitle="Unlike OLS, which gives a single point estimate, Bayesian regression provides a full predictive distribution. Notice how uncertainty (shaded area) increases as we move away from the training data (x=1 to x=5).">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={predictiveData} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ComposedChart data={predictiveData} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" name="y" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Area dataKey={d => [d.lower, d.upper]} stroke="none" fill="#8884d8" fillOpacity={0.2} />
-              <Line type="monotone" dataKey="mean" stroke="#8884d8" strokeWidth={3} dot={false} />
+              <Area dataKey={d => [d.lower, d.upper]} stroke="none" fill="var(--chart-primary)" fillOpacity={0.2} />
+              <Line type="monotone" dataKey="mean" stroke="var(--chart-primary)" strokeWidth={3} dot={false} />
               <Scatter name="Data" data={data} fill="#ff4d4f" />
             </ComposedChart>
           </ResponsiveContainer>

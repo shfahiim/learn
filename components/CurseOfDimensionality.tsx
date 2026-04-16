@@ -27,12 +27,12 @@ const CurseOfDimensionality = () => {
       <ChartCard title="The Sparsity of High-Dimensional Space" subtitle="Volume of a central 'neighborhood' (e.g., a smaller cube with side 0.5 inside a unit cube) shrinks exponentially as dimensions increase. Data points become incredibly far apart.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis dataKey="dimension" label={{ value: 'Dimensions (d)', position: 'insideBottom', offset: -5 }} {...chartAxisProps} />
               <YAxis label={{ value: 'Relative Volume', angle: -90, position: 'insideLeft' }} {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Line type="monotone" dataKey="ratio" stroke="#8884d8" strokeWidth={3} dot={{ r: 6 }} />
+              <Line type="monotone" dataKey="ratio" stroke="var(--chart-primary)" strokeWidth={3} dot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -51,7 +51,7 @@ const OverfittingViz = () => {
   }, [data]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8">
       <ChartCard title="Underfitting (High Bias)" subtitle="Model is too simple to capture the underlying trend.">
         <div className="h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -60,8 +60,8 @@ const OverfittingViz = () => {
               <XAxis type="number" dataKey="x" name="x" hide {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" hide {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={underfit} type="monotone" dataKey="y" stroke="#ff7300" strokeWidth={2} dot={false} />
+              <Scatter name="Data" data={data} fill="var(--chart-primary)" />
+              <Line data={underfit} type="monotone" dataKey="y" stroke="var(--chart-secondary)" strokeWidth={2} dot={false} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
@@ -75,8 +75,8 @@ const OverfittingViz = () => {
               <XAxis type="number" dataKey="x" name="x" hide {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" hide {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={goodFit} type="monotone" dataKey="y" stroke="#82ca9d" strokeWidth={2} dot={false} />
+              <Scatter name="Data" data={data} fill="var(--chart-primary)" />
+              <Line data={goodFit} type="monotone" dataKey="y" stroke="var(--chart-success)" strokeWidth={2} dot={false} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
@@ -90,8 +90,8 @@ const OverfittingViz = () => {
               <XAxis type="number" dataKey="x" name="x" hide {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" hide {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={overfit} type="monotone" dataKey="y" stroke="#ff4d4f" strokeWidth={2} dot={false} />
+              <Scatter name="Data" data={data} fill="var(--chart-primary)" />
+              <Line data={overfit} type="monotone" dataKey="y" stroke="var(--chart-danger)" strokeWidth={2} dot={false} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>

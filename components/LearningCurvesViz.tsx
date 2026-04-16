@@ -37,21 +37,21 @@ const LearningCurvesViz = () => {
         <div className="flex flex-wrap gap-2 mb-6">
           <button 
             onClick={() => setScenario('bias')}
-            className={`px-4 py-2 rounded ${scenario === 'bias' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+            className={`px-4 py-2 rounded ${scenario === 'bias' ? 'bg-[var(--chart-danger)] text-white shadow-lg' : 'var(--surface-3) text-[var(--chart-text)] hover:bg-gray-200'}`}
           >
             Scenario A: High Bias
           </button>
           <button 
             onClick={() => setScenario('variance')}
-            className={`px-4 py-2 rounded ${scenario === 'variance' ? 'bg-orange-500 text-white shadow-lg' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+            className={`px-4 py-2 rounded ${scenario === 'variance' ? 'bg-orange-500 text-white shadow-lg' : 'var(--surface-3) text-[var(--chart-text)] hover:bg-gray-200'}`}
           >
             Scenario B: High Variance
           </button>
         </div>
 
-        <div className="h-[350px] w-full bg-white rounded-lg p-2">
+        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis dataKey="m" label={{ value: 'Training Set Size (m)', position: 'insideBottom', offset: -10 }} {...chartAxisProps} />
               <YAxis label={{ value: 'Error', angle: -90, position: 'insideLeft' }} {...chartAxisProps} />

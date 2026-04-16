@@ -28,9 +28,9 @@ const HistoryAccuracyViz = () => {
         title="Performance vs. Data Size" 
         subtitle="Illustrating why Deep Learning (Neural Networks) became dominant as data volume exploded."
       >
-        <div className="h-[350px] w-full bg-white rounded-lg p-2 mt-4">
+        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2 mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis 
                 dataKey="m" 

@@ -19,14 +19,14 @@ const ROCCurveViz = () => {
       <ChartCard title="ROC Curve and AUC" subtitle="Plots True Positive Rate (Recall) against False Positive Rate. The Area Under the Curve (AUC) measures the overall quality of the classifier.">
         <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="fpr" domain={[0, 1]} {...chartAxisProps} label={{ value: 'False Positive Rate', position: 'insideBottom', offset: -5 }} />
               <YAxis type="number" dataKey="tpr" domain={[0, 1]} {...chartAxisProps} label={{ value: 'True Positive Rate', angle: -90, position: 'insideLeft' }} />
               <Tooltip {...chartTooltipProps} />
               <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke="#666" strokeDasharray="3 3" />
-              <Line type="monotone" dataKey="tpr" stroke="#8884d8" strokeWidth={4} dot={false} />
-              <Area type="monotone" dataKey="tpr" fill="#8884d8" fillOpacity={0.1} />
+              <Line type="monotone" dataKey="tpr" stroke="var(--chart-primary)" strokeWidth={4} dot={false} />
+              <Area type="monotone" dataKey="tpr" fill="var(--chart-primary)" fillOpacity={0.1} />
             </LineChart>
           </ResponsiveContainer>
         </div>

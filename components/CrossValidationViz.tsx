@@ -5,7 +5,7 @@ const CrossValidationViz = () => {
   const folds = Array.from({ length: k }, (_, i) => i + 1);
 
   return (
-    <div className="my-10 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+    <div className="my-10 p-6 var(--surface-2) rounded-2xl border border-slate-200">
       <h4 className="text-center font-bold text-slate-800 mb-8 uppercase tracking-wider text-sm">
         k-Fold Cross Validation (k=5)
       </h4>
@@ -35,11 +35,11 @@ const CrossValidationViz = () => {
       <div className="mt-8 flex justify-center items-center gap-6 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-blue-100 border border-blue-200 rounded-sm"></div>
-          <span className="text-slate-600">Training Folds</span>
+          <span className="text-[var(--chart-text)]">Training Folds</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-emerald-500 border border-emerald-600 rounded-sm"></div>
-          <span className="text-slate-600">Validation Fold</span>
+          <span className="text-[var(--chart-text)]">Validation Fold</span>
         </div>
       </div>
 

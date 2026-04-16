@@ -70,7 +70,7 @@ const MLELeastSquares = () => {
 
         <div className="h-[400px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" domain={[0, 11]} {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" domain={[0, 25]} {...chartAxisProps} />

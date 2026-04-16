@@ -52,19 +52,19 @@ const PerceptronViz = () => {
           <button 
             onClick={trainStep}
             disabled={!misclassified}
-            className={`px-4 py-2 rounded font-bold transition-all ${!misclassified ? 'bg-gray-200 cursor-not-allowed text-gray-400' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+            className={`px-4 py-2 rounded font-bold transition-all ${!misclassified ? 'bg-gray-200 cursor-not-allowed text-gray-400' : 'bg-[var(--chart-primary)] text-white hover:opacity-90'}`}
           >
             {misclassified ? `Next Train Step (${step})` : 'Convergence Reached! 🎉'}
           </button>
           <div className="text-sm">
-            Current weights: <code className="bg-gray-100 p-1 rounded">w:[{w[0].toFixed(2)}, {w[1].toFixed(2)}]</code> 
-            bias: <code className="bg-gray-100 p-1 rounded">{b.toFixed(2)}</code>
+            Current weights: <code className="var(--surface-3) p-1 rounded">w:[{w[0].toFixed(2)}, {w[1].toFixed(2)}]</code> 
+            bias: <code className="var(--surface-3) p-1 rounded">{b.toFixed(2)}</code>
           </div>
         </div>
 
-        <div className="h-[400px] w-full border border-gray-100 rounded-lg p-4 bg-white shadow-inner">
+        <div className="h-[400px] w-full border border-var(--chart-border) rounded-lg p-4 var(--surface-1)">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" domain={[0, 8]} {...chartAxisProps} />
               <YAxis type="number" dataKey="y" domain={[0, 10]} {...chartAxisProps} />

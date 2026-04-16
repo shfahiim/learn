@@ -26,16 +26,16 @@ const RegularizationPaths = () => {
       <ChartCard title="Coefficient Shrinkage (Ridge/Lasso)" subtitle="As the regularization penalty (lambda) increases, the magnitude of the model's coefficients (w) shrinks towards zero. This prevents the model from relying too heavily on any single feature, thus reducing overfitting.">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis dataKey="lambda" label={{ value: 'Regularization strength (λ)', position: 'insideBottom', offset: -5 }} {...chartAxisProps} />
               <YAxis label={{ value: 'Weight Value (w)', angle: -90, position: 'insideLeft' }} {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
               <Legend />
-              <Line type="monotone" dataKey="w1" stroke="#8884d8" strokeWidth={3} dot={false} />
-              <Line type="monotone" dataKey="w2" stroke="#82ca9d" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="w1" stroke="var(--chart-primary)" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="w2" stroke="var(--chart-success)" strokeWidth={3} dot={false} />
               <Line type="monotone" dataKey="w3" stroke="#ffc658" strokeWidth={3} dot={false} />
-              <Line type="monotone" dataKey="w4" stroke="#ff7300" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="w4" stroke="var(--chart-secondary)" strokeWidth={3} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>

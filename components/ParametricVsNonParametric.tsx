@@ -42,13 +42,13 @@ const ParametricVsNonParametric = () => {
       <ChartCard title="Parametric (Linear Fit)" subtitle="Assumes a fixed functional form (e.g., straight line). Fast but potentially biased.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={parametricFit} type="monotone" dataKey="y" stroke="#ff7300" strokeWidth={3} dot={false} activeDot={false} />
+              <Scatter name="Data" data={data} fill="var(--chart-primary)" />
+              <Line data={parametricFit} type="monotone" dataKey="y" stroke="var(--chart-secondary)" strokeWidth={3} dot={false} activeDot={false} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
@@ -57,13 +57,13 @@ const ParametricVsNonParametric = () => {
       <ChartCard title="Non-Parametric (Flexible Fit)" subtitle="Adjusts complexity to the data. Captures complex patterns but risks overfitting.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8" />
-              <Line data={nonParametricFit} type="monotone" dataKey="y" stroke="#82ca9d" strokeWidth={3} dot={false} activeDot={false} />
+              <Scatter name="Data" data={data} fill="var(--chart-primary)" />
+              <Line data={nonParametricFit} type="monotone" dataKey="y" stroke="var(--chart-success)" strokeWidth={3} dot={false} activeDot={false} />
             </ScatterChart>
           </ResponsiveContainer>
         </div>

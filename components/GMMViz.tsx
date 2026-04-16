@@ -33,7 +33,7 @@ const GMMViz = () => {
       <ChartCard title="Gaussian Mixture Models (Soft Assignment)" subtitle="Unlike K-Means, GMMs provide a probability distribution over clusters. Opacity here represents 'certainty' of cluster membership.">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" {...chartAxisProps} />

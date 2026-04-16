@@ -52,7 +52,7 @@ const LogisticRegressionViz = () => {
 
         <div className="h-[350px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <defs>
                 <linearGradient id="colorP" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="var(--chart-primary)" stopOpacity={0.3}/>

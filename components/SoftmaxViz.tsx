@@ -36,7 +36,7 @@ const SoftmaxViz = () => {
 
         <div className="h-[300px] w-full mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <BarChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} vertical={false} />
               <XAxis dataKey="name" {...chartAxisProps} />
               <YAxis domain={[0, 1]} {...chartAxisProps} label={{ value: 'Probability', angle: -90, position: 'insideLeft' }} />

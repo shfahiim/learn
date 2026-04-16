@@ -16,6 +16,17 @@ During algorithmic processing, we represent labels mathematically. Commonly, the
 * $\{0, 1\}$ probabilities.
 * $\{-1, +1\}$ spatial vectors.
 
+**Example Dataset Context: Predicting Student Status**
+Just as drawn in the notes, consider the following tabular data mapping behavioral features to a categorical outcome:
+
+| Features $\rightarrow$ | Study Hours | Fb (Hours) | Family Turbulence | Target Variable ($y$) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Instance 1** | 3.0 | 0.5 | 0.2 | Pass (1) |
+| **Instance 2** | 0.5 | 3.0 | 0.2 | Fail (0) |
+| **Instance 3** | 2.2 | 1.1 | 0.4 | ? |
+
+This perfectly illustrates a binary classification structure mapping numeric variables to a bounded $\{0, 1\}$ state.
+
 ### Visualizing Linear Classification (Tumor Size Example)
 In the hand-drawn notes, this is beautifully illustrated with a 1-Dimensional dataset classifying **Tumors** (Malignant vs Benign) based strictly on their **Size**:
 

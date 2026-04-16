@@ -26,12 +26,12 @@ const KernelTrickViz = () => {
       <ChartCard title="Original Space (2D)" subtitle="Data is not linearly separable. We cannot draw a straight line between the inner circle and outer ring.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8">
+              <Scatter name="Data" data={data} fill="var(--chart-primary)">
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
@@ -44,12 +44,12 @@ const KernelTrickViz = () => {
       <ChartCard title="Feature Space (with z = x² + y²)" subtitle="By mapping the data to a higher dimension (z), the classes become linearly separable by a horizontal plane.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="z" name="z (Mapped)" {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
-              <Scatter name="Data" data={data} fill="#8884d8">
+              <Scatter name="Data" data={data} fill="var(--chart-primary)">
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}

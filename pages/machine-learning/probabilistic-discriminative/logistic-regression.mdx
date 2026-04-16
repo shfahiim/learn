@@ -46,9 +46,16 @@ $$L(\phi) = P(x_1)P(x_2)P(x_3) = \phi(1-\phi)(1-\phi) = \phi(1-\phi)^2$$
 To optimize, we take the log-likelihood and set the derivative to zero. This mathematical mechanism strictly evaluates which parameter $\phi$ makes our observed dataset the most probable outcome.
 
 ### MLE in Logistic Regression
-We apply this exact process directly to model learning. 
+We apply this exact process directly to model learning. As outlined in the notes, the output variable $y$ inherently acts as a **Random Variable** mapped against the underlying features $(x_1, x_2, \dots, x_n)$:
 
-Given a dataset $D = \{(x^{(i)}, y^{(i)})\}_{i=1}^m$, the Likelihood is the product of individual Bernoulli probabilities (assuming i.i.d.):
+| $x_1, x_2 $ | $\dots x_n$ | $y \to$ Random Variable |
+| :--- | :--- | :--- |
+| $\dots$ | $\dots$ | $0$ |
+| $\dots$ | $\dots$ | $1$ |
+| $\dots$ | $\dots$ | $1$ |
+| $\dots$ | $\dots$ | $0$ |
+
+Given this dataset formulation, we treat each row as an independent Bernoulli trial. The Likelihood of the entire dataset $D$ is the strict product of these individual probabilities (assuming i.i.d.):
 
 $$L(\theta; D) = \prod_{i=1}^m P(y^{(i)} \mid x^{(i)}; \theta) = \prod_{i=1}^m h(x^{(i)})^{y^{(i)}} (1 - h(x^{(i)}))^{1 - y^{(i)}}$$
 
@@ -62,6 +69,13 @@ $$\log L(\theta; D) = \sum_{i=1}^m \left[ y^{(i)} \log h(x^{(i)}) + (1 - y^{(i)}
 In practice, we often minimize the **Negative Log-Likelihood (NLL)**, which is the same as the **Binary Cross-Entropy Loss**:
 $$J(\theta) = - \frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log h(x^{(i)}) + (1 - y^{(i)}) \log(1 - h(x^{(i)})) \right]$$
 
+### Visualizing the Cross-Entropy Loss
+The NLL directly translates to the empirical loss equation. Visually, the notes plot this beautifully as two interlocking curves intersecting the axes:
+- If $y=1$, the active loss is $-\log(h(x))$. As the prediction $h(x)$ decreases toward $0$, the penalty skyrockets asymptotically toward infinity.
+- If $y=0$, the active loss is $-\log(1-h(x))$. As the prediction incorrectly approaches $1$, the penalty skyrockets.
+
+This ensures the model is heavily penalized algorithmically for being confidently wrong.
+
 ---
 
 ## 3. Decision Boundary
@@ -74,3 +88,11 @@ This results in a **linear decision boundary**.
 <Callout type="info">
 **Goal**: We find the parameters $\theta$ that maximize the likelihood of our observed data. There is no closed-form solution, so we use iterative optimization like **Gradient Descent**.
 </Callout>
+
+### Gradient Descent & The Chain Rule
+To iteratively update our parameters, we find the partial derivative of the cost function $J(\theta)$ with respect to each independent parameter weight $\theta_j$. As highlighted graphically in the notes, optimizing this mechanism structurally requires applying the **Chain Rule**:
+
+$$\frac{\partial J}{\partial \theta_j} = \frac{\partial J}{\partial h} \cdot \frac{\partial h}{\partial z} \cdot \frac{\partial z}{\partial \theta_j}$$
+
+Yielding the fundamental gradient minimization update rule for the optimal solution:
+$$\theta_j \leftarrow \theta_j - \alpha \frac{\partial J(\theta)}{\partial \theta_j}$$

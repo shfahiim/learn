@@ -41,7 +41,7 @@ const KMeansViz = () => {
       <ChartCard title="K-Means Clustering" subtitle="K-Means iteratively assigns each data point to the nearest centroid and then re-calculates the centroids based on the mean of all assigned points.">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} />

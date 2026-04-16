@@ -28,7 +28,7 @@ const SupervisedVsUnsupervised = () => {
       <ChartCard title="Supervised Learning (Labeled Data)" subtitle="Data points are associated with known target classes.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="feature 1" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="feature 2" {...chartAxisProps} />
@@ -47,7 +47,7 @@ const SupervisedVsUnsupervised = () => {
       <ChartCard title="Unsupervised Learning (Unlabeled Data)" subtitle="Raw data points without any target labels or categories.">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="feature 1" {...chartAxisProps} />
               <YAxis type="number" dataKey="y" name="feature 2" {...chartAxisProps} />

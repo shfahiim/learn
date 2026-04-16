@@ -21,14 +21,14 @@ const ModelSelectionViz = () => {
       <ChartCard title="The Model Selection Curve" subtitle="As model complexity increases, training error decreases. However, test error (generalization error) initially decreases then starts to increase once overfitting begins.">
         <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <LineChart data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis dataKey="complexity" label={{ value: 'Model Complexity', position: 'insideBottom', offset: -5 }} {...chartAxisProps} />
               <YAxis label={{ value: 'Error', angle: -90, position: 'insideLeft' }} {...chartAxisProps} />
               <Tooltip {...chartTooltipProps} />
               <Legend />
-              <Line name="Training Error" type="monotone" dataKey="trainError" stroke="#8884d8" strokeWidth={3} dot={{ r: 5 }} />
-              <Line name="Test Error (Validation)" type="monotone" dataKey="testError" stroke="#82ca9d" strokeWidth={3} dot={{ r: 5 }} />
+              <Line name="Training Error" type="monotone" dataKey="trainError" stroke="var(--chart-primary)" strokeWidth={3} dot={{ r: 5 }} />
+              <Line name="Test Error (Validation)" type="monotone" dataKey="testError" stroke="var(--chart-success)" strokeWidth={3} dot={{ r: 5 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

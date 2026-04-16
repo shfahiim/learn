@@ -118,7 +118,7 @@
 
 @media (max-width: 640px) {
   .chart-card-inner {
-    padding: 0.9rem;
+    padding: 0.75rem 0.5rem; /* Reduced horizontal padding drastically */
   }
 }
 
@@ -827,8 +827,8 @@ input[type=range].modern-slider {
 
 input[type=range].modern-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 18px;
-  width: 18px;
+  height: 22px;
+  width: 22px;
   border-radius: 50%;
   background: var(--slider-accent, var(--chart-primary));
   cursor: pointer;
@@ -957,5 +957,17 @@ input[type=range].modern-slider::-webkit-slider-runnable-track {
   .course-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

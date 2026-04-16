@@ -1,0 +1,39 @@
+# Multiclass Classification
+
+Binary classification strictly targets predictions between $0$ and $1$. When a dataset branches symmetrically into $K$ distinct classes (where $K > 2$), the mathematical constraints must dynamically adapt and expand. This architecture is formally known as **Multiclass Classification**.
+
+## Visualizing Multiclass (One-vs-All)
+The notes graphically depict an intuitive **One-Vs-All** (or One-Vs-Rest) classification approach visually represented via a scatter plot consisting of three unique target class shapes: Triangles ($\Delta$), Circles ($o$), and Crosses ($x$).
+
+Instead of drawing a single separating line simultaneously accommodating everything, the algorithm learns structurally to isolate one specific class at a time. For instance, it formulates a unified geometric bounding threshold that specifically subgroups *all* the Triangles locally (assigning them into Class $1$), while mathematically treating both the Circles and Crosses identically as an aggregated collective block (Class $0$).
+
+### One-Hot Encoding Target Variables
+To handle these independent dimensions algebraically without inferring arbitrary numeric magnitudes between classes, the scalar target label logically transitions into a matrix mapping formulation **One-hot encoding**.
+Instead of assigning a naive $y=2$, the classification belonging uniquely to class 2 out of 3 is represented smoothly via an isolated column vector logically mapping $1$:
+$$
+\begin{bmatrix}
+0 \\
+1 \\
+0
+\end{bmatrix}
+$$
+
+In an expanded dataset spanning model parameters $\theta_0, \theta_1 \dots \theta_n$ aligned alongside features $x_1 \dots x_n$, each dimension uniquely acquires internal parameterized numeric boundaries.
+
+---
+
+## The Softmax Function
+
+To gracefully abstract the structural Sigmoid function boundary formula to accommodate flexible multi-class dimensions uniformly, we utilize the mathematically profound **Softmax function**. Softmax inherently compresses any vector sequence proportionally into a tightly normalized probabilistic density sum bounded perfectly to equal precisely $1.0$.
+
+The integrated hypothesis fundamentally computes the explicit probability that input variable $x$ matches exactly to the specific class index $i$:
+$$h^{(i)}(x) = \frac{e^{\theta_i^T x}}{\sum_{k=1}^K e^{\theta_k^T x}}$$
+
+## Categorical Cross-Entropy Loss
+
+Since parameters optimize multi-laterally across $K$ dimensional categories simultaneously, Binary cross-entropy definitions gracefully generalize natively into continuous **Categorical Cross-Entropy** tracking.
+
+Evaluating mathematically a unified ground truth labeled state index variable vector $y$ mapped parallel to predicted outputs structurally evaluated as $\hat{y} = h(x)$, the aggregate algorithmic loss derives identically through the equation series:
+$$\text{Loss} = - \sum_{k=1}^K y_k \log \hat{y}_k$$
+
+Minimizing structurally this combined penalty loss empirically pressures iterative neural algorithmic descents intuitively towards maximally scoring likelihood solely at intersecting identical correct logical matching index dimensions accurately.

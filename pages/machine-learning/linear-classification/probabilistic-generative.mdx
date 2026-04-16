@@ -34,7 +34,9 @@ $$P(y \mid x) = \frac{P(x \mid y) P(y)}{P(x)}$$
 For dependent events $x$ and $y$, the joint probability is:
 $$P(x, y) = P(x \cap y) = P(x \mid y)P(y) = P(y \mid x)P(x)$$
 
-Generative ML assumes $P(D; \theta) = P(x, y; \theta)$, while Discriminative ML assumes $P(D; \theta) = P(y \mid x; \theta)$.
+As explicitly detailed in the lecture notes on Maximum Likelihood Estimation mapping algorithms:
+*   **Generative Algorithms:** When you model using the overall **joint distribution** (translating exactly to determining the probability of the entire dataset formulation), you assume $P(D; \theta) = P(x, y)$. This mathematically merges $x, y$ as a unified probability structure.
+*   **Discriminative Algorithms:** Another way is modeling strictly the outcome conditional dependency path intuitively: $P(y \mid x; \theta)$.
 
 ---
 

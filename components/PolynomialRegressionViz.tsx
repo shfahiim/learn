@@ -48,7 +48,7 @@ const PolynomialRegressionViz = () => {
               className={`px-4 py-2 rounded text-sm font-bold transition-all ${
                 degree === d 
                   ? 'bg-blue-600 text-white shadow-lg' 
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  : 'var(--surface-3) text-[var(--chart-text)] hover:bg-slate-200'
               }`}
             >
               {d === 1 ? 'Linear (d=1)' : d === 2 ? 'Quadratic (d=2)' : 'Complex (d=9)'}
@@ -56,9 +56,9 @@ const PolynomialRegressionViz = () => {
           ))}
         </div>
 
-        <div className="h-[350px] w-full bg-white rounded-lg p-2">
+        <div className="h-[350px] w-full var(--surface-1) rounded-lg p-2">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+            <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid {...chartGridProps} />
               <XAxis type="number" dataKey="x" name="x" {...chartAxisProps} domain={[0, 10]} />
               <YAxis type="number" dataKey="y" name="y" {...chartAxisProps} domain={[0, 15]} />
