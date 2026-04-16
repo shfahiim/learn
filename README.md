@@ -1,6 +1,4 @@
-# Learn Interactive
-
-An interactive learning platform for modern technical subjects, built with Next.js and Nextra.
+# 41
 
 ## Current Modules
 
