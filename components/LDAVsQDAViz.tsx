@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Line, ComposedChart } from 'recharts';
+import { Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Line, ComposedChart } from 'recharts';
 import { chartGridProps, chartAxisProps, chartTooltipProps } from './charts/rechartsDefaults';
 import { ChartCard } from './charts/ChartCard';
 import { Zap, Activity } from 'lucide-react';
@@ -25,8 +25,8 @@ const LDAVsQDAViz = () => {
   // Generate boundary points
   const ldaBoundary = useMemo(() => {
     return [
-      { bx: 1, by: 1 },
-      { bx: 9, by: 9 }
+      { x: 1, y: 1 },
+      { x: 9, y: 9 }
     ];
   }, []);
 
@@ -35,7 +35,7 @@ const LDAVsQDAViz = () => {
     for (let x = 0; x <= 10; x += 0.5) {
       // Quadratic curve: y = a(x-h)^2 + k
       const y = 0.1 * Math.pow(x - 5, 2) + 2;
-      points.push({ bx: x, by: y });
+      points.push({ x, y });
     }
     return points;
   }, []);
@@ -53,7 +53,7 @@ const LDAVsQDAViz = () => {
           } 
           subtitle="Assumes shared covariance. Resulting boundary is a straight line."
         >
-          <div className="h-[320px] w-full">
+          <div className="chart-canvas w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
                 <CartesianGrid {...chartGridProps} vertical={false} />
@@ -65,7 +65,7 @@ const LDAVsQDAViz = () => {
                 <Line 
                   data={ldaBoundary} 
                   type="monotone" 
-                  dataKey="by" 
+                  dataKey="y" 
                   stroke="#ef4444" 
                   strokeWidth={3} 
                   strokeDasharray="8 8" 
@@ -101,7 +101,7 @@ const LDAVsQDAViz = () => {
           } 
           subtitle="Allows unique covariance per class. Resulting boundary is a curve."
         >
-          <div className="h-[320px] w-full">
+          <div className="chart-canvas w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
                 <CartesianGrid {...chartGridProps} vertical={false} />
@@ -113,7 +113,7 @@ const LDAVsQDAViz = () => {
                 <Line 
                   data={qdaBoundary} 
                   type="monotone" 
-                  dataKey="by" 
+                  dataKey="y" 
                   stroke="#ef4444" 
                   strokeWidth={3} 
                   strokeDasharray="8 8" 
