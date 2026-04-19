@@ -26,14 +26,24 @@ $$
 P(|X - \mu| < k\sigma) \ge 1 - \frac{1}{k^2}
 $$
 
-Let's plug in some numbers to see what this actually means:
+### The Elegant Proof (From Markov's)
 
-| Standard Deviations ($k$) | Chebyshev's Minimum Guarantee | Normal Curve Guarantee (For comparison) |
-| :--- | :--- | :--- |
-| $k = 1$ | $1 - (1/1^2) =$ **0%** (Not helpful) | 68.27% |
-| $k = 2$ | $1 - (1/2^2) =$ **75%** | 95.45% |
-| $k = 3$ | $1 - (1/3^2) =$ **88.89%** | 99.73% |
-| $k = 4$ | $1 - (1/4^2) =$ **93.75%** | 99.99% |
+<Callout type="info" emoji="🎩">
+How did Chebyshev find this? He simply "plugged in" Variance to **[Markov's Inequality](./markovs-inequality)**.
+</Callout>
+
+1.  Start with Markov's Inequality: $P(Y \ge a) \le \frac{E[Y]}{a}$.
+2.  Let $Y = (X - \mu)^2$ (the squared distance from the mean).
+3.  Let $a = (k\sigma)^2$.
+4.  Plug these into Markov's:
+    $$ P((X - \mu)^2 \ge (k\sigma)^2) \le \frac{E[(X - \mu)^2]}{(k\sigma)^2} $$
+5.  Recall that $E[(X - \mu)^2]$ is just the **Variance** ($\sigma^2$):
+    $$ P((X - \mu)^2 \ge k^2 \sigma^2) \le \frac{\sigma^2}{k^2 \sigma^2} = \frac{1}{k^2} $$
+6.  The complement of "greater than $1/k^2$" is "at least $1 - 1/k^2$".
+
+This simple substitution created one of the most powerful and universal laws in statistics!
+
+---
 
 ### What does this mean in plain English?
 No matter how weird, distorted, or skewed your dataset is, **at least 75%** of all data points must live within 2 standard deviations of the mean. **At least 88.8%** must live within 3 standard deviations.

@@ -1,8 +1,11 @@
 {
   "index": "Introduction",
-  "foundations": "1. Foundations",
-  "discrete": "2. Discrete Distributions",
-  "continuous": "3. Continuous Distributions",
-  "advanced": "4. Advanced Distributions",
-  "god-tier": "5. Inequalities & Limit Theorems"
+  "foundations": "Foundations",
+  "discrete": "Discrete Distributions",
+  "continuous": "Continuous Distributions",
+  "multivariate": "Multivariate Probability",
+  "mathematical-tools": "Mathematical Tools",
+  "inference-distributions": "Inference Distributions",
+  "limit-theorems": "Limit Theorems",
+  "information-theory": "Information Theory"
 }

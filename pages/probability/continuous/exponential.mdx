@@ -39,19 +39,64 @@ $$
 
 ---
 
-## The "Memoryless" Property
+## The "Memoryless" Property: The "Reset" Button
 
 <Callout type="warning" emoji="🧠">
-The Exponential distribution is famous for being "memoryless." 
+The Exponential distribution is the only continuous distribution that is **memoryless**. This is its most famous, and often most counter-intuitive, feature.
 </Callout>
 
-This means the probability of an event occurring in the next $t$ minutes is completely independent of how long you have *already* been waiting. 
+### The Intuition
+Imagine you are waiting at a bus stop where buses arrive according to an exponential distribution (a [Poisson Process](../discrete/poisson)). You have already been waiting for 20 minutes, and no bus has come. 
 
-$$
-P(X > t + s \mid X > s) = P(X > t)
+*   **Human Intuition:** "I've been waiting 20 minutes! Surely the bus is *more likely* to arrive in the next 5 minutes than it was when I first got here."
+*   **The Reality:** The probability that the bus arrives in the next 5 minutes is **exactly the same** as it was when you first arrived. The system has "no memory" of your 20-minute wait.
+
+This property implies there is **no wear and tear**. If a lightbulb's lifespan is exponential, a 10-year-old bulb is just as "healthy" as a brand new one.
+
+---
+
+### The Mathematical Proof
+
+To prove this, we use the **Survival Function**, which is $P(X > t)$. For the exponential distribution:
+$$ 
+P(X > t) = 1 - F(t) = 1 - (1 - e^{-\lambda t}) = e^{-\lambda t} 
 $$
 
-*Example: If the lifespan of a lightbulb is exponentially distributed, a lightbulb that has been working for 5 years is exactly as likely to break in the next 10 minutes as a brand new lightbulb.*
+We want to show that the probability of waiting an additional time $t$, given that we have already waited time $s$, is the same as the original probability of waiting time $t$.
+
+**Step 1: Set up the Conditional Probability**  
+By the definition of conditional probability:
+$$ 
+P(X > s + t \mid X > s) = \frac{P(X > s + t \text{ and } X > s)}{P(X > s)} 
+$$
+
+**Step 2: Simplify the Numerator**  
+If we know that $X > s + t$, then $X$ must *already* be greater than $s$. Therefore, the intersection of these two events is simply $X > s + t$:
+$$ 
+P(X > s + t \mid X > s) = \frac{P(X > s + t)}{P(X > s)} 
+$$
+
+**Step 3: Plug in the Survival Function**  
+$$ 
+\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}} 
+$$
+
+**Step 4: Use Exponent Rules**  
+$$ 
+\frac{e^{-\lambda s} \cdot e^{-\lambda t}}{e^{-\lambda s}} = e^{-\lambda t} 
+$$
+
+**Conclusion:**
+$$ 
+P(X > s + t \mid X > s) = P(X > t) 
+$$
+
+The "already waited" time $s$ has completely vanished from the equation.
+
+---
+
+### The "Discrete" Cousin
+The only other distribution with this property is the **[Geometric Distribution](../discrete/geometric)**, which is essentially the "discrete version" of the Exponential (counting trials instead of measuring time).
 
 ## Key Metrics
 

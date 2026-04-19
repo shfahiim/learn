@@ -1,3 +1,4 @@
+import { Callout } from 'nextra/components';
 import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
 
 # Geometric Distribution
@@ -28,17 +29,57 @@ Use Geometric when:
 
 Common examples: first sale, first defect, first conversion, first time an event occurs.
 
-## Key facts
+## The Memoryless Property: "No Progress"
 
-- **Mean:** $E[X] = \frac{1}{p}$
-- **Variance:** $\mathrm{Var}(X) = \frac{1-p}{p^2}$
-- **Memoryless property:**
+<Callout type="warning" emoji="🧠">
+The Geometric distribution is the **only** discrete distribution with this property.
+</Callout>
 
+### The Intuition
+Think of it this way: the coin doesn't "remember" its previous flips. If you have already flipped a coin 10 times and gotten Tails every time, the probability that your *next* flip is Heads is still $p$. The probability that you will have to wait *another* 3 flips for your first Heads is exactly the same as if you were starting from scratch.
+
+### The Mathematical Proof
+
+To make this proof elegant, we use the **Survival Function**: the probability that we haven't seen a success yet in $k$ trials.
+$$ 
+P(X > k) = (1-p)^k 
 $$
-P(X > s+t \mid X > s) = P(X > t)
+*(Intuition: $P(X > k)$ means you failed $k$ times in a row).*
+
+We want to prove that the probability of waiting $t$ more trials, given you've already waited $s$ trials, is the same as the original probability of waiting $t$ trials.
+
+**Step 1: Set up the Conditional Probability**
+$$ 
+P(X > s + t \mid X > s) = \frac{P(X > s + t \text{ and } X > s)}{P(X > s)} 
 $$
 
-Meaning: once you’ve already waited $s$ trials with no success, your *future waiting time* distribution resets.
+**Step 2: Simplify the Numerator**  
+Since $X > s + t$ implies $X > s$:
+$$ 
+P(X > s + t \mid X > s) = \frac{P(X > s + t)}{P(X > s)} 
+$$
+
+**Step 3: Plug in the Survival Function**
+$$ 
+\frac{(1-p)^{s+t}}{(1-p)^s} 
+$$
+
+**Step 4: Use Exponent Rules**
+$$ 
+\frac{(1-p)^s \cdot (1-p)^t}{(1-p)^s} = (1-p)^t 
+$$
+
+**Conclusion:**
+$$ 
+P(X > s + t \mid X > s) = P(X > t) 
+$$
+
+The trials you have already "wasted" ($s$) have no impact on your future waiting time.
+
+---
+
+### The "Continuous" Cousin
+The continuous counterpart to this property is found in the **[Exponential Distribution](../continuous/exponential)**, which models time between events in a continuous process.
 
 ## Common pitfall
 

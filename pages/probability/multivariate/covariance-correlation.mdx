@@ -1,0 +1,83 @@
+import { Callout } from 'nextra/components';
+import { CorrelationViz } from '@/components/CorrelationViz';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Covariance & Correlation
+
+While [Joint Distributions](./fundamentals) tell us *where* the probability is, **Covariance** and **Correlation** tell us *how* two variables move together.
+
+---
+
+## 1. Covariance: The "Raw" Movement
+
+**Covariance** measures the direction of the linear relationship between two variables.
+
+$$ \text{Cov}(X, Y) = E[(X - \mu_x)(Y - \mu_y)] $$
+
+### The Computational Formula (The Shortcut)
+In practice, we rarely use the formula above. We use this much simpler "shortcut":
+$$ \text{Cov}(X, Y) = E[XY] - E[X]E[Y] $$
+
+<Callout type="info" emoji="⚖️">
+**Interpretation:**
+*   **Positive Covariance:** When $X$ is high, $Y$ is also high.
+*   **Negative Covariance:** When $X$ is high, $Y$ is low.
+*   **Zero Covariance:** No linear relationship.
+</Callout>
+
+### Properties of Covariance:
+1.  **Symmetry:** $\text{Cov}(X, Y) = \text{Cov}(Y, X)$.
+2.  **Covariance with Self:** $\text{Cov}(X, X) = \text{Var}(X)$.
+3.  **Linearity:** $\text{Cov}(aX + b, cY + d) = ac \cdot \text{Cov}(X, Y)$.
+4.  **Variance of a Sum:** $\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y)$.
+
+---
+
+## 2. Correlation: The "Standardized" Movement
+
+The problem with Covariance is that its units are "units of $X$ times units of $Y$." If you measure height in meters vs. centimeters, your covariance will change.
+
+**Correlation ($r$)** solves this by dividing Covariance by the standard deviations, creating a unitless number between $-1$ and $1$.
+
+$$ \rho_{X,Y} = \text{Corr}(X, Y) = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} $$
+
+| Value | Meaning |
+| :--- | :--- |
+| **+1** | Perfect positive linear relationship. |
+| **0** | No linear relationship (they are uncorrelated). |
+| **-1** | Perfect negative linear relationship. |
+
+---
+
+## 3. The Covariance Matrix ($\Sigma$)
+
+In fields like Finance and AI, we deal with vectors of random variables. We organize all their relationships into a square matrix:
+
+$$
+\Sigma = \begin{bmatrix} 
+\text{Var}(X) & \text{Cov}(X, Y) \\
+\text{Cov}(Y, X) & \text{Var}(Y) 
+\end{bmatrix}
+$$
+
+In a large matrix $\Sigma$, the **diagonal** represents the variances of the individual variables, and the **off-diagonal** entries represent the relationships between them.
+
+## Interactive Correlation Explorer
+
+<CorrelationViz />
+
+## Test Your Knowledge
+
+<MathExample title="Example: Calculating Covariance from a Table">
+  <MathQuestion>
+    Given the results from our previous example: $E[X]=1.5, E[Y]=1.5, E[XY]=2.5$. Calculate the Covariance $\text{Cov}(X, Y)$.
+  </MathQuestion>
+  <MathSolution>
+    Using the computational formula:
+    $\text{Cov}(X, Y) = E[XY] - E[X]E[Y]$
+    $\text{Cov}(X, Y) = 2.5 - (1.5 \times 1.5)$
+    $\text{Cov}(X, Y) = 2.5 - 2.25 = 0.25$
+    
+    Since the covariance is positive, the variables move together.
+  </MathSolution>
+</MathExample>

@@ -19,6 +19,24 @@ $$
 \bar{X}_n \to \mu
 $$
 
+---
+
+## Mathematical Depth: Weak vs. Strong
+
+Statisticians distinguish between two "levels" of how this average approaches the mean.
+
+### 1. The Weak Law (Convergence in Probability)
+The Weak Law states that for any small number $\epsilon$, the probability that the average is far from the mean vanishes as $n$ grows.
+$$ \lim_{n \to \infty} P(|\bar{X}_n - \mu| > \epsilon) = 0 $$
+*Intuition: It's very unlikely that the average will be wrong if you have enough data.*
+
+### 2. The Strong Law (Almost Sure Convergence)
+The Strong Law is more powerful. It states that the average will converge to the mean with "probability 1."
+$$ P(\lim_{n \to \infty} \bar{X}_n = \mu) = 1 $$
+*Intuition: The average is guaranteed to be right eventually. The "jagged lines" in the simulation below are mathematically forced to settle on the mean.*
+
+---
+
 ### Why Does This Matter?
 1.  **Casinos & Insurance:** A casino doesn't know if the next person to play roulette will win or lose. But because of the LLN, they know with absolute mathematical certainty that if 100,000 people play, the casino will keep exactly 5.26% of the money bet.
 2.  **Machine Learning:** We train neural networks over thousands or millions of iterations (epochs) because we rely on the LLN to average out noisy gradients and converge on a true optimal solution.

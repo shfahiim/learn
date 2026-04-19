@@ -1,0 +1,54 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Markov's Inequality
+
+**Markov's inequality** is a distribution-free tail bound. It says that if a random variable is **non-negative**, then its mean controls how large it can be.
+
+<Callout type="info" emoji="📏">
+Markov's is the "simplest" of all probability bounds. It requires nothing but a Mean ($E[X]$) and a non-negative variable. Because it uses so little information, it is often very conservative (loose), but it provides a guaranteed safety net.
+</Callout>
+
+## Statement
+
+If $X \ge 0$ and $a>0$:
+
+$$
+P(X \ge a) \le \frac{E[X]}{a}.
+$$
+
+## Intuition: The Weight of the Average
+
+If the average age of people in a room is 20, how many people can be 80 or older?
+Markov says: $P(\text{Age} \ge 80) \le \frac{20}{80} = 25\%$.
+
+If more than 25% of the room were 80, the average would *have* to be higher than 20. Therefore, the average acts as an "anchor" that prevents too much of the probability mass from drifting too far to the right.
+
+---
+
+## The Master Key: Building Chebyshev's
+
+Markov's Inequality is the "Master Key" used to prove many other famous bounds. 
+
+The most important example is **[Chebyshev's Inequality](./chebyshevs-theorem)**. By applying Markov's Inequality to the *squared distance from the mean* $(X-\mu)^2$, we can derive a much more powerful bound that uses the Variance.
+
+### Why it can be loose
+Markov can be conservative because it uses only the mean. If the distribution has heavy tails or lots of mass near 0, the bound may be far from the true probability. 
+
+## Test Your Knowledge
+
+<MathExample title="Example: Using Markov's inequality">
+  <MathQuestion>
+    A factory produces lightbulbs with an average lifespan of 1000 hours. The distribution is unknown, but lifespan must be non-negative. Use Markov's Inequality to find an upper bound on the probability that a lightbulb lasts *at least* 4000 hours.
+  </MathQuestion>
+  <MathSolution>
+    Markov's formula: $P(X \ge a) \le \frac{E[X]}{a}$.
+
+    - $E[X] = 1000$
+    - $a = 4000$
+
+    $P(X \ge 4000) \le \frac{1000}{4000} = 0.25$.
+
+    Without knowing anything else about the distribution, we guarantee that **at most 25%** of the lightbulbs will last 4000 hours or more.
+  </MathSolution>
+</MathExample>

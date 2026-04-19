@@ -1,0 +1,103 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Joint Distributions: The Multivariate World
+
+<Callout type="info" emoji="👯">
+In the real world, variables rarely exist in isolation. To model complex systems—like the relationship between a person's height and weight, or the speed and fuel consumption of a car—we need **Joint Distributions**.
+</Callout>
+
+A **Joint Distribution** allows us to calculate the probability of multiple events occurring simultaneously.
+
+---
+
+## 1. Discrete Joint Distributions (PMFs)
+
+For discrete random variables $X$ and $Y$, the **Joint Probability Mass Function (PMF)** is defined as:
+$$ p(x, y) = P(X = x, Y = y) $$
+
+### The Joint PMF Table
+The most intuitive way to visualize discrete joint distributions is through a table. Each cell represents the probability of a specific $(x, y)$ pair.
+
+**Example:** Let $X$ be the number of heads in 2 coin flips and $Y$ be whether the first flip was a head ($1$ for Head, $0$ for Tail).
+
+| $X \downarrow \setminus Y \to$ | $0$ (Tail) | $1$ (Head) | **Marginal $P(X)$** |
+| :--- | :--- | :--- | :--- |
+| **0** | $1/4$ | $0$ | **$1/4$** |
+| **1** | $1/4$ | $1/4$ | **$1/2$** |
+| **2** | $0$ | $1/4$ | **$1/4$** |
+| **Marginal $P(Y)$** | **$1/2$** | **$1/2$** | **Sum = $1.0$** |
+
+### Key Rules for Joint PMFs:
+1.  **Normalization:** The sum of all cells in the table must equal $1$: $\sum_x \sum_y p(x, y) = 1$.
+2.  **Positivity:** $p(x, y) \ge 0$ for all $x, y$.
+
+---
+
+## 2. Marginal Distributions: "Summing Out"
+
+If you have the joint distribution but only care about one variable, you calculate its **Marginal Distribution**. You do this by summing across the rows or columns of the table.
+
+*   **Marginal PMF of $X$:** Sum over all possible $y$ values.
+    $$ p_X(x) = \sum_y p(x, y) $$
+*   **Marginal PMF of $Y$:** Sum over all possible $x$ values.
+    $$ p_Y(y) = \sum_x p(x, y) $$
+
+<Callout type="warning" emoji="💡">
+**Intuition:** Marginalization is like looking at a 3D bar chart from the side. You "squash" all the probability mass onto one axis.
+</Callout>
+
+---
+
+## 3. Expectations of Joint Variables
+
+What is the average value of some function $g(X, Y)$? For example, the product $XY$ or the sum $X+Y$.
+
+$$ E[g(X, Y)] = \sum_x \sum_y g(x, y) \cdot p(x, y) $$
+
+### Special Case: $E[XY]$
+The expected value of the product $XY$ is a critical component for calculating [Covariance](./covariance-correlation).
+$$ E[XY] = \sum_x \sum_y (x \cdot y) \cdot p(x, y) $$
+
+---
+
+## 4. Continuous Joint Distributions (PDFs)
+
+For continuous variables, we use the **Joint Probability Density Function (PDF)**, $f(x, y)$.
+
+*   **Normalization:** The total volume under the 3D surface must be $1$:
+    $$ \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1 $$
+*   **Marginal PDF:** Instead of summing, we integrate out the variable we don't want:
+    $$ f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy $$
+
+---
+
+## 5. Statistical Independence
+
+Two random variables $X$ and $Y$ are **independent** if knowing the value of one provides no information about the other. Mathematically, the joint distribution must be the product of the marginals:
+
+$$ p(x, y) = p_X(x) \cdot p_Y(y) \quad \text{(Discrete)} $$
+$$ f(x, y) = f_X(x) \cdot f_Y(y) \quad \text{(Continuous)} $$
+
+### Table Visual for Independence
+In an independence table, every row must be proportional to every other row. If you see a zero in a cell where both marginals are non-zero, the variables **cannot** be independent.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Calculating Marginals and Expectation">
+  <MathQuestion>
+    A joint PMF is given by:
+    $p(1,1)=0.1, p(1,2)=0.2, p(2,1)=0.3, p(2,2)=0.4$.
+    1. Find the marginals $P(X=1)$ and $P(Y=1)$.
+    2. Calculate $E[XY]$.
+  </MathQuestion>
+  <MathSolution>
+    **1. Marginals:**
+    - $P(X=1) = p(1,1) + p(1,2) = 0.1 + 0.2 = 0.3$
+    - $P(Y=1) = p(1,1) + p(2,1) = 0.1 + 0.3 = 0.4$
+
+    **2. Joint Expectation $E[XY]$:**
+    $E[XY] = (1\cdot1)(0.1) + (1\cdot2)(0.2) + (2\cdot1)(0.3) + (2\cdot2)(0.4)$
+    $E[XY] = 0.1 + 0.4 + 0.6 + 1.6 = 2.7$
+  </MathSolution>
+</MathExample>

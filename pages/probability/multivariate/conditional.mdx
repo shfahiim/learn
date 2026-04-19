@@ -1,0 +1,67 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Conditional Distributions
+
+<Callout type="info" emoji="🍰">
+If a Joint distribution is a 3D landscape, a **Conditional Distribution** is a "slice" of that landscape. It tells us how one variable behaves when we *fix* the value of another.
+</Callout>
+
+## The "Slicing" Intuition
+
+Imagine you have a joint PDF $f(X, Y)$ representing the height and weight of people. 
+If I tell you, "This person is exactly 180cm tall," we are no longer looking at the whole 3D surface. We are looking at a 2D curve at $X = 180$.
+
+However, because we "cut" the surface, the area under our slice might not equal 1. To make it a valid probability distribution, we must **re-normalize** it by dividing by the marginal probability.
+
+---
+
+## The Definition
+
+For a fixed value of $Y=y$, the conditional PDF of $X$ is:
+
+$$ f_{X|Y}(x \mid y) = \frac{f(x, y)}{f_Y(y)} $$
+
+This is essentially the multivariate version of the [Conditional Probability Definition](../foundations/bayes-theorem).
+
+---
+
+## Law of Total Probability (Continuous)
+
+We can find the overall marginal probability of $X$ by summing up all the "slices" of its conditional distribution, weighted by the probability of each slice:
+
+$$ f_X(x) = \int_{-\infty}^{\infty} f_{X|Y}(x \mid y) f_Y(y) \, dy $$
+
+---
+
+## The Law of Iterated Expectations (Adam's Law)
+
+This is a "God-tier" shortcut for finding the mean of a variable. It states:
+
+$$ E[X] = E[E[X|Y]] $$
+
+### The "Average of Averages" Intuition
+If you want to find the average height of a city, you can:
+1.  Calculate the **average height of each neighborhood** ($E[X|Y]$).
+2.  Then, take the **average of those neighborhood averages** ($E[\dots]$).
+
+This is extremely useful when the overall mean is hard to calculate, but the means within specific groups are easy to find.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Calculating a Conditional Mean">
+  <MathQuestion>
+    Suppose $E[X|Y] = 2Y + 3$. If the mean of $Y$ is $E[Y] = 5$, find the overall mean $E[X]$.
+  </MathQuestion>
+  <MathSolution>
+    Using the Law of Iterated Expectations:
+    $E[X] = E[E[X|Y]]$
+    $E[X] = E[2Y + 3]$
+    
+    Using the linearity of expectation:
+    $E[X] = 2E[Y] + 3$
+    $E[X] = 2(5) + 3 = 13$
+    
+    The mean of $X$ is **13**. Notice we didn't even need to know the full distribution of $X$ or $Y$!
+  </MathSolution>
+</MathExample>

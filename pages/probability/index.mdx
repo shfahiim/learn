@@ -1,28 +1,30 @@
-# Probability
+# Probability Theory & Statistical Inference
 
-A comprehensive survey of probability theory, covering foundational axioms, discrete and continuous distributions, and the limit theorems that underpin statistical inference.
+A rigorous survey of probability theory, ranging from foundational axioms and counting principles to multivariate calculus, limit theorems, and Information Theory. This guide bridges the gap between intuitive concepts and the formal mathematics that underpin modern Data Science and Machine Learning.
 
 ## How this guide is organized
 
-1. **Foundations**
-   - Core probability language: events, sample spaces, independence
-   - “What does probability *mean*?” (frequentist vs Bayesian intuition)
-   - Key metrics and reading charts (PDF vs CDF, z-scores)
+### 1. [Foundations](./probability/foundations)
+The core language of uncertainty. We establish the Kolmogorov axioms, [Independence](./probability/foundations/independence), and the critical debate between [Frequentist and Bayesian interpretations](./probability/foundations/interpretations). We also introduce [Maximum Likelihood Estimation (MLE)](./probability/foundations/mle).
 
-2. **Discrete distributions** (counting outcomes)
-   - Bernoulli, Binomial, Geometric, Poisson, and friends
-   - When to use each distribution and how parameters change the shape
+### 2. [Discrete Distributions](./probability/discrete)
+Modeling "countable" events. From the simple [Bernoulli trial](./probability/discrete/bernoulli) to the [Poisson limit](./probability/discrete/poisson) of rare events.
 
-3. **Continuous distributions** (measuring quantities)
-   - Uniform, Normal, Exponential + tools like Q–Q plots
-   - How areas/intervals translate into probability
+### 3. [Continuous Distributions](./probability/continuous)
+Modeling measurements. We break down the anatomy of the [Normal distribution](./probability/continuous/normal) and the memoryless nature of the [Exponential distribution](./probability/continuous/exponential).
 
-4. **Advanced distributions**
-   - Distributions used in inference and testing (Chi-square, t, F)
-   - Common transformations and shape families (Gamma, Beta)
+### 4. [Multivariate Probability](./probability/multivariate)
+Moving from one variable to many. We explore [Joint Distributions](./probability/multivariate/fundamentals), the "slicing" of [Conditional Distributions](./probability/multivariate/conditional), and the [Covariance Matrix](./probability/multivariate/covariance-correlation) used to map relationships in high-dimensional space.
 
-5. **Inequalities & limit theorems**
-   - Inequalities: Markov and Chebyshev (distribution-free guarantees)
-   - Convergence: Law of Large Numbers and the Central Limit Theorem
-   - Why these results matter for sampling, estimation, and “why normal shows up”
+### 5. [Mathematical Tools](./probability/mathematical-tools)
+The engine room of probability. We use [Moments & MGFs](./probability/mathematical-tools/moments) to uniquely identify distributions, and the [Jacobian](./probability/mathematical-tools/jacobian) to map complex variable transformations.
+
+### 6. [Inference Distributions](./probability/inference-distributions)
+The distributions used for testing and sampling. This includes the [Chi-Square](./probability/inference-distributions/chi-square), [Student's t](./probability/inference-distributions/students-t), and the flexible [Beta/Gamma families](./probability/inference-distributions/gamma-beta).
+
+### 7. [Limit Theorems](./probability/limit-theorems)
+The "God-Tier" theorems that bring order to chaos. We prove how the [Law of Large Numbers](./probability/limit-theorems/lln) forces averages to converge, and how the [Central Limit Theorem](./probability/limit-theorems/clt) makes the Bell Curve appear everywhere.
+
+### 8. [Information Theory](./probability/information-theory)
+Probability as a measure of surprise. We define [Entropy](./probability/information-theory/entropy) and KL-Divergence, the fundamental metrics for measuring information loss and training modern AI.
 

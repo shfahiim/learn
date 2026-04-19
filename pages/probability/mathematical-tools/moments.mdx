@@ -1,0 +1,82 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Moments & Moment Generating Functions (MGFs)
+
+<Callout type="info" emoji="⚖️">
+If a distribution is a complex, high-dimensional object, **Moments** are the summary statistics that describe its "personality"—where it sits, how wide it is, and whether it has "fat" or "skewed" tails.
+</Callout>
+
+---
+
+## 1. What are Moments? (The Physical Intuition)
+
+The term "Moment" comes from **Physics**. If you think of a probability distribution as a physical object made of mass:
+
+1.  **The 1st Moment (Mean):** This is the **Center of Mass**. It’s the balance point of the object.
+2.  **The 2nd Moment (Variance):** This is the **Moment of Inertia**. It describes how far the mass is spread out from the center.
+3.  **The 3rd Moment (Skewness):** This describes the **Asymmetry**. Is the mass leaning more to the left or right?
+4.  **The 4th Moment (Kurtosis):** This describes the **Tails**. Is the mass concentrated in the center, or is there a lot of "heavy" mass far away in the outliers?
+
+### Raw vs. Central Moments
+*   **Raw Moment ($E[X^n]$):** Calculated relative to zero. The 1st raw moment is the **Mean**.
+*   **Central Moment ($E[(X-\mu)^n]$):** Calculated relative to the Mean ($\mu$). The 2nd central moment is the **Variance**.
+
+---
+
+## 2. The Moment Generating Function (MGF)
+
+The **MGF** is a mathematical "magic trick." It allows us to pack every single moment (1st, 2nd, 3rd... to infinity) into a single function.
+
+$$ M_X(t) = E[e^{tX}] $$
+
+### Why $e^{tX}$? (The Taylor Expansion)
+This is the part that usually confuses students. Why this specific formula? It comes down to the **Taylor Series** for $e^{z}$:
+$$ e^{tX} = 1 + tX + \frac{(tX)^2}{2!} + \frac{(tX)^3}{3!} + \dots $$
+
+When we take the Expected Value $E[\dots]$ of this expansion, we get:
+$$ E[e^{tX}] = 1 + t \cdot \mathbf{E[X]} + \frac{t^2}{2!} \cdot \mathbf{E[X^2]} + \frac{t^3}{3!} \cdot \mathbf{E[X^3]} + \dots $$
+
+**Every raw moment of $X$ is sitting there as a coefficient!**
+
+---
+
+## 3. How to "Extract" Moments
+To get the $n$-th moment out of the MGF, we simply:
+1.  **Differentiate** the MGF $n$ times with respect to $t$.
+2.  **Set $t = 0$**.
+
+$$ E[X^n] = M_X^{(n)}(0) $$
+
+### Why do we need this?
+Calculating $E[X^k]$ directly usually involves a very difficult integral ($\int x^k f(x) dx$). The MGF turns a hard calculus problem into a much easier **differentiation** problem.
+
+---
+
+## 4. The Uniqueness Property
+<Callout type="warning" emoji="🆔">
+If two random variables have the same MGF, they must have the same distribution. The MGF is like a **Unique Fingerprint**.
+</Callout>
+
+This is how we prove things like the [Central Limit Theorem](../limit-theorems/clt). We show that as we add variables, their combined MGF approaches the MGF of a Normal distribution.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Extracting Variance from an MGF">
+  <MathQuestion>
+    Suppose a random variable $X$ has the MGF $M_X(t) = (1 - 2t)^{-3}$. Find the Mean and Variance of $X$.
+  </MathQuestion>
+  <MathSolution>
+    **Step 1: Find the 1st Raw Moment (Mean)**
+    $M_X'(t) = (-3)(1-2t)^{-4}(-2) = 6(1-2t)^{-4}$
+    $E[X] = M_X'(0) = 6(1-0)^{-4} = 6$
+    
+    **Step 2: Find the 2nd Raw Moment**
+    $M_X''(t) = (6)(-4)(1-2t)^{-5}(-2) = 48(1-2t)^{-5}$
+    $E[X^2] = M_X''(0) = 48(1-0)^{-5} = 48$
+    
+    **Step 3: Calculate Variance**
+    $\text{Var}(X) = E[X^2] - (E[X])^2$
+    $\text{Var}(X) = 48 - (6)^2 = 48 - 36 = 12$
+  </MathSolution>
+</MathExample>
