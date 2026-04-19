@@ -1,9 +1,12 @@
 {
-  "correlation": "Correlation",
+  "gamma-function": "The Gamma Function",
+  "gamma-beta": "Gamma & Beta Distributions",
+  "joint-distributions": "Joint Distributions",
+  "correlation": "Correlation & Association",
+  "moments": "Moments & MGFs",
+  "transformations": "Transformations",
+  "jacobian": "The Jacobian Factor",
   "chi-square": "Chi-Square Distribution",
   "students-t": "Student's t-Distribution",
-  "f-distribution": "F-Distribution",
-  "gamma-beta": "Gamma & Beta",
-  "moments": "Moments & MGFs",
-  "transformations": "Transformations"
+  "f-distribution": "F-Distribution"
 }

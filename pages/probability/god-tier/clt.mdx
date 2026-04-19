@@ -33,6 +33,12 @@ This means:
 1.  The mean of your sample means will exactly equal the true population mean ($\mu$).
 2.  The variance of your sample means shrinks as your sample size ($n$) gets bigger ($\frac{\sigma^2}{n}$). This is why larger sample sizes give you more accurate estimates!
 
+### Why Does It Work? (The "God-Tier" Intuition)
+
+The rigorous proof of the CLT uses **[Moment Generating Functions (MGFs)](../advanced/moments)**. 
+
+When you add independent random variables together, you multiply their MGFs. As you multiply more and more MGFs, the result mathematically "shrinks" towards a specific mathematical form: the MGF of a Normal distribution. In other words, the Normal distribution is the unique "attractor" in the world of probability.
+
 ---
 
 ## Why Does This Matter?

@@ -1,0 +1,64 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Maximum Likelihood Estimation (MLE)
+
+<Callout type="info" emoji="🎯">
+Probability is about predicting **data** given a **model**. Statistics is about predicting the **model** (parameters) given the **data**. **MLE** is the primary tool for this reversal.
+</Callout>
+
+## The Core Concept: The Likelihood Function
+
+Imagine you have a coin. You don't know if it's fair. You flip it 10 times and get 8 Heads. What is the most "likely" probability of heads ($p$) for this coin?
+
+In probability, we define the **Probability Function** $P(x \mid \theta)$, which tells us the chance of seeing data $x$ given parameter $\theta$.
+In statistics, we flip this into the **Likelihood Function** $L(\theta \mid x)$:
+
+$$
+L(\theta \mid x) = P(x \mid \theta)
+$$
+
+The math is the same, but the **perspective** changes: the data $x$ is now fixed (the 8 heads you saw), and the parameter $\theta$ is the variable we are trying to find.
+
+## The Recipe for MLE
+
+Finding the maximum of a function usually involves calculus. However, because most probability functions involve products (due to [Independence](../foundations/independence)), the derivatives get messy. We use a trick: the **Log-Likelihood**.
+
+1.  **Define the Likelihood:** Write the joint probability of your data points.
+2.  **Take the Natural Log:** $\ell(\theta) = \ln(L(\theta))$. (Since $\ln$ is a monotonically increasing function, the maximum of the log is the same as the maximum of the original).
+3.  **Differentiate:** Find $\frac{d}{d\theta} \ell(\theta)$.
+4.  **Solve for Zero:** Set the derivative to zero and solve for $\hat{\theta}$.
+
+---
+
+## Why "Maximum" Likelihood?
+
+If we assume our coin has $p=0.5$, the chance of getting 8/10 heads is quite low (~4%). If we assume $p=0.8$, the chance is much higher (~30%). MLE says: **"The best estimate for the world is the one that makes our observed reality most probable."**
+
+## Real-World Connection: The Normal Distribution
+
+If you take a set of measurements $x_1, x_2, \dots, x_n$ and assume they come from a [Normal Distribution](../continuous/normal), the MLE for the mean ($\mu$) is simply the **Sample Average**:
+
+$$
+\hat{\mu}_{MLE} = \frac{1}{n} \sum x_i
+$$
+
+This is why we use the average so often—it is mathematically the most likely center of a Gaussian world.
+
+## Test Your Knowledge
+
+<MathExample title="Example: MLE for a Bernoulli Trial">
+  <MathQuestion>
+    You flip a coin $n$ times and observe $k$ successes. Find the MLE for the probability of success $p$.
+  </MathQuestion>
+  <MathSolution>
+    1. **Likelihood:** $L(p) = p^k (1-p)^{n-k}$
+    2. **Log-Likelihood:** $\ell(p) = k \ln(p) + (n-k) \ln(1-p)$
+    3. **Derivative:** $\frac{d}{dp} \ell(p) = \frac{k}{p} - \frac{n-k}{1-p}$
+    4. **Solve:** Set to 0:
+       $\frac{k}{p} = \frac{n-k}{1-p} \implies k(1-p) = p(n-k)$
+       $k - kp = np - kp \implies k = np \implies \hat{p} = \frac{k}{n}$
+       
+    The MLE for $p$ is simply the proportion of successes observed.
+  </MathSolution>
+</MathExample>

@@ -1,0 +1,66 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Joint Distributions & Covariance
+
+<Callout type="info" emoji="👯">
+Until now, we have mostly dealt with one random variable $X$ at a time. But in the real world, variables rarely exist in isolation. They interact, influence each other, and dance together in high-dimensional space.
+</Callout>
+
+## The Joint PDF and PMF
+
+The **Joint Distribution** $P(X, Y)$ tells us the probability of seeing both $X$ and $Y$ happen simultaneously.
+
+*   **For Discrete variables:** $P(X=x, Y=y)$ is the probability that both outcomes occur.
+*   **For Continuous variables:** $f(X, Y)$ is the probability density of a point in 2D space. To find the probability of a region, we use double integration: $\iint f(x, y) \, dx \, dy$.
+
+### Independence
+If two variables have no relationship, their joint distribution is just the product of their individuals:
+$$ P(X, Y) = P(X) \cdot P(Y) $$
+
+---
+
+## Marginalization: "Summing Out"
+
+If you have a Joint distribution $P(X, Y)$ but you only want to know about $X$, you can "marginalize" $Y$ by summing (or integrating) it out:
+
+$$ P(X) = \sum_{y \in Y} P(X, Y) $$
+
+This is the equivalent of looking at a 3D landscape and flattening it onto one of its axes to see the 2D profile.
+
+---
+
+## Covariance: The Math of Interaction
+
+While [Correlation](./correlation) is a convenient number between -1 and 1, **Covariance** is the underlying "raw" measurement of how much two variables change together.
+
+$$ \text{Cov}(X, Y) = E[(X - \mu_x)(Y - \mu_y)] $$
+
+*   **Positive Covariance:** If $X$ is above its mean, $Y$ tends to be above its mean too.
+*   **Negative Covariance:** If $X$ is above its mean, $Y$ tends to be below its mean.
+*   **Zero Covariance:** No linear relationship.
+
+### The Covariance Matrix: The God-Tier Structure
+In Machine Learning, we don't just compare two variables. We compare dozens. We use a **Covariance Matrix** ($\Sigma$), where every entry $(i, j)$ is the covariance between variable $i$ and variable $j$.
+
+The diagonal of this matrix is just the **Variance** of each individual variable!
+
+## Test Your Knowledge
+
+<MathExample title="Example: Marginalizing a Joint Distribution">
+  <MathQuestion>
+    Suppose you have two discrete variables $X$ and $Y$ with the following joint distribution:
+    - $P(X=1, Y=1) = 0.2$
+    - $P(X=1, Y=2) = 0.3$
+    - $P(X=2, Y=1) = 0.1$
+    - $P(X=2, Y=2) = 0.4$
+    Find the marginal probability $P(X=1)$.
+  </MathQuestion>
+  <MathSolution>
+    To find $P(X=1)$, we sum the joint probabilities across all possible values of $Y$:
+    $P(X=1) = P(X=1, Y=1) + P(X=1, Y=2)$
+    $P(X=1) = 0.2 + 0.3 = 0.5$
+    
+    Similarly, $P(X=2) = 0.1 + 0.4 = 0.5$.
+  </MathSolution>
+</MathExample>

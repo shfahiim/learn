@@ -20,6 +20,22 @@ $$
 Where:
 *   <span style={{color: '#10b981', fontWeight: 'bold'}}>$\lambda$ (lambda)</span> is the average number of events in the given interval (the "rate" parameter).
 
+### The Poisson Limit Theorem (The "Why")
+
+<Callout type="warning" emoji="🧬">
+Why does the Poisson formula have $e$ and factorials? It's because the Poisson is actually the **infinite limit of the [Binomial Distribution](./binomial)**.
+</Callout>
+
+Imagine you divide an hour into $n$ tiny sub-intervals. If $n$ is very large (say, $n = 10,000$), the probability $p$ of a call arriving in any specific millisecond is nearly zero. 
+
+As $n \to \infty$ and $p \to 0$ such that the average rate $np = \lambda$ remains constant, the Binomial PMF mathematically transforms into the Poisson PMF:
+
+$$
+\lim_{n \to \infty} \binom{n}{k} p^k (1-p)^{n-k} = \frac{\lambda^k e^{-\lambda}}{k!}
+$$
+
+This is why we call it the **"Law of Rare Events."** It models scenarios where you have many opportunities for something to happen, but the individual probability of each is tiny.
+
 ### Probability Mass Function (PMF)
 
 The probability of observing exactly $k$ events in the interval is given by:
@@ -52,6 +68,11 @@ For a real-world process to be truly modeled by Poisson, it must meet these crit
 1.  **Network Traffic:** The number of requests arriving at a web server per minute.
 2.  **Customer Service:** The number of calls received by a call center per hour.
 3.  **Astronomy:** The number of meteorites hitting a specific region of the atmosphere in a year.
+
+## Related Distributions
+*   **[Binomial Distribution](./binomial):** The "parent" of the Poisson for finite $n$.
+*   **[Exponential Distribution](../continuous/exponential):** If events occur according to a Poisson process with rate $\lambda$, the **waiting time** between events follows an Exponential distribution.
+*   **[Normal Distribution](../continuous/normal):** When $\lambda$ is large (usually $> 20$), the Poisson can be approximated by a Normal distribution.
 
 ## Interactive Visualization
 

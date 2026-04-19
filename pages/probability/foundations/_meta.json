@@ -1,9 +1,11 @@
 {
+  "index": "Introduction",
+  "interpretations": "Interpretations",
   "core-concepts": "Core Concepts",
-  "set-theory": "Set Theory & Axioms",
-  "interpretations": "Interpretations of Prob.",
+  "set-theory": "Set Theory",
   "independence": "Independence",
+  "math-descriptions": "Mathematical Descriptions",
+  "key-metrics": "Key Metrics",
   "bayes-theorem": "Bayes' Theorem",
-  "math-descriptions": "Math Descriptions",
-  "key-metrics": "Key Metrics"
+  "mle": "Maximum Likelihood (MLE)"
 }

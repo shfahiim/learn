@@ -1,0 +1,63 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# Information Theory & Entropy
+
+<Callout type="info" emoji="💾">
+What does probability have to do with computer science? In 1948, Claude Shannon realized that probability is the fundamental tool for measuring **Information**.
+</Callout>
+
+## The Intuition: Surprise!
+
+Information is the measure of how much "surprise" a piece of data gives you.
+*   If I tell you "it's sunny in the Sahara Desert," I have given you **zero information**. You already knew that.
+*   If I tell you "it's snowing in the Sahara Desert," I have given you a **massive amount of information**. You could not have predicted that.
+
+The less probable an event is, the more information it carries.
+
+---
+
+## 1. Information Content ($I(x)$)
+
+For a single outcome $x$ with probability $P(x)$, its information content is:
+
+$$ I(x) = \log_2 \left( \frac{1}{P(x)} \right) = - \log_2 P(x) $$
+
+We use $\log_2$ because we measure information in **bits**. One bit of info corresponds to an event with probability $0.5$ (like a fair coin flip).
+
+---
+
+## 2. Shannon Entropy ($H$)
+
+**Entropy** is the average amount of information produced by a probability distribution. It measures the total **uncertainty** of a system.
+
+$$ H(X) = E[I(X)] = - \sum_{x \in X} P(x) \log_2 P(x) $$
+
+### Why Does This Matter?
+1.  **Compression:** Entropy sets a hard physical limit on how much a file can be compressed. You can never compress a file smaller than its entropy without losing data.
+2.  **Machine Learning:** In Neural Networks, we use **Cross-Entropy Loss** to measure how different our predicted probability distribution is from the true labels.
+
+---
+
+## 3. KL-Divergence: The "Distance" between Distributions
+
+Kullback-Leibler (KL) Divergence measures how much information is lost when we use one distribution $Q$ to approximate another distribution $P$. 
+
+$$ D_{KL}(P \parallel Q) = \sum P(x) \log \left( \frac{P(x)}{Q(x)} \right) $$
+
+If $P$ and $Q$ are identical, the KL-Divergence is zero. The further apart they are, the larger the divergence. This is the heart of training AI models to "match" the distribution of human-generated data.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Calculating Entropy">
+  <MathQuestion>
+    Suppose you have a weighted coin where $P(\text{Heads}) = 0.9$ and $P(\text{Tails}) = 0.1$. Calculate the Entropy of this coin.
+  </MathQuestion>
+  <MathSolution>
+    Entropy $H = - (0.9 \log_2 0.9 + 0.1 \log_2 0.1)$
+    $H \approx - (0.9 \times -0.152 + 0.1 \times -3.32)$
+    $H \approx - (-0.137 - 0.332) = 0.469 \text{ bits}$
+    
+    A fair coin has 1 bit of entropy. Because this coin is highly predictable (90% heads), it carries less information/uncertainty.
+  </MathSolution>
+</MathExample>

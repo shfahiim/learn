@@ -1,0 +1,59 @@
+import { Callout } from 'nextra/components';
+import { MathExample, MathQuestion, MathSolution } from '@/components/MathExample';
+
+# The Jacobian: Mapping Transformations
+
+<Callout type="info" emoji="📐">
+When you transform a random variable (e.g., $Y = 3X + 5$), the [PDF](../continuous/normal) of $Y$ is not just the PDF of $X$ with the new formula. You have to account for how the transformation "stretched" or "compressed" the probability space.
+</Callout>
+
+## The Intuition: The Stretched Rubber Band
+
+Imagine a rubber band with a uniform distribution of dots. If you stretch the rubber band, the dots move further apart, and the **density** of the dots at any one point decreases. 
+
+In calculus, we use the derivative to measure how much a function is changing. In probability, we use the absolute value of the derivative—the **Jacobian**—to "re-normalize" the PDF after it has been stretched.
+
+---
+
+## 1D Transformation Rule
+
+If $Y = g(X)$ is a strictly monotonic (always increasing or always decreasing) and differentiable function, and $X$ has the PDF $f_X(x)$, the PDF of $Y$ is:
+
+$$
+f_Y(y) = f_X(g^{-1}(y)) \cdot \left| \frac{d}{dy} g^{-1}(y) \right|
+$$
+
+### Breaking it Down:
+1.  **$f_X(g^{-1}(y))$:** This part tells us: "What was the probability of $X$ at the point that mapped to this $y$?"
+2.  **$\left| \frac{d}{dy} g^{-1}(y) \right|$:** This is the **Jacobian Factor**. It is the "stretching factor." It compensates for how much the transformation changed the "width" of our probability intervals.
+
+---
+
+## Why is it Absolute Value?
+Probability densities ($f(x)$) can never be negative. Since a function $g(X)$ might be decreasing, its derivative would be negative. The absolute value ensures that our new density remains a positive, valid PDF.
+
+---
+
+## Multi-Dimensional (The Jacobian Determinant)
+When we move to [Joint Distributions](./joint-distributions) (e.g., $(X, Y) \to (U, V)$), we don't just use a single derivative. We use a **Jacobian Matrix** of partial derivatives, and we take its **Determinant**. 
+
+The determinant measures how much the 2D area (or 3D volume) has been scaled by the transformation. This is the foundation of change-of-variables in multi-variable calculus and high-dimensional statistics.
+
+## Test Your Knowledge
+
+<MathExample title="Example: Transforming a Uniform Variable">
+  <MathQuestion>
+    Let $X \sim \text{Uniform}(0, 1)$, so $f_X(x) = 1$ for $0 \le x \le 1$. 
+    Let $Y = X^2$. Find the PDF $f_Y(y)$.
+  </MathQuestion>
+  <MathSolution>
+    - **Step 1: Inverse Function.** $y = x^2 \implies x = \sqrt{y} = g^{-1}(y)$.
+    - **Step 2: Derivative of Inverse.** $\frac{d}{dy} \sqrt{y} = \frac{1}{2\sqrt{y}}$.
+    - **Step 3: Apply Rule.**
+      $f_Y(y) = f_X(\sqrt{y}) \cdot | \frac{1}{2\sqrt{y}} |$
+      Since $f_X$ is always 1:
+      $f_Y(y) = 1 \cdot \frac{1}{2\sqrt{y}}$ for $0 \le y \le 1$.
+      
+    This means the probability density of $Y$ is infinite at $y=0$ and decreases as $y$ approaches 1.
+  </MathSolution>
+</MathExample>
