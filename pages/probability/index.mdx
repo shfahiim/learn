@@ -4,27 +4,26 @@ A rigorous survey of probability theory, ranging from foundational axioms and co
 
 ## How this guide is organized
 
-### 1. [Foundations](./probability/foundations)
-The core language of uncertainty. We establish the Kolmogorov axioms, [Independence](./probability/foundations/independence), and the critical debate between [Frequentist and Bayesian interpretations](./probability/foundations/interpretations). We also introduce [Maximum Likelihood Estimation (MLE)](./probability/foundations/mle).
+### 1. [Foundations](./foundations/core-concepts)
+The core language of uncertainty. We establish the Kolmogorov axioms, [Independence](./foundations/independence), and the critical debate between [Frequentist and Bayesian interpretations](./foundations/interpretations). We also introduce [Maximum Likelihood Estimation (MLE)](./foundations/mle).
 
-### 2. [Discrete Distributions](./probability/discrete)
-Modeling "countable" events. From the simple [Bernoulli trial](./probability/discrete/bernoulli) to the [Poisson limit](./probability/discrete/poisson) of rare events.
+### 2. [Discrete Distributions](./discrete/bernoulli)
+Modeling "countable" events. From the simple [Bernoulli trial](./discrete/bernoulli) to the [Poisson limit](./discrete/poisson) of rare events.
 
-### 3. [Continuous Distributions](./probability/continuous)
-Modeling measurements. We break down the anatomy of the [Normal distribution](./probability/continuous/normal) and the memoryless nature of the [Exponential distribution](./probability/continuous/exponential).
+### 3. [Continuous Distributions](./continuous/uniform)
+Modeling measurements. We break down the anatomy of the [Normal distribution](./continuous/normal) and the memoryless nature of the [Exponential distribution](./continuous/exponential).
 
-### 4. [Multivariate Probability](./probability/multivariate)
-Moving from one variable to many. We explore [Joint Distributions](./probability/multivariate/fundamentals), the "slicing" of [Conditional Distributions](./probability/multivariate/conditional), and the [Covariance Matrix](./probability/multivariate/covariance-correlation) used to map relationships in high-dimensional space.
+### 4. [Multivariate Probability](./multivariate/fundamentals)
+Moving from one variable to many. We explore [Joint Distributions](./multivariate/fundamentals), the "slicing" of [Conditional Distributions](./multivariate/conditional), and the [Covariance Matrix](./multivariate/covariance-correlation) used to map relationships in high-dimensional space.
 
-### 5. [Mathematical Tools](./probability/mathematical-tools)
-The engine room of probability. We use [Moments & MGFs](./probability/mathematical-tools/moments) to uniquely identify distributions, and the [Jacobian](./probability/mathematical-tools/jacobian) to map complex variable transformations.
+### 5. [Mathematical Tools](./mathematical-tools/moments)
+The engine room of probability. We use [Moments & MGFs](./mathematical-tools/moments) to uniquely identify distributions, and the [Jacobian](./mathematical-tools/jacobian) to map complex variable transformations.
 
-### 6. [Inference Distributions](./probability/inference-distributions)
-The distributions used for testing and sampling. This includes the [Chi-Square](./probability/inference-distributions/chi-square), [Student's t](./probability/inference-distributions/students-t), and the flexible [Beta/Gamma families](./probability/inference-distributions/gamma-beta).
+### 6. [Inference Distributions](./inference-distributions/gamma-beta)
+The distributions used for testing and sampling. This includes the [Chi-Square](./inference-distributions/chi-square), [Student's t](./inference-distributions/students-t), and the flexible [Beta/Gamma families](./inference-distributions/gamma-beta).
 
-### 7. [Limit Theorems](./probability/limit-theorems)
-The "God-Tier" theorems that bring order to chaos. We prove how the [Law of Large Numbers](./probability/limit-theorems/lln) forces averages to converge, and how the [Central Limit Theorem](./probability/limit-theorems/clt) makes the Bell Curve appear everywhere.
+### 7. [Limit Theorems](./limit-theorems/markovs-inequality)
+The "God-Tier" theorems that bring order to chaos. We prove how the [Law of Large Numbers](./limit-theorems/lln) forces averages to converge, and how the [Central Limit Theorem](./limit-theorems/clt) makes the Bell Curve appear everywhere.
 
-### 8. [Information Theory](./probability/information-theory)
-Probability as a measure of surprise. We define [Entropy](./probability/information-theory/entropy) and KL-Divergence, the fundamental metrics for measuring information loss and training modern AI.
-
+### 8. [Information Theory](./information-theory/entropy)
+Probability as a measure of surprise. We define [Entropy](./information-theory/entropy) and KL-Divergence, the fundamental metrics for measuring information loss and training modern AI.
